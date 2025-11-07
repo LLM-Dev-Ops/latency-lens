@@ -1,0 +1,52 @@
+{
+  "name": "@llm-devops/latency-lens",
+  "version": "0.1.0",
+  "description": "High-precision LLM latency profiler for JavaScript/TypeScript applications",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
+  "files": [
+    "dist",
+    "index.d.ts",
+    "README.md",
+    "../LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:bundler && npm run build:node",
+    "build:bundler": "wasm-pack build ../crates/wasm --target bundler --out-dir ../../npm/dist --scope llm-devops",
+    "build:node": "wasm-pack build ../crates/wasm --target nodejs --out-dir ../../npm-node/dist --scope llm-devops",
+    "prepublish": "npm run build:bundler",
+    "test": "echo \"Tests run in Rust crate\" && exit 0"
+  },
+  "keywords": [
+    "llm",
+    "latency",
+    "profiling",
+    "performance",
+    "ai",
+    "openai",
+    "anthropic",
+    "claude",
+    "gpt",
+    "gemini",
+    "metrics",
+    "monitoring",
+    "wasm",
+    "webassembly"
+  ],
+  "author": "LLM DevOps Team",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llm-devops/llm-latency-lens"
+  },
+  "bugs": {
+    "url": "https://github.com/llm-devops/llm-latency-lens/issues"
+  },
+  "homepage": "https://github.com/llm-devops/llm-latency-lens#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

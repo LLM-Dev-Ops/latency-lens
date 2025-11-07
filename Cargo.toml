@@ -5,7 +5,10 @@ edition = "2021"
 authors = ["LLM DevOps Team"]
 description = "Enterprise-grade command-line profiler for LLM performance measurement"
 license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/llm-devops/llm-latency-lens"
 repository = "https://github.com/llm-devops/llm-latency-lens"
+documentation = "https://docs.rs/llm-latency-lens"
 keywords = ["llm", "profiling", "latency", "benchmarking", "performance"]
 categories = ["command-line-utilities", "development-tools::profiling"]
 rust-version = "1.75"
@@ -17,6 +20,7 @@ members = [
     "crates/providers",
     "crates/metrics",
     "crates/exporters",
+    "crates/wasm",
 ]
 
 [dependencies]

@@ -14,7 +14,7 @@ use tracing::{debug, info, warn};
 use llm_latency_lens_core::{RequestId, SessionId, TimingEngine};
 use llm_latency_lens_metrics::{MetricsCollector, RequestMetrics};
 use llm_latency_lens_providers::{
-    MessageRole, Provider, StreamingRequest,
+    Provider, StreamingRequest,
 };
 
 /// Configuration for the orchestrator
@@ -160,7 +160,7 @@ impl Orchestrator {
 
                         // Execute request
                         let result = execute_single_request(
-                            provider,
+                            provider.as_ref(),
                             request,
                             &timing_engine,
                         )
@@ -230,7 +230,7 @@ impl Orchestrator {
         request: StreamingRequest,
     ) -> Result<RequestMetrics> {
         execute_single_request(
-            Arc::new(provider),
+            provider,
             request,
             &self.timing_engine,
         )
@@ -240,7 +240,7 @@ impl Orchestrator {
 
 /// Execute a single request and return metrics
 async fn execute_single_request<P: Provider>(
-    provider: Arc<P>,
+    provider: &P,
     request: StreamingRequest,
     timing_engine: &TimingEngine,
 ) -> Result<RequestMetrics> {

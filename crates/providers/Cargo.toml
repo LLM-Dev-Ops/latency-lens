@@ -1,13 +1,19 @@
 [package]
 name = "llm-latency-lens-providers"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2021"
 authors = ["LLM DevOps Team"]
 description = "Provider adapters for LLM Latency Lens"
 license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/llm-devops/llm-latency-lens"
+repository = "https://github.com/llm-devops/llm-latency-lens"
+documentation = "https://docs.rs/llm-latency-lens-providers"
+keywords = ["llm", "openai", "anthropic", "api", "provider"]
+categories = ["api-bindings", "development-tools::profiling"]
 
 [dependencies]
-llm-latency-lens-core = { path = "../core" }
+llm-latency-lens-core = { version = "0.1.0", path = "../core" }
 tokio = { version = "1.41", features = ["full"] }
 reqwest = { version = "0.12", features = ["json", "stream", "rustls-tls"], default-features = false }
 reqwest-eventsource = "0.6"

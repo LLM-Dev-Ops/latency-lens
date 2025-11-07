@@ -11,7 +11,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
-use crate::cli::Cli;
+// CLI import removed - not used in library context
 
 /// Main configuration structure
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
@@ -169,7 +169,7 @@ impl Default for OutputConfig {
 
 impl Config {
     /// Load configuration from file and CLI arguments
-    pub fn load(config_path: &Option<PathBuf>, cli: &Cli) -> Result<Self> {
+    pub fn load(config_path: &Option<PathBuf>) -> Result<Self> {
         let mut config = if let Some(path) = config_path {
             Self::from_file(path)?
         } else {
@@ -253,7 +253,7 @@ impl Config {
                         max_retries: default_retries(),
                         extended_thinking: false,
                     })
-                    .api_key = Some(api_key);
+                    .api_key = Some(api_key.clone());
             }
         }
 

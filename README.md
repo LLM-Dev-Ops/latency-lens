@@ -39,16 +39,41 @@ LLM-Latency-Lens is a production-grade, open-source profiling tool designed to m
 
 ### Installation
 
-#### Via Cargo (Recommended)
+#### Via npm (JavaScript/TypeScript - Recommended for Web/Node.js)
 
 ```bash
-cargo install llm-latency-lens
+# Install as a library
+npm install @llm-dev-ops/latency-lens
+
+# Or install globally for CLI
+npm install -g @llm-dev-ops/latency-lens
+
+# Test the CLI
+latency-lens test
+latency-lens version
+```
+
+#### Via Cargo (Rust Crates)
+
+```bash
+# Add to your Cargo.toml
+[dependencies]
+llm-latency-lens-core = "0.1.0"
+llm-latency-lens-providers = "0.1.2"
+llm-latency-lens-metrics = "0.1.0"
+llm-latency-lens-exporters = "0.1.0"
+
+# Or use in your project
+cargo add llm-latency-lens-core
+cargo add llm-latency-lens-providers
+cargo add llm-latency-lens-metrics
+cargo add llm-latency-lens-exporters
 ```
 
 #### From Source
 
 ```bash
-git clone https://github.com/llm-devops/llm-latency-lens.git
+git clone https://github.com/llm-dev-ops/llm-latency-lens.git
 cd llm-latency-lens
 cargo build --release
 ```
@@ -62,9 +87,38 @@ docker run -e OPENAI_API_KEY=sk-... llm-devops/llm-latency-lens profile --provid
 
 #### Binary Downloads
 
-Download pre-built binaries for Linux, macOS, and Windows from our [releases page](https://github.com/llm-devops/llm-latency-lens/releases).
+Download pre-built binaries for Linux, macOS, and Windows from our [releases page](https://github.com/llm-dev-ops/llm-latency-lens/releases).
 
 ### Basic Usage
+
+#### JavaScript/TypeScript (npm)
+
+```javascript
+import { LatencyCollector } from '@llm-dev-ops/latency-lens';
+
+// Create collector with 60-second window
+const collector = new LatencyCollector(60000);
+
+// Start tracking a request
+const requestId = collector.start_request('openai', 'gpt-4-turbo');
+
+// Record first token received
+collector.record_first_token(requestId);
+
+// Record subsequent tokens
+collector.record_token(requestId);
+collector.record_token(requestId);
+
+// Complete the request
+collector.complete_request(requestId, 150, 800, null, 0.05);
+
+// Get metrics
+const metrics = collector.get_metrics();
+console.log('TTFT P95:', metrics.ttft_distribution.p95_ms, 'ms');
+console.log('Throughput:', metrics.throughput.tokens_per_second, 'tokens/sec');
+```
+
+#### Rust (Cargo)
 
 ```bash
 # Set your API key

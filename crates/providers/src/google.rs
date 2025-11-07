@@ -12,12 +12,16 @@ use std::time::Duration;
 /// Google Gemini provider adapter (stub)
 pub struct GoogleProvider {
     /// HTTP client
+    #[allow(dead_code)]
     client: reqwest::Client,
     /// API key
+    #[allow(dead_code)]
     api_key: String,
     /// Base URL
+    #[allow(dead_code)]
     base_url: String,
     /// Maximum retry attempts
+    #[allow(dead_code)]
     max_retries: u32,
 }
 

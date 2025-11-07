@@ -5,17 +5,37 @@ edition = "2021"
 authors = ["LLM DevOps Team"]
 description = "Core types and timing engine for LLM Latency Lens"
 license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/llm-devops/llm-latency-lens"
+repository = "https://github.com/llm-devops/llm-latency-lens"
+documentation = "https://docs.rs/llm-latency-lens-core"
+keywords = ["llm", "latency", "timing", "measurement", "performance"]
+categories = ["development-tools::profiling"]
 
 [dependencies]
-tokio = { version = "1.41", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 quanta = "0.12"
 thiserror = "1.0"
 anyhow = "1.0"
 tracing = "0.1"
-uuid = { version = "1.11", features = ["v4", "serde"] }
 chrono = { version = "0.4", features = ["serde"] }
+
+# Platform-specific uuid features
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies.uuid]
+version = "1.11"
+features = ["v4", "serde"]
+
+[target.'cfg(target_arch = "wasm32")'.dependencies.uuid]
+version = "1.11"
+features = ["v4", "serde", "js"]
+
+# Platform-specific tokio features
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tokio = { version = "1.41", features = ["full"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+tokio = { version = "1.41", features = ["sync"] }
 
 [dev-dependencies]
 tokio-test = "0.4"

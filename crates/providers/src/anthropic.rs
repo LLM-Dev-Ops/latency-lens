@@ -28,6 +28,7 @@ pub struct AnthropicProvider {
     /// Base URL (allows custom endpoints)
     base_url: String,
     /// Maximum retry attempts
+    #[allow(dead_code)]
     max_retries: u32,
     /// Anthropic API version
     api_version: String,
@@ -89,6 +90,7 @@ impl AnthropicProvider {
     }
 
     /// Execute request with retries
+    #[allow(dead_code)]
     async fn execute_with_retries<F, Fut, T>(&self, operation: F) -> Result<T>
     where
         F: Fn() -> Fut,
@@ -475,6 +477,7 @@ struct AnthropicMessage {
 }
 
 #[derive(Debug, Deserialize)]
+#[allow(dead_code)]
 struct ContentBlockDelta {
     #[serde(rename = "type")]
     event_type: String,

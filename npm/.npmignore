@@ -1,0 +1,28 @@
+# Source files
+src/
+target/
+
+# Build artifacts (keep only dist/)
+*.wasm.bak
+*.js.bak
+
+# Development files
+.git/
+.github/
+node_modules/
+*.log
+
+# Test files
+tests/
+__tests__/
+
+# Documentation that's not needed in package
+docs/
+examples/
+
+# Config files
+.gitignore
+.editorconfig
+.prettierrc
+.eslintrc
+tsconfig.json

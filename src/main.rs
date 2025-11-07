@@ -35,19 +35,19 @@ async fn main() -> Result<()> {
     // Run the appropriate command
     let result = match cli.command {
         Commands::Profile(args) => {
-            let config = Config::load(&args.config, &cli)?;
+            let config = Config::load(&args.config)?;
             cli::commands::profile::run(args, config, cli.json, cli.quiet, shutdown_signal).await
         }
         Commands::Benchmark(args) => {
-            let config = Config::load(&args.config, &cli)?;
+            let config = Config::load(&args.config)?;
             cli::commands::benchmark::run(args, config, cli.json, cli.quiet, shutdown_signal).await
         }
         Commands::Compare(args) => {
-            let config = Config::load(&args.config, &cli)?;
+            let config = Config::load(&args.config)?;
             cli::commands::compare::run(args, config, cli.json, cli.quiet, shutdown_signal).await
         }
         Commands::Validate(args) => {
-            let config = Config::load(&args.config, &cli)?;
+            let config = Config::load(&args.config)?;
             cli::commands::validate::run(args, config, cli.json, cli.quiet).await
         }
         Commands::Export(args) => {

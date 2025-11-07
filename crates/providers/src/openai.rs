@@ -30,6 +30,7 @@ pub struct OpenAIProvider {
     /// Organization ID (optional)
     organization: Option<String>,
     /// Maximum retry attempts
+    #[allow(dead_code)]
     max_retries: u32,
 }
 
@@ -93,6 +94,7 @@ impl OpenAIProvider {
     }
 
     /// Execute request with retries
+    #[allow(dead_code)]
     async fn execute_with_retries<F, Fut, T>(
         &self,
         operation: F,
@@ -427,6 +429,7 @@ struct ChatMessage {
 }
 
 #[derive(Debug, Deserialize)]
+#[allow(dead_code)]
 struct ChatCompletionChunk {
     id: String,
     object: String,
@@ -436,6 +439,7 @@ struct ChatCompletionChunk {
 }
 
 #[derive(Debug, Deserialize)]
+#[allow(dead_code)]
 struct StreamChoice {
     index: u32,
     delta: Delta,
@@ -444,6 +448,7 @@ struct StreamChoice {
 }
 
 #[derive(Debug, Deserialize)]
+#[allow(dead_code)]
 struct Delta {
     #[serde(default)]
     role: Option<String>,
