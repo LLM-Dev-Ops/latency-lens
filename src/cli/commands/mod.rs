@@ -4,6 +4,7 @@ pub mod benchmark;
 pub mod compare;
 pub mod export;
 pub mod profile;
+pub mod run;
 pub mod validate;
 
 use anyhow::Result;

@@ -9,6 +9,8 @@ use std::sync::Arc;
 use tokio::signal;
 use tracing::{error, info};
 
+mod adapters;
+mod benchmarks;
 mod cli;
 mod config;
 mod orchestrator;
@@ -52,6 +54,10 @@ async fn main() -> Result<()> {
         }
         Commands::Export(args) => {
             cli::commands::export::run(args, cli.json, cli.quiet).await
+        }
+        Commands::Run(args) => {
+            let config = Config::load(&args.config)?;
+            cli::commands::run::run(args, config, cli.json, cli.quiet).await
         }
     };
 

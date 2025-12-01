@@ -55,6 +55,10 @@ pub enum Commands {
     /// Export metrics to different formats
     #[command(visible_alias = "exp")]
     Export(ExportArgs),
+
+    /// Run all benchmarks for configured targets (canonical interface)
+    #[command(visible_alias = "r")]
+    Run(RunArgs),
 }
 
 /// Arguments for the profile command
@@ -275,6 +279,71 @@ pub struct ExportArgs {
     /// Pretty print JSON output
     #[arg(long, default_value = "true")]
     pub pretty: bool,
+}
+
+/// Arguments for the run command (canonical benchmark interface)
+#[derive(Parser, Debug)]
+pub struct RunArgs {
+    /// Specific targets to benchmark (provider:model format)
+    /// If not specified, benchmarks all configured targets
+    #[arg(value_name = "PROVIDER:MODEL")]
+    pub targets: Vec<String>,
+
+    /// Prompt or input text for benchmarks
+    #[arg(short = 'P', long)]
+    pub prompt: Option<String>,
+
+    /// Path to file containing prompt
+    #[arg(short = 'f', long, conflicts_with = "prompt")]
+    pub prompt_file: Option<PathBuf>,
+
+    /// Number of requests per target
+    #[arg(short, long, default_value = "10")]
+    pub requests: u32,
+
+    /// Number of concurrent requests
+    #[arg(short, long, default_value = "1")]
+    pub concurrency: u32,
+
+    /// Rate limit (requests per second, 0 = unlimited)
+    #[arg(long, default_value = "0")]
+    pub rate_limit: u32,
+
+    /// Maximum tokens to generate per request
+    #[arg(long, default_value = "1024")]
+    pub max_tokens: u32,
+
+    /// Temperature
+    #[arg(long)]
+    pub temperature: Option<f32>,
+
+    /// Request timeout in seconds
+    #[arg(long, default_value = "120")]
+    pub timeout: u64,
+
+    /// Configuration file path
+    #[arg(short = 'C', long)]
+    pub config: Option<PathBuf>,
+
+    /// Warmup requests (not counted in results)
+    #[arg(long, default_value = "0")]
+    pub warmup: u32,
+
+    /// Show live progress
+    #[arg(long, default_value = "true")]
+    pub progress: bool,
+
+    /// Output directory for results (default: benchmarks/output)
+    #[arg(short, long)]
+    pub output_dir: Option<PathBuf>,
+
+    /// Generate summary only (don't run benchmarks)
+    #[arg(long)]
+    pub summary_only: bool,
+
+    /// Clean up old results (keep N per target)
+    #[arg(long)]
+    pub cleanup: Option<usize>,
 }
 
 #[cfg(test)]

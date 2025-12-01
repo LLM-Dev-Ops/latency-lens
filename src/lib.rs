@@ -41,6 +41,8 @@
 //! }
 //! ```
 
+pub mod adapters;
+pub mod benchmarks;
 pub mod config;
 pub mod orchestrator;
 
@@ -58,6 +60,14 @@ pub use llm_latency_lens_metrics::{
 pub use llm_latency_lens_providers::{
     AnthropicProvider, CompletionResult, GoogleProvider, Message, MessageRole,
     OpenAIProvider, Provider, ResponseMetadata, StreamingRequest, StreamingResponse,
+};
+
+// Re-export canonical benchmark interface
+pub use adapters::{all_targets, create_target, create_targets, BenchTarget, LLMTarget};
+pub use benchmarks::{
+    run_all_benchmarks, BenchmarkConfig, BenchmarkResult,
+    ensure_output_dirs, generate_summary, output_dir, raw_output_dir,
+    read_all_results, write_result, write_results, write_summary,
 };
 
 use anyhow::Result;
