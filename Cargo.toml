@@ -58,16 +58,16 @@ anyhow = "1.0"
 # Logging and tracing
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
-tracing-opentelemetry = "0.27"
+tracing-opentelemetry = "0.32"
 
 # OpenTelemetry
-opentelemetry = { version = "0.27", features = ["metrics", "trace"] }
-opentelemetry_sdk = { version = "0.27", features = ["rt-tokio"] }
-opentelemetry-otlp = { version = "0.27", features = ["tonic", "metrics", "trace"] }
-opentelemetry-semantic-conventions = "0.27"
+opentelemetry = { version = "0.31", features = ["metrics", "trace"] }
+opentelemetry_sdk = { version = "0.31", features = ["rt-tokio"] }
+opentelemetry-otlp = { version = "0.31", features = ["tonic", "metrics", "trace"] }
+opentelemetry-semantic-conventions = "0.31"
 
 # Prometheus metrics
-prometheus = "0.13"
+prometheus = "0.14"
 
 # Configuration management
 config = "0.14"
