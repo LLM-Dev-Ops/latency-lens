@@ -1,6 +1,6 @@
 # Multi-stage build for optimal size and security
 # Stage 1: Cache dependencies with cargo-chef
-FROM rust:1.75-slim-bookworm AS chef
+FROM rust:1.92-slim-bookworm AS chef
 
 # Install cargo-chef for dependency caching
 RUN cargo install cargo-chef --locked
