@@ -22,3 +22,9 @@ Thumbs.db
 # Build artifacts
 dist/
 build/
+
+# Claude Code
+.claude/
+.claude-flow/
+.mcp.json
+CLAUDE.md
