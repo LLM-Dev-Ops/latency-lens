@@ -42,6 +42,7 @@
 //! ```
 
 pub mod adapters;
+pub mod agents;
 pub mod benchmarks;
 pub mod config;
 pub mod consumers;
@@ -69,6 +70,17 @@ pub use benchmarks::{
     run_all_benchmarks, BenchmarkConfig, BenchmarkResult,
     ensure_output_dirs, generate_summary, output_dir, raw_output_dir,
     read_all_results, write_result, write_results, write_summary,
+};
+
+// Re-export agent infrastructure
+pub use agents::{
+    contracts::{
+        DecisionEvent, DecisionType, LatencyAnalysisConfig, LatencyAnalysisInput,
+        LatencyAnalysisOutput, MeasurementConstraints,
+    },
+    edge_function::{EdgeFunctionHandler, EdgeFunctionRequest, EdgeFunctionResponse, EdgeOperation},
+    latency_analysis::{LatencyAnalysisAgent, LatencyAnalyzer, AGENT_ID, AGENT_VERSION},
+    ruvector::{EventQuery, RuVectorClient, RuVectorConfig, RuVectorError},
 };
 
 // Re-export upstream consumers

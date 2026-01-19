@@ -287,6 +287,39 @@ pub trait Provider: Send + Sync {
     }
 }
 
+// Blanket implementation for Box<dyn Provider> to support trait objects
+#[async_trait]
+impl Provider for Box<dyn Provider> {
+    fn name(&self) -> &'static str {
+        (**self).name()
+    }
+
+    async fn health_check(&self) -> Result<()> {
+        (**self).health_check().await
+    }
+
+    async fn stream(
+        &self,
+        request: StreamingRequest,
+        timing_engine: &TimingEngine,
+    ) -> Result<StreamingResponse> {
+        (**self).stream(request, timing_engine).await
+    }
+
+    fn calculate_cost(
+        &self,
+        model: &str,
+        input_tokens: u64,
+        output_tokens: u64,
+    ) -> Option<f64> {
+        (**self).calculate_cost(model, input_tokens, output_tokens)
+    }
+
+    fn supported_models(&self) -> Vec<String> {
+        (**self).supported_models()
+    }
+}
+
 /// Helper to build a streaming request
 impl StreamingRequest {
     /// Create a new streaming request builder

@@ -71,6 +71,11 @@ impl Orchestrator {
         self.session_id
     }
 
+    /// Get the shutdown signal
+    pub fn shutdown_signal(&self) -> Arc<tokio::sync::Notify> {
+        Arc::clone(&self.shutdown_signal)
+    }
+
     /// Execute multiple requests with the given provider
     pub async fn execute<P: Provider + 'static>(
         &self,
@@ -224,7 +229,7 @@ impl Orchestrator {
     }
 
     /// Execute a single request (useful for profiling)
-    pub async fn execute_single<P: Provider>(
+    pub async fn execute_single<P: Provider + ?Sized>(
         &self,
         provider: &P,
         request: StreamingRequest,
@@ -239,7 +244,7 @@ impl Orchestrator {
 }
 
 /// Execute a single request and return metrics
-async fn execute_single_request<P: Provider>(
+async fn execute_single_request<P: Provider + ?Sized>(
     provider: &P,
     request: StreamingRequest,
     timing_engine: &TimingEngine,

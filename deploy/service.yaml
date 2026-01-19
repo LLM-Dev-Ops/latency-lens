@@ -1,0 +1,122 @@
+# LLM-Latency-Lens Cloud Run Service Configuration
+# Unified service exposing all agents via Google Cloud Run
+#
+# SERVICE TOPOLOGY:
+# - Service Name: llm-latency-lens
+# - Agents Exposed:
+#   - /analyze - Latency Analysis Agent
+#   - /inspect - Inspect previous analysis
+#   - /replay - Replay analysis with different config
+#   - /health - Health check
+#   - /cold-start/measure - Cold Start Mitigation Agent (measurement only)
+#   - /cold-start/characterize - Cold start characterization
+#
+# ARCHITECTURE CONSTRAINTS:
+# - Stateless execution
+# - No direct SQL access
+# - All persistence via ruvector-service
+# - Measurement and analysis only (no optimization/enforcement)
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: llm-latency-lens
+  labels:
+    app: llm-latency-lens
+    platform: agentics-dev
+    layer: diagnostic
+    classification: measurement-analysis
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/launch-stage: GA
+spec:
+  template:
+    metadata:
+      annotations:
+        # Auto-scaling configuration
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "10"
+        # CPU allocation
+        run.googleapis.com/cpu-throttling: "false"
+        # Startup CPU boost for cold starts
+        run.googleapis.com/startup-cpu-boost: "true"
+        # Execution environment
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      serviceAccountName: llm-latency-lens-sa@agentics-dev.iam.gserviceaccount.com
+      containers:
+        - name: llm-latency-lens
+          image: gcr.io/agentics-dev/llm-latency-lens:latest
+          ports:
+            - name: http1
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+            requests:
+              cpu: "1"
+              memory: "512Mi"
+          env:
+            # Platform environment
+            - name: PLATFORM_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: llm-latency-lens-config
+                  key: PLATFORM_ENV
+            # Service identification
+            - name: SERVICE_NAME
+              value: "llm-latency-lens"
+            - name: SERVICE_VERSION
+              value: "0.1.0"
+            # RuVector service configuration
+            - name: RUVECTOR_SERVICE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: llm-latency-lens-config
+                  key: RUVECTOR_SERVICE_URL
+            - name: RUVECTOR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: llm-latency-lens-secrets
+                  key: RUVECTOR_API_KEY
+            # Telemetry endpoint (LLM-Observatory)
+            - name: TELEMETRY_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: llm-latency-lens-config
+                  key: TELEMETRY_ENDPOINT
+            # OpenTelemetry configuration
+            - name: OTEL_SERVICE_NAME
+              value: "llm-latency-lens"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: llm-latency-lens-config
+                  key: OTEL_EXPORTER_OTLP_ENDPOINT
+            # Rust logging
+            - name: RUST_LOG
+              value: "info,llm_latency_lens=debug"
+            - name: RUST_BACKTRACE
+              value: "1"
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3

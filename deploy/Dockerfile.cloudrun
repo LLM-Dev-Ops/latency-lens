@@ -1,0 +1,63 @@
+# LLM-Latency-Lens Cloud Run Dockerfile
+# Multi-stage build for Google Cloud Run deployment
+#
+# This builds a unified HTTP server exposing all agents:
+# - Latency Analysis Agent
+# - Cold Start Mitigation Agent (measurement only)
+#
+# The service is stateless and persists all data via ruvector-service.
+
+# Stage 1: Build environment (using latest Rust for edition2024 support)
+FROM rust:slim-bookworm AS builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    protobuf-compiler \
+    cmake \
+    clang \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy all source files needed for build
+COPY Cargo.toml Cargo.lock ./
+COPY crates/ crates/
+COPY benches/ benches/
+COPY src/ src/
+
+# Build the release binary
+RUN cargo build --release --bin llm-latency-lens
+
+# Verify binary exists
+RUN test -f /app/target/release/llm-latency-lens
+
+# Stage 2: Runtime image
+FROM gcr.io/distroless/cc-debian12:nonroot
+
+# Labels
+LABEL org.opencontainers.image.title="LLM-Latency-Lens"
+LABEL org.opencontainers.image.description="Performance profiling and timing diagnostics for LLM operations"
+LABEL org.opencontainers.image.vendor="Agentics Dev"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+
+WORKDIR /app
+
+# Copy binary from builder
+COPY --from=builder --chown=nonroot:nonroot /app/target/release/llm-latency-lens /usr/local/bin/llm-latency-lens
+
+# Use non-root user
+USER nonroot:nonroot
+
+# Cloud Run expects port 8080
+EXPOSE 8080
+
+# Set environment defaults
+ENV PORT=8080
+ENV RUST_LOG=info
+
+# Entry point for HTTP server mode
+ENTRYPOINT ["/usr/local/bin/llm-latency-lens"]
+CMD ["serve", "--port", "8080"]

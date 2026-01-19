@@ -1,0 +1,126 @@
+# Cloud Build Configuration for LLM-Latency-Lens
+#
+# This build deploys the unified LLM-Latency-Lens service to Cloud Run.
+# The service exposes all agents (Latency Analysis, Cold Start Mitigation)
+# via a single endpoint.
+#
+# Build triggers:
+# - Push to main branch (production)
+# - Push to staging branch (staging)
+# - Manual trigger for dev
+#
+# Prerequisites:
+# - Secrets configured in Secret Manager
+# - Service account with appropriate permissions
+
+substitutions:
+  _SERVICE_NAME: llm-latency-lens
+  _REGION: us-central1
+  _PLATFORM_ENV: prod
+  _IMAGE_TAG: v0.1.0
+
+steps:
+  # Step 1: Build the Rust binary
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:${_IMAGE_TAG}'
+      - '-t'
+      - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:latest'
+      - '-t'
+      - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:${_PLATFORM_ENV}'
+      - '--cache-from'
+      - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:latest'
+      - '-f'
+      - 'deploy/Dockerfile.cloudrun'
+      - '.'
+
+  # Step 2: Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-image'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}'
+    waitFor:
+      - 'build-image'
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-service'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:${_IMAGE_TAG}'
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+      - '--cpu'
+      - '2'
+      - '--memory'
+      - '2Gi'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '10'
+      - '--timeout'
+      - '300s'
+      - '--concurrency'
+      - '80'
+      - '--service-account'
+      - 'llm-latency-lens-sa@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--set-env-vars'
+      - 'SERVICE_NAME=${_SERVICE_NAME},SERVICE_VERSION=0.1.0,PLATFORM_ENV=${_PLATFORM_ENV},RUST_LOG=info,RUST_BACKTRACE=1'
+      - '--set-secrets'
+      - 'RUVECTOR_SERVICE_URL=llm-latency-lens-ruvector-url:latest,RUVECTOR_API_KEY=llm-latency-lens-ruvector-key:latest,TELEMETRY_ENDPOINT=llm-latency-lens-telemetry-endpoint:latest'
+      - '--labels'
+      - 'app=${_SERVICE_NAME},platform=agentics-dev,layer=diagnostic,env=${_PLATFORM_ENV}'
+    waitFor:
+      - 'push-image'
+
+  # Step 4: Verify deployment
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'verify-deployment'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        # Get service URL
+        SVC_URL=$(gcloud run services describe llm-latency-lens \
+          --region=us-central1 \
+          --format='value(status.url)')
+
+        echo "Service URL: $$SVC_URL"
+
+        # Health check
+        echo "Running health check..."
+        curl -s "$$SVC_URL/health" | jq . || echo "Health check pending..."
+
+        echo "Deployment verification complete"
+    waitFor:
+      - 'deploy-service'
+
+images:
+  - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:${_IMAGE_TAG}'
+  - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:latest'
+  - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:${_PLATFORM_ENV}'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
+
+timeout: '1800s'
+
+tags:
+  - 'llm-latency-lens'
+  - 'agentics-dev'
+  - 'diagnostic-layer'

@@ -10,6 +10,7 @@ use tokio::signal;
 use tracing::{error, info};
 
 mod adapters;
+mod agents;
 mod benchmarks;
 mod cli;
 mod config;
@@ -58,6 +59,35 @@ async fn main() -> Result<()> {
         Commands::Run(args) => {
             let config = Config::load(&args.config)?;
             cli::commands::run::run(args, config, cli.json, cli.quiet).await
+        }
+        Commands::Analyze(args) => {
+            cli::commands::analyze::execute(&args, cli.json).await
+        }
+        Commands::Inspect(args) => {
+            cli::commands::inspect::execute(&args, cli.json).await
+        }
+        Commands::Replay(args) => {
+            cli::commands::replay::execute(&args, cli.json).await
+        }
+        Commands::Serve(args) => {
+            cli::commands::serve::run(args).await
+        }
+        Commands::ColdStart(args) => {
+            use cli::ColdStartSubcommand;
+            match args.subcommand {
+                ColdStartSubcommand::Profile(profile_args) => {
+                    let config = Config::load(&profile_args.config)?;
+                    cli::commands::cold_start::run_profile(profile_args, config, cli.json, cli.quiet, shutdown_signal).await
+                }
+                ColdStartSubcommand::Inspect(inspect_args) => {
+                    let config = Config::load(&None)?;
+                    cli::commands::cold_start::run_inspect(inspect_args, config, cli.json, cli.quiet).await
+                }
+                ColdStartSubcommand::Replay(replay_args) => {
+                    let config = Config::load(&None)?;
+                    cli::commands::cold_start::run_replay(replay_args, config, cli.json, cli.quiet).await
+                }
+            }
         }
     };
 

@@ -1,10 +1,15 @@
 //! Command implementations
 
+pub mod analyze;
 pub mod benchmark;
+pub mod cold_start;
 pub mod compare;
 pub mod export;
+pub mod inspect;
 pub mod profile;
+pub mod replay;
 pub mod run;
+pub mod serve;
 pub mod validate;
 
 use anyhow::Result;

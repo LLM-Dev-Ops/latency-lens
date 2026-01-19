@@ -73,7 +73,7 @@ pub async fn run(
         .message(MessageRole::User, prompt)
         .max_tokens(args.max_tokens)
         .temperature(args.temperature.unwrap_or(0.7))
-        .top_p(args.top_p)
+        .top_p(args.top_p.unwrap_or(1.0))
         .timeout_secs(args.timeout)
         .build();
 
@@ -113,7 +113,7 @@ pub async fn run(
 
         let warmup_orchestrator = Orchestrator::new(
             warmup_config,
-            Arc::clone(&orchestrator.shutdown_signal),
+            orchestrator.shutdown_signal(),
         );
 
         let warmup_collector = Arc::new(
