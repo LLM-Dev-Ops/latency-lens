@@ -11,7 +11,7 @@ repository = "https://github.com/llm-devops/llm-latency-lens"
 documentation = "https://docs.rs/llm-latency-lens"
 keywords = ["llm", "profiling", "latency", "benchmarking", "performance"]
 categories = ["command-line-utilities", "development-tools::profiling"]
-rust-version = "1.75"
+rust-version = "1.85"
 
 [workspace]
 members = [
@@ -78,8 +78,8 @@ config = "0.14"
 # Date/time
 chrono = { version = "0.4", features = ["serde"] }
 
-# UUID generation
-uuid = { version = "1.11", features = ["v4", "serde"] }
+# UUID generation (v7 for Phase 2 signals with timestamp ordering)
+uuid = { version = "1.11", features = ["v4", "v7", "serde"] }
 
 # Terminal output
 console = "0.15"
@@ -96,11 +96,16 @@ llm-latency-lens-providers = { path = "crates/providers" }
 llm-latency-lens-metrics = { path = "crates/metrics" }
 llm-latency-lens-exporters = { path = "crates/exporters" }
 
-# Upstream LLM-Dev-Ops dependencies (Phase 2A compile-time mandatory)
+# Upstream LLM-Dev-Ops dependencies (optional - enable with features)
 # LLM-Observatory: https://github.com/LLM-Dev-Ops/observatory
-llm-observatory-core = "0.1.1"
+llm-observatory-core = { version = "0.1.1", optional = true }
 # LLM-Analytics-Hub: https://github.com/LLM-Dev-Ops/analytics-hub
-llm-analytics-hub = "0.1.0"
+llm-analytics-hub = { version = "0.1.0", optional = true }
+
+[features]
+default = []
+# Enable upstream ecosystem integrations
+upstream = ["llm-observatory-core", "llm-analytics-hub"]
 
 [dev-dependencies]
 # Testing

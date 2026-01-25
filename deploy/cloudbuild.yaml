@@ -79,11 +79,11 @@ steps:
       - '--service-account'
       - 'llm-latency-lens-sa@${PROJECT_ID}.iam.gserviceaccount.com'
       - '--set-env-vars'
-      - 'SERVICE_NAME=${_SERVICE_NAME},SERVICE_VERSION=0.1.0,PLATFORM_ENV=${_PLATFORM_ENV},RUST_LOG=info,RUST_BACKTRACE=1'
+      - 'SERVICE_NAME=${_SERVICE_NAME},SERVICE_VERSION=0.1.0,PLATFORM_ENV=${_PLATFORM_ENV},RUST_LOG=info,RUST_BACKTRACE=1,AGENT_NAME=${_SERVICE_NAME},AGENT_DOMAIN=latency-lens,AGENT_PHASE=phase2,AGENT_LAYER=layer1,MAX_TOKENS=1000,MAX_LATENCY_MS=2000,MAX_CALLS_PER_RUN=3,CACHE_MIN_TTL_SECS=60,CACHE_MAX_TTL_SECS=120,EMIT_TELEMETRY=true,EMIT_SIGNALS=true'
       - '--set-secrets'
-      - 'RUVECTOR_SERVICE_URL=llm-latency-lens-ruvector-url:latest,RUVECTOR_API_KEY=llm-latency-lens-ruvector-key:latest,TELEMETRY_ENDPOINT=llm-latency-lens-telemetry-endpoint:latest'
+      - 'RUVECTOR_SERVICE_URL=RUVECTOR_SERVICE_URL:latest,RUVECTOR_API_KEY=RUVECTOR_API_KEY:latest,TELEMETRY_ENDPOINT=TELEMETRY_ENDPOINT:latest'
       - '--labels'
-      - 'app=${_SERVICE_NAME},platform=agentics-dev,layer=diagnostic,env=${_PLATFORM_ENV}'
+      - 'app=${_SERVICE_NAME},platform=agentics-dev,layer=operational-intelligence,phase=phase2,env=${_PLATFORM_ENV}'
     waitFor:
       - 'push-image'
 

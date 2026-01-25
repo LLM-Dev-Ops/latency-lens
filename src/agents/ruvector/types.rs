@@ -155,10 +155,16 @@ impl Default for RuVectorConfig {
 
 impl RuVectorConfig {
     /// Create config from environment variables
+    ///
+    /// Supports both RUVECTOR_SERVICE_URL (Phase 2) and RUVECTOR_ENDPOINT (legacy)
     pub fn from_env() -> Self {
+        // Phase 2 uses RUVECTOR_SERVICE_URL, fall back to RUVECTOR_ENDPOINT for compatibility
+        let endpoint = std::env::var("RUVECTOR_SERVICE_URL")
+            .or_else(|_| std::env::var("RUVECTOR_ENDPOINT"))
+            .unwrap_or_else(|_| "http://localhost:8080".to_string());
+
         Self {
-            endpoint: std::env::var("RUVECTOR_ENDPOINT")
-                .unwrap_or_else(|_| "http://localhost:8080".to_string()),
+            endpoint,
             api_key: std::env::var("RUVECTOR_API_KEY").ok(),
             timeout_ms: std::env::var("RUVECTOR_TIMEOUT_MS")
                 .ok()

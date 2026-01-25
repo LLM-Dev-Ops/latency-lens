@@ -1,25 +1,6 @@
-# Multi-stage build for optimal size and security
-# Stage 1: Cache dependencies with cargo-chef
-FROM rust:1.75-slim-bookworm AS chef
-
-# Install cargo-chef for dependency caching
-RUN cargo install cargo-chef --locked
-
-WORKDIR /app
-
-
-# Stage 2: Compute dependency recipe
-FROM chef AS planner
-
-# Copy all source files
-COPY . .
-
-# Generate recipe file for dependency caching
-RUN cargo chef prepare --recipe-path recipe.json
-
-
-# Stage 3: Build dependencies (cached layer)
-FROM chef AS builder
+# Multi-stage build for LLM-Latency-Lens Phase 2
+# Stage 1: Build application
+FROM rust:1.85-slim-bookworm AS builder
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
@@ -28,55 +9,66 @@ RUN apt-get update && apt-get install -y \
     protobuf-compiler \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=planner /app/recipe.json recipe.json
+WORKDIR /app
 
-# Build dependencies - this is the caching Docker layer
-RUN cargo chef cook --release --recipe-path recipe.json
+# Copy only dependency files first for better caching
+COPY Cargo.toml Cargo.lock ./
+COPY crates/core/Cargo.toml crates/core/Cargo.toml
+COPY crates/providers/Cargo.toml crates/providers/Cargo.toml
+COPY crates/metrics/Cargo.toml crates/metrics/Cargo.toml
+COPY crates/exporters/Cargo.toml crates/exporters/Cargo.toml
+COPY crates/wasm/Cargo.toml crates/wasm/Cargo.toml
 
+# Create dummy source files for dependency compilation
+RUN mkdir -p src crates/core/src crates/providers/src crates/metrics/src crates/exporters/src crates/wasm/src && \
+    echo "fn main() {}" > src/main.rs && \
+    echo "pub fn placeholder() {}" > src/lib.rs && \
+    echo "pub fn placeholder() {}" > crates/core/src/lib.rs && \
+    echo "pub fn placeholder() {}" > crates/providers/src/lib.rs && \
+    echo "pub fn placeholder() {}" > crates/metrics/src/lib.rs && \
+    echo "pub fn placeholder() {}" > crates/exporters/src/lib.rs && \
+    echo "pub fn placeholder() {}" > crates/wasm/src/lib.rs
 
-# Stage 4: Build application
-FROM builder AS app-builder
+# Build dependencies (this layer will be cached)
+RUN cargo build --release 2>/dev/null || true
 
-# Copy source code
+# Copy actual source code
 COPY . .
 
-# Build release binary with optimizations
-RUN cargo build --release --locked
+# Touch source files to invalidate cache
+RUN touch src/main.rs src/lib.rs
+
+# Build release binary
+RUN cargo build --release --bin llm-latency-lens
 
 # Verify binary exists and is executable
 RUN test -f /app/target/release/llm-latency-lens && \
     chmod +x /app/target/release/llm-latency-lens
 
 
-# Stage 5: Runtime image (distroless for minimal attack surface)
+# Stage 2: Runtime image (distroless for minimal attack surface)
 FROM gcr.io/distroless/cc-debian12:nonroot AS runtime
 
 # Labels for metadata
 LABEL org.opencontainers.image.title="LLM-Latency-Lens"
-LABEL org.opencontainers.image.description="Enterprise-grade command-line profiler for LLM performance measurement"
+LABEL org.opencontainers.image.description="Enterprise-grade LLM performance profiler - Phase 2 Operational Intelligence"
 LABEL org.opencontainers.image.vendor="LLM DevOps Team"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
-LABEL org.opencontainers.image.source="https://github.com/llm-devops/llm-latency-lens"
-LABEL org.opencontainers.image.documentation="https://github.com/llm-devops/llm-latency-lens/blob/main/README.md"
 
 # Set working directory
 WORKDIR /app
 
 # Copy binary from builder
-COPY --from=app-builder --chown=nonroot:nonroot /app/target/release/llm-latency-lens /usr/local/bin/llm-latency-lens
+COPY --from=builder --chown=nonroot:nonroot /app/target/release/llm-latency-lens /usr/local/bin/llm-latency-lens
 
 # Use non-root user (distroless provides 'nonroot' user with UID 65532)
 USER nonroot:nonroot
 
-# Expose Prometheus metrics port (if applicable)
-EXPOSE 9090
-
-# Health check (adjust based on your actual health endpoint)
-# Note: distroless doesn't have shell, so we can't use traditional healthcheck
-# This would need to be handled by the orchestrator (Kubernetes, Docker Compose, etc.)
+# Expose Cloud Run HTTP port and Prometheus metrics port
+EXPOSE 8080 9090
 
 # Set entrypoint
 ENTRYPOINT ["/usr/local/bin/llm-latency-lens"]
 
-# Default command (can be overridden)
-CMD ["--help"]
+# Default command - serve mode for Cloud Run
+CMD ["serve", "--port", "8080"]

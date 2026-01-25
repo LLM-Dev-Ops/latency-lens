@@ -59,12 +59,16 @@
 //! # }
 //! ```
 
+#[cfg(feature = "upstream")]
 pub mod analytics_hub;
+#[cfg(feature = "upstream")]
 pub mod observatory;
 pub mod testbench;
 
 // Re-export consumer types
+#[cfg(feature = "upstream")]
 pub use analytics_hub::{AnalyticsHubConsumer, AnalyticsHubConfig, BaselineComparison, HistoricalBaseline, RollingWindow, TimeWindow};
+#[cfg(feature = "upstream")]
 pub use observatory::{ObservatoryConsumer, ObservatoryConfig, TelemetrySpan, TracedRequest};
 pub use testbench::{TestBenchReader, TestBenchFormat, TestBenchMetrics};
 

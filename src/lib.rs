@@ -47,6 +47,7 @@ pub mod benchmarks;
 pub mod config;
 pub mod consumers;
 pub mod orchestrator;
+pub mod phase2;
 
 // Re-export core types for convenience
 pub use llm_latency_lens_core::{
@@ -83,13 +84,25 @@ pub use agents::{
     ruvector::{EventQuery, RuVectorClient, RuVectorConfig, RuVectorError},
 };
 
-// Re-export upstream consumers
+// Re-export consumers
 pub use consumers::{
-    AnalyticsHubConsumer, AnalyticsHubConfig, BaselineComparison, ConsumerError,
-    ConsumerResult, DataConsumer, HistoricalBaseline, MergedConsumer,
-    ObservatoryConsumer, ObservatoryConfig, RetryConfig, RollingWindow,
-    TelemetrySpan, TestBenchFormat, TestBenchMetrics, TestBenchReader, TimeWindow,
+    ConsumerError, ConsumerResult, DataConsumer, MergedConsumer, RetryConfig,
+    TestBenchFormat, TestBenchMetrics, TestBenchReader,
+};
+
+// Re-export upstream consumers (only with upstream feature)
+#[cfg(feature = "upstream")]
+pub use consumers::{
+    AnalyticsHubConsumer, AnalyticsHubConfig, BaselineComparison, HistoricalBaseline,
+    ObservatoryConsumer, ObservatoryConfig, RollingWindow, TelemetrySpan, TimeWindow,
     TracedRequest,
+};
+
+// Re-export Phase 2 operational intelligence
+pub use phase2::{
+    AgentConfig, AnomalySignal, CacheConfig, DriftSignal, LatencySignal,
+    LineageCache, LineageSignal, PerformanceBudget, Phase2Config, Phase2Runtime,
+    RuntimeError, Signal, SignalEmitter, SignalMetadata, StartupValidation,
 };
 
 use anyhow::Result;
