@@ -109,7 +109,7 @@ upstream = ["llm-observatory-core", "llm-analytics-hub"]
 
 [dev-dependencies]
 # Testing
-criterion = { version = "0.5", features = ["html_reports", "async_tokio"] }
+criterion = { version = "0.8", features = ["html_reports", "async_tokio"] }
 mockito = "1.5"
 tempfile = "3.13"
 test-case = "3.3"
