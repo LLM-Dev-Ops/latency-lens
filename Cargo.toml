@@ -73,7 +73,7 @@ opentelemetry-semantic-conventions = "0.27"
 prometheus = "0.13"
 
 # Configuration management
-config = "0.14"
+config = "0.15"
 
 # Date/time
 chrono = { version = "0.4", features = ["serde"] }
