@@ -82,7 +82,7 @@ chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1.11", features = ["v4", "v7", "serde"] }
 
 # Terminal output
-console = "0.15"
+console = "0.16"
 indicatif = { version = "0.17", features = ["tokio"] }
 colored = "2.1"
 tabled = "0.16"
