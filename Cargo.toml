@@ -88,7 +88,7 @@ colored = "2.1"
 tabled = "0.16"
 
 # Rate limiting
-governor = "0.8"
+governor = "0.10"
 
 # Workspace crates
 llm-latency-lens-core = { path = "crates/core" }
