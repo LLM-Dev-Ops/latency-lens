@@ -13,6 +13,7 @@ use super::schemas::*;
 use crate::agents::contracts::{
     ConfidenceMetadata, DecisionEvent, DecisionType, ErrorBounds, MeasurementConstraints,
 };
+use crate::agents::execution_graph::ExecutionContext;
 use crate::agents::ruvector::RuVectorClient;
 use async_trait::async_trait;
 use chrono::Utc;
@@ -66,6 +67,10 @@ pub struct ColdStartMitigationAgent {
     detector: ColdStartDetector,
     ruvector_client: Option<RuVectorClient>,
     emit_telemetry: bool,
+    /// Trace ID for distributed tracing / execution graph correlation
+    trace_id: Option<String>,
+    /// Execution reference for correlation with the Agentics execution graph
+    execution_ref: Option<String>,
 }
 
 impl ColdStartMitigationAgent {
@@ -75,6 +80,8 @@ impl ColdStartMitigationAgent {
             detector: ColdStartDetector::new(config),
             ruvector_client: None,
             emit_telemetry: true,
+            trace_id: None,
+            execution_ref: None,
         }
     }
 
@@ -93,6 +100,16 @@ impl ColdStartMitigationAgent {
     /// Disable telemetry emission
     pub fn without_telemetry(mut self) -> Self {
         self.emit_telemetry = false;
+        self
+    }
+
+    /// Set execution context from the Agentics execution graph.
+    ///
+    /// Propagates trace_id and execution_ref from the execution context
+    /// into the agent for DecisionEvent correlation.
+    pub fn with_execution_context(mut self, ctx: &ExecutionContext) -> Self {
+        self.trace_id = Some(ctx.effective_trace_id().to_string());
+        self.execution_ref = Some(ctx.execution_id.to_string());
         self
     }
 
@@ -471,7 +488,7 @@ impl ColdStartMitigationAgent {
             warmup_count: Some(input.config.baseline_warmup_count),
         };
 
-        let event = DecisionEvent::builder()
+        let mut builder = DecisionEvent::builder()
             .agent_id(AGENT_ID)
             .agent_version(AGENT_VERSION)
             .decision_type(DecisionType::ColdStartMeasurement)
@@ -479,7 +496,18 @@ impl ColdStartMitigationAgent {
             .outputs(serde_json::to_value(output).unwrap_or_default())
             .confidence(confidence)
             .constraints(constraints)
-            .execution_ref(input.measurement_id.to_string())
+            .execution_ref(
+                self.execution_ref
+                    .as_deref()
+                    .unwrap_or(&input.measurement_id.to_string())
+                    .to_string(),
+            );
+
+        if let Some(ref trace_id) = self.trace_id {
+            builder = builder.trace_id(trace_id.clone());
+        }
+
+        let event = builder
             .build()
             .map_err(|e| ColdStartAgentError::PersistenceError(e.to_string()))?;
 

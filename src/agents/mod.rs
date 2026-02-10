@@ -55,11 +55,16 @@
 pub mod cold_start_mitigation;
 pub mod contracts;
 pub mod edge_function;
+pub mod execution_graph;
 pub mod latency_analysis;
 pub mod ruvector;
 
 pub use cold_start_mitigation::ColdStartMitigationAgent;
 pub use contracts::*;
 pub use edge_function::{EdgeFunctionHandler, EdgeFunctionRequest, EdgeFunctionResponse, EdgeOperation};
+pub use execution_graph::{
+    Artifact, ExecutionContext, ExecutionResult, ExecutionSpan, RepoExecution, SpanStatus, SpanType,
+    REPO_NAME,
+};
 pub use latency_analysis::LatencyAnalysisAgent;
 pub use ruvector::RuVectorClient;

@@ -13,9 +13,10 @@
 //!
 //! 1. Loads RequestMetrics from input file
 //! 2. Validates input against agentics-contracts schema
-//! 3. Executes Latency Analysis Agent
-//! 4. Persists DecisionEvent to ruvector-service
-//! 5. Outputs analysis results
+//! 3. Creates execution context for Agentics execution graph
+//! 4. Executes Latency Analysis Agent within tracked spans
+//! 5. Persists DecisionEvent to ruvector-service
+//! 6. Outputs analysis results with execution spans
 //!
 //! # What This Command NEVER Does
 //!
@@ -25,6 +26,7 @@
 
 use crate::agents::{
     contracts::{LatencyAnalysisConfig, LatencyAnalysisInput, LatencyAnalysisOutput},
+    execution_graph::{Artifact, ExecutionContext, ExecutionResult, RepoExecution},
     latency_analysis::LatencyAnalysisAgent,
     ruvector::{RuVectorClient, RuVectorConfig},
 };
@@ -35,6 +37,7 @@ use std::fs;
 use std::path::Path;
 use std::sync::Arc;
 use tracing::{info, warn};
+use uuid::Uuid;
 
 /// Execute the analyze command
 pub async fn execute(args: &AnalyzeArgs, json_output: bool) -> Result<()> {
@@ -43,6 +46,113 @@ pub async fn execute(args: &AnalyzeArgs, json_output: bool) -> Result<()> {
         "Starting latency analysis"
     );
 
+    // Build execution context from CLI args or auto-generate
+    let execution_ctx = build_execution_context(args);
+    let mut repo_exec = RepoExecution::begin(execution_ctx.clone());
+
+    // Begin agent span
+    let agent_span_id = repo_exec.begin_agent("latency-analysis-agent", "analysis");
+
+    // Run the analysis within the execution context
+    let result = run_analysis(args, &execution_ctx, json_output).await;
+
+    match result {
+        Ok((output, event_id)) => {
+            // Build artifacts
+            let artifacts = vec![
+                Artifact::from_json_output(
+                    "analysis_output",
+                    &output.analysis_id.to_string(),
+                    &output,
+                ),
+            ];
+            repo_exec.complete_agent(agent_span_id, artifacts);
+
+            // Finalize execution with result
+            let dummy_ctx = ExecutionContext {
+                execution_id: Uuid::nil(),
+                parent_span_id: Uuid::nil(),
+                trace_id: None,
+            };
+            let taken = std::mem::replace(&mut repo_exec, RepoExecution::begin(dummy_ctx));
+            let exec_result = taken.finalize(Some(serde_json::to_value(&output)?));
+
+            // Output execution spans if json
+            if json_output {
+                let json = serde_json::to_string_pretty(&exec_result)?;
+                println!("{}", json);
+            } else {
+                output_console(&output, &event_id)?;
+                // Print execution span summary
+                print_span_summary(&exec_result);
+            }
+
+            // Write to output file if specified
+            if let Some(ref output_path) = args.output {
+                let json = serde_json::to_string_pretty(&exec_result)?;
+                fs::write(output_path, json)?;
+                info!(output = %output_path.display(), "Analysis written to file");
+            }
+
+            Ok(())
+        }
+        Err(e) => {
+            repo_exec.fail_agent(agent_span_id, vec![e.to_string()]);
+
+            let dummy_ctx = ExecutionContext {
+                execution_id: Uuid::nil(),
+                parent_span_id: Uuid::nil(),
+                trace_id: None,
+            };
+            let taken = std::mem::replace(&mut repo_exec, RepoExecution::begin(dummy_ctx));
+            let exec_result = taken.finalize(None);
+
+            if json_output {
+                let json = serde_json::to_string_pretty(&exec_result)?;
+                println!("{}", json);
+            }
+
+            Err(e)
+        }
+    }
+}
+
+/// Build execution context from CLI args or auto-generate for standalone use
+fn build_execution_context(args: &AnalyzeArgs) -> ExecutionContext {
+    match (&args.execution_id, &args.parent_span_id) {
+        (Some(eid), Some(psid)) => {
+            let eid = Uuid::parse_str(eid).unwrap_or_else(|_| {
+                warn!("Invalid execution_id, generating new one");
+                Uuid::new_v4()
+            });
+            let psid = Uuid::parse_str(psid).unwrap_or_else(|_| {
+                warn!("Invalid parent_span_id, generating new one");
+                Uuid::new_v4()
+            });
+            ExecutionContext {
+                execution_id: eid,
+                parent_span_id: psid,
+                trace_id: None,
+            }
+        }
+        _ => {
+            // CLI acts as its own Core for standalone use
+            let eid = Uuid::new_v4();
+            ExecutionContext {
+                execution_id: eid,
+                parent_span_id: eid,
+                trace_id: None,
+            }
+        }
+    }
+}
+
+/// Run the analysis, returning the output and event ID
+async fn run_analysis(
+    args: &AnalyzeArgs,
+    execution_ctx: &ExecutionContext,
+    _json_output: bool,
+) -> Result<(LatencyAnalysisOutput, String)> {
     // Load metrics from input file
     let metrics = load_metrics(&args.input)?;
     info!(metrics_count = metrics.len(), "Loaded metrics from file");
@@ -73,8 +183,9 @@ pub async fn execute(args: &AnalyzeArgs, json_output: bool) -> Result<()> {
         RuVectorClient::new(ruvector_config).context("Failed to create RuVector client")?,
     );
 
-    // Create and execute agent
+    // Create and execute agent with execution context
     let mut agent = LatencyAnalysisAgent::new(ruvector_client);
+    agent = agent.with_execution_context(execution_ctx);
 
     if let Some(ref exec_ref) = args.execution_ref {
         agent = agent.with_execution_ref(exec_ref.clone());
@@ -86,26 +197,12 @@ pub async fn execute(args: &AnalyzeArgs, json_output: bool) -> Result<()> {
         .await
         .context("Latency analysis failed")?;
 
-    // Output results
-    if json_output {
-        output_json(&output)?;
-    } else {
-        output_console(&output, &decision_event.event_id.to_string())?;
-    }
-
-    // Write to output file if specified
-    if let Some(ref output_path) = args.output {
-        let json = serde_json::to_string_pretty(&output)?;
-        fs::write(output_path, json)?;
-        info!(output = %output_path.display(), "Analysis written to file");
-    }
-
     info!(
         decision_event_id = %decision_event.event_id,
         "Analysis complete, DecisionEvent persisted"
     );
 
-    Ok(())
+    Ok((output, decision_event.event_id.to_string()))
 }
 
 /// Load metrics from input file
@@ -174,13 +271,6 @@ fn parse_provider(s: &str) -> Result<llm_latency_lens_core::Provider> {
         "generic" => Ok(llm_latency_lens_core::Provider::Generic),
         _ => anyhow::bail!("Unknown provider: {}", s),
     }
-}
-
-/// Output results as JSON
-fn output_json(output: &LatencyAnalysisOutput) -> Result<()> {
-    let json = serde_json::to_string_pretty(output)?;
-    println!("{}", json);
-    Ok(())
 }
 
 /// Output results to console
@@ -294,6 +384,38 @@ fn print_distribution(dist: &llm_latency_lens_metrics::LatencyDistribution) {
         dist.p99.as_secs_f64() * 1000.0
     );
     println!("  Samples:           {}", dist.sample_count);
+}
+
+/// Print execution span summary for console output
+fn print_span_summary(exec_result: &ExecutionResult) {
+    use colored::Colorize;
+
+    println!("{}", "Execution Spans:".bold());
+    println!(
+        "  Execution ID:      {}",
+        exec_result.execution_id.to_string().dimmed()
+    );
+    println!(
+        "  Repo Span:         {} ({})",
+        exec_result.repo_span.span_id.to_string().dimmed(),
+        format!("{:?}", exec_result.repo_span.status).green()
+    );
+    for span in &exec_result.agent_spans {
+        println!(
+            "  Agent Span:        {} ({}, {})",
+            span.agent_name.as_deref().unwrap_or("unknown").cyan(),
+            span.span_id.to_string().dimmed(),
+            format!("{:?}", span.status).green()
+        );
+        for artifact in &span.artifacts {
+            println!(
+                "    Artifact:        {} [{}]",
+                artifact.artifact_type.dimmed(),
+                artifact.reference_id.dimmed()
+            );
+        }
+    }
+    println!();
 }
 
 #[cfg(test)]

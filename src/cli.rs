@@ -195,6 +195,14 @@ pub struct ColdStartProfileArgs {
     /// RuVector service endpoint
     #[arg(long, env = "RUVECTOR_ENDPOINT")]
     pub ruvector_endpoint: Option<String>,
+
+    /// Execution ID for agentics execution graph
+    #[arg(long)]
+    pub execution_id: Option<String>,
+
+    /// Parent span ID from the Core orchestrator
+    #[arg(long)]
+    pub parent_span_id: Option<String>,
 }
 
 /// Arguments for the cold-start inspect subcommand
@@ -576,6 +584,14 @@ pub struct AnalyzeArgs {
     /// Execution reference for correlation
     #[arg(long)]
     pub execution_ref: Option<String>,
+
+    /// Execution ID for agentics execution graph
+    #[arg(long)]
+    pub execution_id: Option<String>,
+
+    /// Parent span ID from the Core orchestrator
+    #[arg(long)]
+    pub parent_span_id: Option<String>,
 }
 
 /// Arguments for the inspect command

@@ -27,6 +27,7 @@ use crate::agents::{
         ConfidenceMetadata, DecisionEvent, DecisionType, ErrorBounds, InputValidationError,
         LatencyAnalysisConfig, LatencyAnalysisInput, LatencyAnalysisOutput, MeasurementConstraints,
     },
+    execution_graph::ExecutionContext,
     ruvector::{RuVectorClient, RuVectorError},
 };
 use std::sync::Arc;
@@ -109,6 +110,16 @@ impl LatencyAnalysisAgent {
     ) -> Self {
         self.trace_id = Some(trace_id.into());
         self.span_id = Some(span_id.into());
+        self
+    }
+
+    /// Set execution context from the Agentics execution graph.
+    ///
+    /// Propagates trace_id and execution_ref from the execution context
+    /// into the agent for DecisionEvent correlation.
+    pub fn with_execution_context(mut self, ctx: &ExecutionContext) -> Self {
+        self.trace_id = Some(ctx.effective_trace_id().to_string());
+        self.execution_ref = Some(ctx.execution_id.to_string());
         self
     }
 

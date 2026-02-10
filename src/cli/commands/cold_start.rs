@@ -10,7 +10,8 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
 use tabled::{Table, Tabled};
-use tracing::{debug, info};
+use tracing::{debug, info, warn};
+use uuid::Uuid;
 
 use crate::cli::{ColdStartProfileArgs, ColdStartInspectArgs, ColdStartReplayArgs};
 use crate::config::Config;
@@ -18,6 +19,7 @@ use crate::agents::cold_start_mitigation::{
     ColdStartMitigationAgent, ColdStartMeasurementConfig, ColdStartMeasurementInput,
     ColdStartDetectionAlgorithm, ColdStartMeasurementOutput,
 };
+use crate::agents::execution_graph::{Artifact, ExecutionContext, RepoExecution};
 use crate::agents::ruvector::{RuVectorClient, RuVectorConfig};
 use crate::orchestrator::{Orchestrator, OrchestratorConfig};
 use llm_latency_lens_core::SessionId;
@@ -25,6 +27,39 @@ use llm_latency_lens_metrics::{MetricsCollector, RequestMetrics};
 use llm_latency_lens_providers::{create_provider, MessageRole, StreamingRequest};
 
 use super::read_prompt;
+
+/// Build execution context from cold start CLI args or auto-generate
+fn build_cold_start_execution_context(
+    execution_id: &Option<String>,
+    parent_span_id: &Option<String>,
+) -> ExecutionContext {
+    match (execution_id, parent_span_id) {
+        (Some(eid), Some(psid)) => {
+            let eid = Uuid::parse_str(eid).unwrap_or_else(|_| {
+                warn!("Invalid execution_id, generating new one");
+                Uuid::new_v4()
+            });
+            let psid = Uuid::parse_str(psid).unwrap_or_else(|_| {
+                warn!("Invalid parent_span_id, generating new one");
+                Uuid::new_v4()
+            });
+            ExecutionContext {
+                execution_id: eid,
+                parent_span_id: psid,
+                trace_id: None,
+            }
+        }
+        _ => {
+            // CLI acts as its own Core for standalone use
+            let eid = Uuid::new_v4();
+            ExecutionContext {
+                execution_id: eid,
+                parent_span_id: eid,
+                trace_id: None,
+            }
+        }
+    }
+}
 
 /// Run cold start profile command
 pub async fn run_profile(
@@ -35,6 +70,14 @@ pub async fn run_profile(
     shutdown_signal: Arc<tokio::sync::Notify>,
 ) -> Result<()> {
     info!("Starting cold start profiling");
+
+    // Build execution context
+    let execution_ctx = build_cold_start_execution_context(
+        &args.execution_id,
+        &args.parent_span_id,
+    );
+    let mut repo_exec = RepoExecution::begin(execution_ctx.clone());
+    let agent_span_id = repo_exec.begin_agent("cold-start-mitigation-agent", "measurement");
 
     // Merge CLI overrides
     config.merge_cli_overrides(&args.provider, args.api_key.clone(), None);
@@ -144,7 +187,8 @@ pub async fn run_profile(
     };
 
     let mut agent = ColdStartMitigationAgent::new(measurement_config)
-        .with_algorithm(algorithm);
+        .with_algorithm(algorithm)
+        .with_execution_context(&execution_ctx);
 
     // Set up RuVector client if persistence requested
     if args.persist {
@@ -158,17 +202,60 @@ pub async fn run_profile(
     }
 
     let input = ColdStartMeasurementInput::new(session_id, all_metrics);
-    let output = agent.execute(input).await
-        .context("Cold start analysis failed")?;
+    match agent.execute(input).await {
+        Ok(output) => {
+            // Complete agent span with artifacts
+            let artifacts = vec![Artifact::from_json_output(
+                "cold_start_output",
+                &output.measurement_id.to_string(),
+                &output,
+            )];
+            repo_exec.complete_agent(agent_span_id, artifacts);
 
-    // Output results
-    if json_output {
-        output_json(&output, &args.output, quiet)?;
-    } else {
-        output_table(&output, &args.output, quiet)?;
+            // Finalize execution
+            let dummy_ctx = ExecutionContext {
+                execution_id: Uuid::nil(),
+                parent_span_id: Uuid::nil(),
+                trace_id: None,
+            };
+            let taken = std::mem::replace(&mut repo_exec, RepoExecution::begin(dummy_ctx));
+            let exec_result = taken.finalize(Some(serde_json::to_value(&output)?));
+
+            // Output results
+            if json_output {
+                let json = serde_json::to_string_pretty(&exec_result)?;
+                println!("{}", json);
+            } else {
+                output_table(&output, &args.output, quiet)?;
+            }
+
+            // Save to file if requested (with full execution result)
+            if let Some(ref output_path) = args.output {
+                let json = serde_json::to_string_pretty(&exec_result)?;
+                std::fs::write(output_path, json)?;
+            }
+
+            Ok(())
+        }
+        Err(e) => {
+            repo_exec.fail_agent(agent_span_id, vec![e.to_string()]);
+
+            let dummy_ctx = ExecutionContext {
+                execution_id: Uuid::nil(),
+                parent_span_id: Uuid::nil(),
+                trace_id: None,
+            };
+            let taken = std::mem::replace(&mut repo_exec, RepoExecution::begin(dummy_ctx));
+            let exec_result = taken.finalize(None);
+
+            if json_output {
+                let json = serde_json::to_string_pretty(&exec_result)?;
+                println!("{}", json);
+            }
+
+            Err(anyhow::anyhow!("Cold start analysis failed: {}", e))
+        }
     }
-
-    Ok(())
 }
 
 /// Run cold start inspect command

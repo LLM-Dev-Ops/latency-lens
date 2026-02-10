@@ -7,14 +7,23 @@
 //! - GET /health - Health check
 //! - POST /cold-start/measure - Cold Start Mitigation Agent
 //! - POST /cold-start/characterize - Cold start characterization
+//!
+//! # Agentics Execution Graph
+//!
+//! All operation endpoints (except /health) require an execution context
+//! via JSON body or HTTP headers (X-Execution-Id, X-Parent-Span-Id).
+//! Responses are wrapped in ExecutionResult with repo and agent spans.
 
 use crate::agents::{
-    edge_function::{EdgeFunctionHandler, EdgeFunctionRequest, EdgeFunctionResponse, EdgeOperation},
+    edge_function::{EdgeFunctionHandler, EdgeFunctionRequest, EdgeOperation},
+    execution_graph::{
+        validate_execution_context, Artifact, ExecutionContext, RepoExecution,
+    },
     ruvector::{RuVectorClient, RuVectorConfig},
 };
 use crate::cli::ServeArgs;
 use anyhow::Result;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use std::time::Duration;
@@ -286,26 +295,66 @@ fn parse_http_request(buffer: &[u8]) -> Result<HttpRequest> {
     })
 }
 
+/// Extract execution context from HTTP headers or JSON body.
+///
+/// Tries JSON body field "execution_context" first, then falls back to
+/// X-Execution-Id and X-Parent-Span-Id headers.
+fn extract_execution_context(
+    headers: &[(String, String)],
+    body: &serde_json::Value,
+) -> Option<ExecutionContext> {
+    // First try: look in body.execution_context
+    if let Some(ctx) = body.get("execution_context") {
+        if let Ok(parsed) = serde_json::from_value::<ExecutionContext>(ctx.clone()) {
+            return Some(parsed);
+        }
+    }
+
+    // Second try: look in HTTP headers
+    let execution_id = headers
+        .iter()
+        .find(|(k, _)| k == "x-execution-id")
+        .and_then(|(_, v)| uuid::Uuid::parse_str(v).ok())?;
+    let parent_span_id = headers
+        .iter()
+        .find(|(k, _)| k == "x-parent-span-id")
+        .and_then(|(_, v)| uuid::Uuid::parse_str(v).ok())?;
+    let trace_id = headers
+        .iter()
+        .find(|(k, _)| k == "x-trace-id")
+        .and_then(|(_, v)| uuid::Uuid::parse_str(v).ok());
+
+    Some(ExecutionContext {
+        execution_id,
+        parent_span_id,
+        trace_id,
+    })
+}
+
 /// Route request to appropriate handler
 async fn route_request(router: &Router, request: HttpRequest) -> HttpResponse {
     match (request.method.as_str(), request.path.as_str()) {
-        // Health check
+        // Health check (no execution context required)
         ("GET", "/health") => handle_health().await,
 
-        // Latency Analysis Agent endpoints
+        // Latency Analysis Agent endpoints (execution context required)
         ("POST", "/analyze") => {
-            handle_edge_operation(&router.handler, EdgeOperation::Analyze, &request.body).await
+            handle_edge_operation(&router.handler, EdgeOperation::Analyze, &request.headers, &request.body).await
         }
         ("POST", "/inspect") => {
-            handle_edge_operation(&router.handler, EdgeOperation::Inspect, &request.body).await
+            handle_edge_operation(&router.handler, EdgeOperation::Inspect, &request.headers, &request.body).await
         }
         ("POST", "/replay") => {
-            handle_edge_operation(&router.handler, EdgeOperation::Replay, &request.body).await
+            handle_edge_operation(&router.handler, EdgeOperation::Replay, &request.headers, &request.body).await
         }
 
-        // Cold Start Mitigation Agent endpoints
-        ("POST", "/cold-start/measure") => handle_cold_start_measure(&request.body).await,
-        ("POST", "/cold-start/characterize") => handle_cold_start_characterize(&request.body).await,
+        // Cold Start Mitigation Agent endpoints (execution context required)
+        ("POST", "/cold-start/measure") => {
+            handle_cold_start_measure(&request.headers, &request.body).await
+        }
+        ("POST", "/cold-start/characterize") => {
+            handle_cold_start_characterize(&request.headers, &request.body).await
+        }
 
         // Generic edge function endpoint (unified)
         ("POST", "/") => handle_edge_function(&router.handler, &request.body).await,
@@ -351,10 +400,11 @@ async fn handle_health() -> HttpResponse {
     HttpResponse::ok(body)
 }
 
-/// Handle edge function operation
+/// Handle edge function operation with execution context extraction
 async fn handle_edge_operation(
     handler: &EdgeFunctionHandler,
     operation: EdgeOperation,
+    headers: &[(String, String)],
     body: &[u8],
 ) -> HttpResponse {
     let payload: serde_json::Value = match serde_json::from_slice(body) {
@@ -366,10 +416,14 @@ async fn handle_edge_operation(
         }
     };
 
+    // Extract execution context from headers or body
+    let execution_context = extract_execution_context(headers, &payload);
+
     let request = EdgeFunctionRequest {
         operation,
         payload,
         trace_context: None,
+        execution_context,
     };
 
     let response = handler.handle(request).await;
@@ -403,30 +457,120 @@ async fn handle_edge_function(handler: &EdgeFunctionHandler, body: &[u8]) -> Htt
     }
 }
 
-/// Handle cold start measurement (placeholder - calls into cold_start module)
-async fn handle_cold_start_measure(body: &[u8]) -> HttpResponse {
-    // This would integrate with the ColdStartMitigationAgent
-    // For now, return a placeholder response indicating the endpoint exists
-    let response = serde_json::json!({
-        "success": true,
+/// Handle cold start measurement with execution context
+async fn handle_cold_start_measure(
+    headers: &[(String, String)],
+    body: &[u8],
+) -> HttpResponse {
+    let payload: serde_json::Value = match serde_json::from_slice(body) {
+        Ok(v) => v,
+        Err(e) => {
+            return HttpResponse::bad_request(
+                format!("{{\"error\":\"Invalid JSON: {}\"}}", e).into_bytes(),
+            );
+        }
+    };
+
+    // Extract and validate execution context
+    let execution_context = extract_execution_context(headers, &payload);
+    let ctx = match validate_execution_context(execution_context) {
+        Ok(ctx) => ctx,
+        Err(err_result) => {
+            let body = serde_json::to_vec(&err_result).unwrap_or_default();
+            return HttpResponse::bad_request(body);
+        }
+    };
+
+    let mut repo_exec = RepoExecution::begin(ctx);
+    let agent_span_id =
+        repo_exec.begin_agent("cold-start-mitigation-agent", "measurement");
+
+    // Placeholder: cold start measurement integration
+    let result = serde_json::json!({
         "message": "Cold start measurement endpoint",
         "classification": "measurement",
         "note": "Full implementation integrates with ColdStartMitigationAgent"
     });
 
-    HttpResponse::ok(serde_json::to_vec(&response).unwrap_or_default())
+    let artifacts = vec![Artifact::from_json_output(
+        "cold_start_measurement",
+        "placeholder",
+        &result,
+    )];
+    repo_exec.complete_agent(agent_span_id, artifacts);
+
+    let dummy_ctx = ExecutionContext {
+        execution_id: uuid::Uuid::nil(),
+        parent_span_id: uuid::Uuid::nil(),
+        trace_id: None,
+    };
+    let taken = std::mem::replace(&mut repo_exec, RepoExecution::begin(dummy_ctx));
+    let exec_result = taken.finalize(Some(result));
+
+    let body = serde_json::to_vec(&exec_result).unwrap_or_default();
+    if exec_result.success {
+        HttpResponse::ok(body)
+    } else {
+        HttpResponse::bad_request(body)
+    }
 }
 
-/// Handle cold start characterization (placeholder)
-async fn handle_cold_start_characterize(body: &[u8]) -> HttpResponse {
-    let response = serde_json::json!({
-        "success": true,
+/// Handle cold start characterization with execution context
+async fn handle_cold_start_characterize(
+    headers: &[(String, String)],
+    body: &[u8],
+) -> HttpResponse {
+    let payload: serde_json::Value = match serde_json::from_slice(body) {
+        Ok(v) => v,
+        Err(e) => {
+            return HttpResponse::bad_request(
+                format!("{{\"error\":\"Invalid JSON: {}\"}}", e).into_bytes(),
+            );
+        }
+    };
+
+    // Extract and validate execution context
+    let execution_context = extract_execution_context(headers, &payload);
+    let ctx = match validate_execution_context(execution_context) {
+        Ok(ctx) => ctx,
+        Err(err_result) => {
+            let body = serde_json::to_vec(&err_result).unwrap_or_default();
+            return HttpResponse::bad_request(body);
+        }
+    };
+
+    let mut repo_exec = RepoExecution::begin(ctx);
+    let agent_span_id =
+        repo_exec.begin_agent("cold-start-mitigation-agent", "measurement");
+
+    // Placeholder: cold start characterization integration
+    let result = serde_json::json!({
         "message": "Cold start characterization endpoint",
         "classification": "measurement",
         "note": "Full implementation integrates with ColdStartMitigationAgent"
     });
 
-    HttpResponse::ok(serde_json::to_vec(&response).unwrap_or_default())
+    let artifacts = vec![Artifact::from_json_output(
+        "cold_start_characterization",
+        "placeholder",
+        &result,
+    )];
+    repo_exec.complete_agent(agent_span_id, artifacts);
+
+    let dummy_ctx = ExecutionContext {
+        execution_id: uuid::Uuid::nil(),
+        parent_span_id: uuid::Uuid::nil(),
+        trace_id: None,
+    };
+    let taken = std::mem::replace(&mut repo_exec, RepoExecution::begin(dummy_ctx));
+    let exec_result = taken.finalize(Some(result));
+
+    let body = serde_json::to_vec(&exec_result).unwrap_or_default();
+    if exec_result.success {
+        HttpResponse::ok(body)
+    } else {
+        HttpResponse::bad_request(body)
+    }
 }
 
 #[cfg(test)]
@@ -455,5 +599,45 @@ mod tests {
         assert!(text.contains("HTTP/1.1 200 OK"));
         assert!(text.contains("Content-Type: application/json"));
         assert!(text.contains("test"));
+    }
+
+    #[test]
+    fn test_extract_execution_context_from_body() {
+        let eid = uuid::Uuid::new_v4();
+        let psid = uuid::Uuid::new_v4();
+        let body = serde_json::json!({
+            "execution_context": {
+                "execution_id": eid.to_string(),
+                "parent_span_id": psid.to_string()
+            }
+        });
+        let ctx = extract_execution_context(&[], &body);
+        assert!(ctx.is_some());
+        let ctx = ctx.unwrap();
+        assert_eq!(ctx.execution_id, eid);
+        assert_eq!(ctx.parent_span_id, psid);
+    }
+
+    #[test]
+    fn test_extract_execution_context_from_headers() {
+        let eid = uuid::Uuid::new_v4();
+        let psid = uuid::Uuid::new_v4();
+        let headers = vec![
+            ("x-execution-id".to_string(), eid.to_string()),
+            ("x-parent-span-id".to_string(), psid.to_string()),
+        ];
+        let body = serde_json::json!({});
+        let ctx = extract_execution_context(&headers, &body);
+        assert!(ctx.is_some());
+        let ctx = ctx.unwrap();
+        assert_eq!(ctx.execution_id, eid);
+        assert_eq!(ctx.parent_span_id, psid);
+    }
+
+    #[test]
+    fn test_extract_execution_context_missing() {
+        let body = serde_json::json!({});
+        let ctx = extract_execution_context(&[], &body);
+        assert!(ctx.is_none());
     }
 }

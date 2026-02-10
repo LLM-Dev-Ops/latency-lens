@@ -80,6 +80,7 @@ pub use agents::{
         LatencyAnalysisOutput, MeasurementConstraints,
     },
     edge_function::{EdgeFunctionHandler, EdgeFunctionRequest, EdgeFunctionResponse, EdgeOperation},
+    execution_graph::{Artifact, ExecutionContext, ExecutionResult, ExecutionSpan},
     latency_analysis::{LatencyAnalysisAgent, LatencyAnalyzer, AGENT_ID, AGENT_VERSION},
     ruvector::{EventQuery, RuVectorClient, RuVectorConfig, RuVectorError},
 };
