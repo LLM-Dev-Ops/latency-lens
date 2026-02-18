@@ -23,7 +23,7 @@ use crate::agents::{
 };
 use crate::cli::ServeArgs;
 use anyhow::Result;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 use std::sync::Arc;
 use std::time::Duration;
@@ -89,6 +89,7 @@ pub async fn run(args: ServeArgs) -> Result<()> {
     info!("  POST /replay        - Replay with different config");
     info!("  GET  /health        - Health check");
     info!("  POST /cold-start/*  - Cold Start Mitigation Agent");
+    info!("  POST /api/v1/metrics - Metrics ingestion");
 
     // Start the server
     let listener = TcpListener::bind(addr).await?;
@@ -157,6 +158,15 @@ impl HttpResponse {
             status_text: "Method Not Allowed".to_string(),
             headers: vec![("Content-Type".to_string(), "application/json".to_string())],
             body: b"{\"error\":\"Method Not Allowed\"}".to_vec(),
+        }
+    }
+
+    fn accepted(body: Vec<u8>) -> Self {
+        Self {
+            status: 202,
+            status_text: "Accepted".to_string(),
+            headers: vec![("Content-Type".to_string(), "application/json".to_string())],
+            body,
         }
     }
 
@@ -356,6 +366,9 @@ async fn route_request(router: &Router, request: HttpRequest) -> HttpResponse {
             handle_cold_start_characterize(&request.headers, &request.body).await
         }
 
+        // Metrics ingestion from intelligence-core
+        ("POST", "/api/v1/metrics") => handle_metrics_ingest(&request.body).await,
+
         // Generic edge function endpoint (unified)
         ("POST", "/") => handle_edge_function(&router.handler, &request.body).await,
 
@@ -455,6 +468,52 @@ async fn handle_edge_function(handler: &EdgeFunctionHandler, body: &[u8]) -> Htt
     } else {
         HttpResponse::bad_request(body)
     }
+}
+
+/// Metrics ingestion request from intelligence-core
+#[derive(Debug, Deserialize)]
+struct MetricsIngestRequest {
+    source: String,
+    event_type: String,
+    execution_id: String,
+    timestamp: String,
+    #[serde(default)]
+    payload: serde_json::Value,
+}
+
+/// Metrics ingestion response
+#[derive(Debug, Serialize)]
+struct MetricsIngestResponse {
+    status: String,
+    execution_id: String,
+}
+
+/// Handle metrics ingestion from intelligence-core
+async fn handle_metrics_ingest(body: &[u8]) -> HttpResponse {
+    let request: MetricsIngestRequest = match serde_json::from_slice(body) {
+        Ok(r) => r,
+        Err(e) => {
+            return HttpResponse::bad_request(
+                format!("{{\"error\":\"Invalid JSON: {}\"}}", e).into_bytes(),
+            );
+        }
+    };
+
+    info!(
+        source = %request.source,
+        event_type = %request.event_type,
+        execution_id = %request.execution_id,
+        timestamp = %request.timestamp,
+        "Metrics event received"
+    );
+
+    let response = MetricsIngestResponse {
+        status: "accepted".to_string(),
+        execution_id: request.execution_id,
+    };
+
+    let body = serde_json::to_vec(&response).unwrap_or_default();
+    HttpResponse::accepted(body)
 }
 
 /// Handle cold start measurement with execution context
