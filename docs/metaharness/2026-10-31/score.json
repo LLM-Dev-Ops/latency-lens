@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "repo": "latency-oct31-tools",
+  "harnessFit": 71,
+  "compileConfidence": 100,
+  "taskCoverage": 79,
+  "toolSafety": 100,
+  "memoryUsefulness": 49,
+  "estCostPerRunUsd": 0.048,
+  "recommendedMode": "CLI + MCP",
+  "archetype": "rust-crate-harness",
+  "template": "vertical:coding",
+  "scaffoldReady": true,
+  "hardConstraints": "6/6",
+  "generatedAt": "2026-10-31T18:08:28.699Z"
+}

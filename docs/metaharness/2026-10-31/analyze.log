@@ -1,0 +1,18 @@
+harness analyze-repo — /tmp/latency-oct31-tools
+
+Languages: rust, typescript
+Signals: claude, ci
+
+Best archetype: rust-crate-harness  (65% · lexical)
+Harness:  latency-oct31-tools-harness  ·  template vertical:coding  ·  hosts claude-code
+MCP: local  ·  risk: shell gated, network gated, file-write read-scoped
+Agents:   architect, implementer, reviewer, test-writer
+Commands: doctor, review-diff
+Suggested commands (execution disabled, never run):
+  - cargo build  [trust: inferred]
+  - cargo test  [trust: inferred]
+
+Wrote: /tmp/latency-oct31-tools/repo-profile.json
+Wrote: /tmp/latency-oct31-tools/harness-plan.json
+
+Scaffold it:  harness analyze-repo . --scaffold latency-oct31-tools-harness

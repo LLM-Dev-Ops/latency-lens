@@ -1,0 +1,14 @@
+
+running 3 tests
+test full_breakdowns_are_sorted ... ok
+test model_subset_breakdowns_are_sorted ... ok
+test provider_subset_breakdowns_are_sorted ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /tmp/latency-oct31/crates/wasm/Cargo.toml
+workspace: /tmp/latency-oct31/Cargo.toml
+   Compiling llm-latency-lens-metrics v0.1.0 (/tmp/latency-oct31/crates/metrics)
+    Finished `test` profile [unoptimized] target(s) in 1.54s
+     Running tests/breakdown_order.rs (/tmp/latency-oct31-target/debug/deps/breakdown_order-108b596bf3570c94)

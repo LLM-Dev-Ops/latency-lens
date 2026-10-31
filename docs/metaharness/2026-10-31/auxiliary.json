@@ -1,0 +1,229 @@
+{
+  "status": "BLOCKED",
+  "source": "b6f9afcf239a97855a995b65caca4a8f3b73bf39",
+  "baseline": "74fce0b38ae657e9e4f3d6a8f78bc577d831929e",
+  "main": "8370e90fa788959a0b80e3f9c4140422f3eccd69",
+  "versions": {
+    "ruflo": "3.56.3",
+    "transformers": "4.3.1",
+    "metaharness": "0.4.2",
+    "darwin": "0.10.3",
+    "flywheel": "0.1.12",
+    "rust": "1.88.0",
+    "node": "20.20.2",
+    "openssl": "3.0.13"
+  },
+  "profile": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "target": "/tmp/latency-oct31-target",
+    "timeoutSeconds": 90,
+    "sourceRebuild": "cargo +1.88.0 clean -p llm-latency-lens-metrics --target-dir /tmp/latency-oct31-target --locked --offline before each revision; dependency cache retained"
+  },
+  "baselineControls": {
+    "untouchedMainMetrics": "five missing Duration import errors",
+    "controlledBaseline": "Same test-only Duration import repair as candidate, identical fixtures/lock, runtime ordering unchanged"
+  },
+  "native": {
+    "holdouts": {
+      "baseline": 0,
+      "candidate": 3
+    },
+    "originalMetrics": {
+      "baseline": {
+        "passed": 34,
+        "failed": 1
+      },
+      "candidate": {
+        "passed": 34,
+        "failed": 1
+      }
+    },
+    "lostPassingNames": [],
+    "workspaceBuilds": "both exit0",
+    "workspaceTests": "exporters compile errors p999 and missing throughput stddev"
+  },
+  "audit": {
+    "rustFindings": 43,
+    "revision": "ee1a49a2769a24a596afc1c20cb33748d2769586",
+    "cargoAudit": "0.22.2",
+    "npm": "ENOLOCK; not audited",
+    "cargoLockSha256": "84bc0759f76f43e983e0abddcac1b4d1a73bb1954e662ec32056c0e0d1b30d7e"
+  },
+  "rejected": [
+    {
+      "receipt": "initial-flywheel.json",
+      "reason": "INVALID source comparison: shared Cargo target reused baseline probe binary for candidate; native prerequisites also changed mid-run. Signed replay alone cannot validate a bad evaluator.",
+      "sha256": "e107a8293e21e3afc36c8104fb74adfd4fc27ebcff10c51a279fc9b3f2ddd6ef"
+    },
+    {
+      "attempt": "repaired-flywheel partial",
+      "reason": "Interrupted validated owned evaluator process tree after discovering source-cache contamination; no completed receipt claimed."
+    }
+  ],
+  "runtimeRepair": {
+    "bootstrap": 0,
+    "libclang": "18.1.3",
+    "cmake": "3.28.3",
+    "protoc": "3.21.12",
+    "persistentVolumeFreeInitial": "67MB",
+    "tmpUsedForBuild": true,
+    "unrelatedDataDeleted": false
+  },
+  "benchmark": {
+    "trials": [
+      {
+        "i": 0,
+        "side": "baseline",
+        "exit": 101,
+        "ms": 60,
+        "passed": []
+      },
+      {
+        "i": 0,
+        "side": "candidate",
+        "exit": 0,
+        "ms": 160,
+        "passed": [
+          "provider_subset_breakdowns_are_sorted",
+          "full_breakdowns_are_sorted",
+          "model_subset_breakdowns_are_sorted"
+        ]
+      },
+      {
+        "i": 1,
+        "side": "candidate",
+        "exit": 0,
+        "ms": 142,
+        "passed": [
+          "full_breakdowns_are_sorted",
+          "model_subset_breakdowns_are_sorted",
+          "provider_subset_breakdowns_are_sorted"
+        ]
+      },
+      {
+        "i": 1,
+        "side": "baseline",
+        "exit": 101,
+        "ms": 48,
+        "passed": []
+      },
+      {
+        "i": 2,
+        "side": "baseline",
+        "exit": 101,
+        "ms": 43,
+        "passed": []
+      },
+      {
+        "i": 2,
+        "side": "candidate",
+        "exit": 0,
+        "ms": 140,
+        "passed": [
+          "full_breakdowns_are_sorted",
+          "model_subset_breakdowns_are_sorted",
+          "provider_subset_breakdowns_are_sorted"
+        ]
+      }
+    ],
+    "interpretation": "Three alternating launches of each exact freshly compiled native test binary. Baseline0/9 vs candidate9/9; no speedup claim (candidate executes all8iterations per test; baseline exits early on assertion)."
+  },
+  "learning": {
+    "available": true,
+    "outcomePersisted": true,
+    "feedbackRecorded": true,
+    "trajectoryRecorded": true,
+    "modelRevision": "751bff37182d3f1213fa05d7196b954e230abad9",
+    "dimensions": 384,
+    "remoteLoading": false,
+    "kernelOffline": true
+  },
+  "conflicts": {
+    "mergeTreeExit": 0,
+    "reverseCheckExit": 0,
+    "merged": false
+  },
+  "hostedCI": [
+    {
+      "id": 124617868381,
+      "name": "Format Check",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124617868612,
+      "name": "Unit Tests (windows-latest, beta)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124617868616,
+      "name": "Integration Tests",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124617868628,
+      "name": "Code Coverage",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124617868642,
+      "name": "Clippy Lints",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124617868645,
+      "name": "Unit Tests (macos-latest, beta)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124617868652,
+      "name": "Unit Tests (ubuntu-latest, stable)",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124617868699,
+      "name": "Dependency Check",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124617868724,
+      "name": "Unit Tests (macos-latest, stable)",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124617868734,
+      "name": "Security Audit",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124617868763,
+      "name": "Unit Tests (windows-latest, stable)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124617868838,
+      "name": "Unit Tests (ubuntu-latest, beta)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124617869531,
+      "name": "Run Benchmarks",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "docsRevision": "2f415bf47a7beb36f6a43c24e85a509acedf9ebb",
+  "architectureChanged": false
+}

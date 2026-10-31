@@ -1,0 +1,39 @@
+
+running 3 tests
+test full_breakdowns_are_sorted ... FAILED
+test model_subset_breakdowns_are_sorted ... FAILED
+test provider_subset_breakdowns_are_sorted ... FAILED
+
+failures:
+
+---- full_breakdowns_are_sorted stdout ----
+
+thread 'full_breakdowns_are_sorted' panicked at crates/metrics/tests/breakdown_order.rs:57:5:
+provider order: ["google", "azure-openai", "openai", "anthropic", "generic", "aws-bedrock"]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- model_subset_breakdowns_are_sorted stdout ----
+
+thread 'model_subset_breakdowns_are_sorted' panicked at crates/metrics/tests/breakdown_order.rs:57:5:
+provider order: ["aws-bedrock", "openai", "anthropic", "google", "generic", "azure-openai"]
+
+---- provider_subset_breakdowns_are_sorted stdout ----
+
+thread 'provider_subset_breakdowns_are_sorted' panicked at crates/metrics/tests/breakdown_order.rs:61:5:
+model order: ["omega", "alpha", "delta", "gamma", "zeta", "beta"]
+
+
+failures:
+    full_breakdowns_are_sorted
+    model_subset_breakdowns_are_sorted
+    provider_subset_breakdowns_are_sorted
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /tmp/latency-oct31-baseline/crates/wasm/Cargo.toml
+workspace: /tmp/latency-oct31-baseline/Cargo.toml
+   Compiling llm-latency-lens-metrics v0.1.0 (/tmp/latency-oct31-baseline/crates/metrics)
+    Finished `test` profile [unoptimized] target(s) in 1.52s
+     Running tests/breakdown_order.rs (/tmp/latency-oct31-target/debug/deps/breakdown_order-108b596bf3570c94)
+error: test failed, to rerun pass `-p llm-latency-lens-metrics --test breakdown_order`

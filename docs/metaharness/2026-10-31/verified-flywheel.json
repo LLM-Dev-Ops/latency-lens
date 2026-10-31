@@ -1,0 +1,516 @@
+{
+  "baselineRevision": "74fce0b38ae657e9e4f3d6a8f78bc577d831929e",
+  "candidateRevision": "b6f9afcf239a97855a995b65caca4a8f3b73bf39",
+  "baseline": {
+    "probe": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "breakdown_order",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 101,
+      "signal": null,
+      "ms": 1583,
+      "sha256": "9d74e558af99435923f0d36bbe8f8721eb793fb994fbbefdf62671a9958630a7",
+      "passedNames": [],
+      "pass": false
+    },
+    "metrics": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--lib",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 101,
+      "signal": null,
+      "ms": 2011,
+      "sha256": "83da6b4897d3971112ab094ee258024f8bc31e318b5cc0152f507fb2c7f43699",
+      "passedNames": [
+        "aggregator::tests::test_aggregate_by_model",
+        "aggregator::tests::test_aggregate_by_provider",
+        "aggregator::tests::test_aggregate_empty_collector",
+        "aggregator::tests::test_aggregate_multiple_metrics",
+        "aggregator::tests::test_aggregate_single_metric",
+        "aggregator::tests::test_aggregate_with_failures",
+        "aggregator::tests::test_latency_distribution_calculations",
+        "aggregator::tests::test_metrics_comparison",
+        "aggregator::tests::test_throughput_statistics",
+        "collector::tests::test_clear_metrics",
+        "collector::tests::test_collector_config",
+        "collector::tests::test_collector_creation",
+        "collector::tests::test_get_all_requests",
+        "collector::tests::test_get_request",
+        "collector::tests::test_record_failed_request",
+        "collector::tests::test_record_metrics",
+        "collector::tests::test_record_multiple_metrics",
+        "collector::tests::test_thread_safety",
+        "integration_tests::test_concurrent_recording",
+        "integration_tests::test_cost_tracking",
+        "integration_tests::test_end_to_end_workflow",
+        "integration_tests::test_failure_tracking",
+        "integration_tests::test_model_breakdown",
+        "integration_tests::test_percentile_accuracy",
+        "integration_tests::test_provider_breakdown",
+        "integration_tests::test_serialization",
+        "integration_tests::test_thinking_tokens_tracking",
+        "types::tests::test_aggregated_metrics_success_rate",
+        "types::tests::test_latency_distribution_empty",
+        "types::tests::test_latency_distribution_range",
+        "types::tests::test_request_metrics_mean_inter_token_latency",
+        "types::tests::test_request_metrics_median_inter_token_latency",
+        "types::tests::test_request_metrics_serialization",
+        "types::tests::test_request_metrics_total_tokens"
+      ],
+      "pass": false
+    },
+    "test": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "test",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 101,
+      "signal": null,
+      "ms": 75449,
+      "sha256": "2b81126864ea2fe3a9ab34a440490888d949a730087a188217d78402f77d0b02",
+      "passedNames": [],
+      "pass": false
+    },
+    "build": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "build",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 0,
+      "signal": null,
+      "ms": 83990,
+      "sha256": "4f431a57ee2f34a5ff379143bd4facfd158b2ad1712ae9ad952c6632d2aab14f",
+      "passedNames": [],
+      "pass": true
+    },
+    "clippy": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "clippy",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "-j2",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit": 101,
+      "signal": null,
+      "ms": 1316,
+      "sha256": "8858dc662b0c07e600fc60d71d97f57bb993b7742640ca7125cb9caf2d8c1785",
+      "passedNames": [],
+      "pass": false
+    },
+    "fmt": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit": 1,
+      "signal": null,
+      "ms": 466,
+      "sha256": "6b1fb9446a73468532fb729569b7f1596c56115823cd83e663ced3aa86b648b0",
+      "passedNames": [],
+      "pass": false
+    },
+    "audit": {
+      "command": [
+        "cargo",
+        "audit",
+        "--file",
+        "Cargo.lock",
+        "--no-fetch",
+        "--json"
+      ],
+      "exit": 1,
+      "signal": null,
+      "ms": 450,
+      "sha256": "1eb7db1561889f9b1dc477b929fe2f320800c2b61f7e751bde0d141a5489c56a",
+      "passedNames": [],
+      "pass": false
+    },
+    "npmAudit": {
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "exit": 1,
+      "signal": null,
+      "ms": 392,
+      "sha256": "92cb6bba90d6e6b724f08761f0a262d2dab96c3c5a0365446ffc063224d373d2",
+      "passedNames": [],
+      "pass": false
+    }
+  },
+  "candidate": {
+    "probe": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "breakdown_order",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 0,
+      "signal": null,
+      "ms": 1708,
+      "sha256": "df8ffd9facccbf8b548cce81501e6cc3e94b460ae5f7dbaec25bc8fd7f5fd6a7",
+      "passedNames": [
+        "full_breakdowns_are_sorted",
+        "model_subset_breakdowns_are_sorted",
+        "provider_subset_breakdowns_are_sorted"
+      ],
+      "pass": true
+    },
+    "metrics": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--lib",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 101,
+      "signal": null,
+      "ms": 2003,
+      "sha256": "458570ce16e70073ce03607def50cfc8f1d81ca4ead79dc2494992561b84c3ec",
+      "passedNames": [
+        "aggregator::tests::test_aggregate_by_model",
+        "aggregator::tests::test_aggregate_by_provider",
+        "aggregator::tests::test_aggregate_empty_collector",
+        "aggregator::tests::test_aggregate_multiple_metrics",
+        "aggregator::tests::test_aggregate_single_metric",
+        "aggregator::tests::test_aggregate_with_failures",
+        "aggregator::tests::test_latency_distribution_calculations",
+        "aggregator::tests::test_metrics_comparison",
+        "aggregator::tests::test_throughput_statistics",
+        "collector::tests::test_clear_metrics",
+        "collector::tests::test_collector_config",
+        "collector::tests::test_collector_creation",
+        "collector::tests::test_get_all_requests",
+        "collector::tests::test_get_request",
+        "collector::tests::test_record_failed_request",
+        "collector::tests::test_record_metrics",
+        "collector::tests::test_record_multiple_metrics",
+        "collector::tests::test_thread_safety",
+        "integration_tests::test_concurrent_recording",
+        "integration_tests::test_cost_tracking",
+        "integration_tests::test_end_to_end_workflow",
+        "integration_tests::test_failure_tracking",
+        "integration_tests::test_model_breakdown",
+        "integration_tests::test_percentile_accuracy",
+        "integration_tests::test_provider_breakdown",
+        "integration_tests::test_serialization",
+        "integration_tests::test_thinking_tokens_tracking",
+        "types::tests::test_aggregated_metrics_success_rate",
+        "types::tests::test_latency_distribution_empty",
+        "types::tests::test_latency_distribution_range",
+        "types::tests::test_request_metrics_mean_inter_token_latency",
+        "types::tests::test_request_metrics_median_inter_token_latency",
+        "types::tests::test_request_metrics_serialization",
+        "types::tests::test_request_metrics_total_tokens"
+      ],
+      "pass": false
+    },
+    "test": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "test",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 101,
+      "signal": null,
+      "ms": 22375,
+      "sha256": "07e16b91230c7b3a61f531cf3e65ab806fccea01c05c2276a148332e97d53459",
+      "passedNames": [],
+      "pass": false
+    },
+    "build": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "build",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "-j2"
+      ],
+      "exit": 0,
+      "signal": null,
+      "ms": 21813,
+      "sha256": "97f87a04bb19a02f9e4b1391e81d252c430188fbc5016d283bd7dfe7f52abeb3",
+      "passedNames": [],
+      "pass": true
+    },
+    "clippy": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "clippy",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "-j2",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit": 101,
+      "signal": null,
+      "ms": 1397,
+      "sha256": "75bab7a388fd460485af39481499743d895bd69e3e8b3ea3b33663b63417349c",
+      "passedNames": [],
+      "pass": false
+    },
+    "fmt": {
+      "command": [
+        "cargo",
+        "+1.88.0",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit": 1,
+      "signal": null,
+      "ms": 398,
+      "sha256": "acfe0322aebc1673721a4c8fe4f4e0d1027c3592de3386bd2f46b1382550fd5d",
+      "passedNames": [],
+      "pass": false
+    },
+    "audit": {
+      "command": [
+        "cargo",
+        "audit",
+        "--file",
+        "Cargo.lock",
+        "--no-fetch",
+        "--json"
+      ],
+      "exit": 1,
+      "signal": null,
+      "ms": 501,
+      "sha256": "1eb7db1561889f9b1dc477b929fe2f320800c2b61f7e751bde0d141a5489c56a",
+      "passedNames": [],
+      "pass": false
+    },
+    "npmAudit": {
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "exit": 1,
+      "signal": null,
+      "ms": 374,
+      "sha256": "f54d70e6f630a8c65553c4161e4ae5fdc81a4f4e70d77eceb93349f5eb612201",
+      "passedNames": [],
+      "pass": false
+    }
+  },
+  "lostPassingNames": [],
+  "result": {
+    "liftCurve": [
+      {
+        "generation": 0,
+        "primary": 0,
+        "delta": 0,
+        "anchor": 0.9714285714285714
+      }
+    ],
+    "promotions": [],
+    "lineage": {
+      "commits": {}
+    },
+    "replayBundle": {
+      "data_source": "LIVE",
+      "root_id": "root",
+      "chain": [
+        {
+          "id": "root",
+          "generation": 0,
+          "parents": [],
+          "mutation": null,
+          "primaryDelta": 0,
+          "anchorScore": 0.9714285714285714,
+          "verdict": "ROOT",
+          "failureReasons": [],
+          "receipt": {
+            "payload": {
+              "kind": "root",
+              "root": "root"
+            },
+            "signature": "GYWV0fXqixYbOYMf/vhODRomk3L1gXvYgxoOZDmXjnCti6ycqWoGEu6HhrqL2fZtGvdCO3JfDSqrRjG3xPSGDg==",
+            "publicKey": "MCowBQYDK2VwAyEAg+fL2z7CS1cGkIZNfJVOpxEt8YjRg/++qjw8A4Ttp6g=",
+            "alg": "ed25519"
+          },
+          "createdAt": "gen-0"
+        }
+      ],
+      "all_commits": [
+        {
+          "id": "root__revision_gen1",
+          "generation": 1,
+          "parents": [
+            "root"
+          ],
+          "mutation": {
+            "target": "revision",
+            "summary": "Lexical provider and model breakdown ordering across all aggregation paths",
+            "inverse": {
+              "path": "crates/metrics/src/aggregator.rs",
+              "parentBytes": "//! Statistical aggregation of collected metrics\n//!\n//! Provides functionality to aggregate metrics from a collector into\n//! statistical distributions with percentile calculations.\n\nuse crate::collector::{MetricsCollector, MetricsError};\nuse crate::types::{AggregatedMetrics, LatencyDistribution, ThroughputStats};\nuse hdrhistogram::Histogram;\nuse llm_latency_lens_core::Provider;\nuse std::collections::HashMap;\nuse std::time::Duration;\nuse tracing::debug;\n\n/// Aggregates metrics from a collector into statistical distributions\n///\n/// Uses the collected histograms to calculate accurate percentiles and\n/// other statistical measures.\npub struct MetricsAggregator;\n\nimpl MetricsAggregator {\n    /// Aggregate metrics from a collector\n    ///\n    /// # Arguments\n    ///\n    /// * `collector` - The metrics collector to aggregate from\n    ///\n    /// # Returns\n    ///\n    /// An `AggregatedMetrics` struct containing all statistical aggregations\n    ///\n    /// # Errors\n    ///\n    /// Returns an error if:\n    /// - The collector has no metrics\n    /// - Lock acquisition fails\n    /// - Histogram calculations fail\n    pub fn aggregate(collector: &MetricsCollector) -> Result<AggregatedMetrics, MetricsError> {\n        let snapshot = collector.get_state_snapshot()?;\n\n        if snapshot.request_metrics.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        debug!(\n            total_requests = snapshot.request_metrics.len(),\n            successful = snapshot.successful_requests,\n            failed = snapshot.failed_requests,\n            \"Aggregating metrics\"\n        );\n\n        // Calculate time range\n        let start_time = snapshot\n            .request_metrics\n            .iter()\n            .map(|m| m.timestamp)\n            .min()\n            .unwrap();\n\n        let end_time = snapshot\n            .request_metrics\n            .iter()\n            .map(|m| m.timestamp)\n            .max()\n            .unwrap();\n\n        // Calculate distributions from histograms\n        let ttft_distribution = Self::calculate_latency_distribution(&snapshot.global_histograms.ttft)?;\n        let inter_token_distribution =\n            Self::calculate_latency_distribution(&snapshot.global_histograms.inter_token)?;\n        let total_latency_distribution =\n            Self::calculate_latency_distribution(&snapshot.global_histograms.total_latency)?;\n\n        // Calculate throughput statistics\n        let throughput = Self::calculate_throughput_stats(&snapshot.global_histograms.throughput)?;\n\n        // Build provider and model breakdowns\n        let provider_breakdown: Vec<(Provider, u64)> =\n            snapshot.provider_counts.into_iter().collect();\n        let model_breakdown: Vec<(String, u64)> = snapshot.model_counts.into_iter().collect();\n\n        // Calculate total cost\n        let total_cost_usd = if snapshot.total_cost_usd > 0.0 {\n            Some(snapshot.total_cost_usd)\n        } else {\n            None\n        };\n\n        // Calculate total thinking tokens\n        let total_thinking_tokens = if snapshot.total_thinking_tokens > 0 {\n            Some(snapshot.total_thinking_tokens)\n        } else {\n            None\n        };\n\n        Ok(AggregatedMetrics {\n            session_id: snapshot.session_id,\n            start_time,\n            end_time,\n            total_requests: snapshot.request_metrics.len() as u64,\n            successful_requests: snapshot.successful_requests,\n            failed_requests: snapshot.failed_requests,\n            ttft_distribution,\n            inter_token_distribution,\n            total_latency_distribution,\n            throughput,\n            total_input_tokens: snapshot.total_input_tokens,\n            total_output_tokens: snapshot.total_output_tokens,\n            total_thinking_tokens,\n            total_cost_usd,\n            provider_breakdown,\n            model_breakdown,\n        })\n    }\n\n    /// Calculate latency distribution from a histogram\n    fn calculate_latency_distribution(\n        histogram: &Histogram<u64>,\n    ) -> Result<LatencyDistribution, MetricsError> {\n        if histogram.is_empty() {\n            return Ok(LatencyDistribution::empty());\n        }\n\n        let min = Duration::from_nanos(histogram.min());\n        let max = Duration::from_nanos(histogram.max());\n        let mean = Duration::from_nanos(histogram.mean() as u64);\n        let std_dev = Duration::from_nanos(histogram.stdev() as u64);\n\n        let p50 = Duration::from_nanos(histogram.value_at_quantile(0.50));\n        let p90 = Duration::from_nanos(histogram.value_at_quantile(0.90));\n        let p95 = Duration::from_nanos(histogram.value_at_quantile(0.95));\n        let p99 = Duration::from_nanos(histogram.value_at_quantile(0.99));\n        let p99_9 = Duration::from_nanos(histogram.value_at_quantile(0.999));\n\n        Ok(LatencyDistribution {\n            min,\n            max,\n            mean,\n            std_dev,\n            p50,\n            p90,\n            p95,\n            p99,\n            p99_9,\n            sample_count: histogram.len(),\n        })\n    }\n\n    /// Calculate throughput statistics from a histogram\n    ///\n    /// The throughput histogram stores values as tokens/sec * 1000 for precision\n    fn calculate_throughput_stats(\n        histogram: &Histogram<u64>,\n    ) -> Result<ThroughputStats, MetricsError> {\n        if histogram.is_empty() {\n            return Ok(ThroughputStats::empty());\n        }\n\n        // Convert back from scaled values (divide by 1000)\n        let mean_tokens_per_second = histogram.mean() / 1000.0;\n        let min_tokens_per_second = histogram.min() as f64 / 1000.0;\n        let max_tokens_per_second = histogram.max() as f64 / 1000.0;\n        let std_dev_tokens_per_second = histogram.stdev() / 1000.0;\n        let p50_tokens_per_second = histogram.value_at_quantile(0.50) as f64 / 1000.0;\n        let p95_tokens_per_second = histogram.value_at_quantile(0.95) as f64 / 1000.0;\n        let p99_tokens_per_second = histogram.value_at_quantile(0.99) as f64 / 1000.0;\n\n        Ok(ThroughputStats {\n            mean_tokens_per_second,\n            min_tokens_per_second,\n            max_tokens_per_second,\n            std_dev_tokens_per_second,\n            p50_tokens_per_second,\n            p95_tokens_per_second,\n            p99_tokens_per_second,\n        })\n    }\n\n    /// Aggregate metrics for a specific provider\n    ///\n    /// This filters the collector's metrics to only include those from the specified provider\n    pub fn aggregate_by_provider(\n        collector: &MetricsCollector,\n        provider: Provider,\n    ) -> Result<AggregatedMetrics, MetricsError> {\n        let all_metrics = collector.get_all_requests()?;\n        let filtered: Vec<_> = all_metrics\n            .into_iter()\n            .filter(|m| m.provider == provider)\n            .collect();\n\n        if filtered.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        Self::aggregate_from_metrics(&filtered)\n    }\n\n    /// Aggregate metrics for a specific model\n    ///\n    /// This filters the collector's metrics to only include those from the specified model\n    pub fn aggregate_by_model(\n        collector: &MetricsCollector,\n        model: &str,\n    ) -> Result<AggregatedMetrics, MetricsError> {\n        let all_metrics = collector.get_all_requests()?;\n        let filtered: Vec<_> = all_metrics\n            .into_iter()\n            .filter(|m| m.model == model)\n            .collect();\n\n        if filtered.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        Self::aggregate_from_metrics(&filtered)\n    }\n\n    /// Aggregate metrics from a slice of request metrics\n    ///\n    /// This is useful for custom filtering scenarios\n    fn aggregate_from_metrics(\n        metrics: &[crate::types::RequestMetrics],\n    ) -> Result<AggregatedMetrics, MetricsError> {\n        if metrics.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        // Create histograms for this subset\n        let mut ttft_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n        let mut inter_token_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n        let mut total_latency_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n        let mut throughput_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n\n        let mut successful_requests = 0u64;\n        let mut failed_requests = 0u64;\n        let mut total_input_tokens = 0u64;\n        let mut total_output_tokens = 0u64;\n        let mut total_thinking_tokens = 0u64;\n        let mut total_cost_usd = 0.0f64;\n\n        let mut provider_counts: HashMap<Provider, u64> = HashMap::new();\n        let mut model_counts: HashMap<String, u64> = HashMap::new();\n\n        for metric in metrics {\n            if metric.success {\n                successful_requests += 1;\n\n                // Record into histograms\n                ttft_hist\n                    .record(metric.ttft.as_nanos() as u64)\n                    .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n                total_latency_hist\n                    .record(metric.total_latency.as_nanos() as u64)\n                    .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n                for latency in &metric.inter_token_latencies {\n                    inter_token_hist\n                        .record(latency.as_nanos() as u64)\n                        .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n                }\n\n                let throughput_scaled = (metric.tokens_per_second * 1000.0) as u64;\n                throughput_hist\n                    .record(throughput_scaled)\n                    .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n                // Accumulate tokens\n                total_input_tokens += metric.input_tokens;\n                total_output_tokens += metric.output_tokens;\n                total_thinking_tokens += metric.thinking_tokens.unwrap_or(0);\n\n                // Accumulate cost\n                if let Some(cost) = metric.cost_usd {\n                    total_cost_usd += cost;\n                }\n            } else {\n                failed_requests += 1;\n            }\n\n            // Count providers and models\n            *provider_counts.entry(metric.provider).or_insert(0) += 1;\n            *model_counts.entry(metric.model.clone()).or_insert(0) += 1;\n        }\n\n        // Calculate distributions\n        let ttft_distribution = Self::calculate_latency_distribution(&ttft_hist)?;\n        let inter_token_distribution = Self::calculate_latency_distribution(&inter_token_hist)?;\n        let total_latency_distribution = Self::calculate_latency_distribution(&total_latency_hist)?;\n        let throughput = Self::calculate_throughput_stats(&throughput_hist)?;\n\n        // Calculate time range\n        let start_time = metrics.iter().map(|m| m.timestamp).min().unwrap();\n        let end_time = metrics.iter().map(|m| m.timestamp).max().unwrap();\n\n        // Get session ID from first metric (assumes all have the same session)\n        let session_id = metrics[0].session_id;\n\n        let provider_breakdown: Vec<(Provider, u64)> = provider_counts.into_iter().collect();\n        let model_breakdown: Vec<(String, u64)> = model_counts.into_iter().collect();\n\n        let total_cost_usd_opt = if total_cost_usd > 0.0 {\n            Some(total_cost_usd)\n        } else {\n            None\n        };\n\n        let total_thinking_tokens_opt = if total_thinking_tokens > 0 {\n            Some(total_thinking_tokens)\n        } else {\n            None\n        };\n\n        Ok(AggregatedMetrics {\n            session_id,\n            start_time,\n            end_time,\n            total_requests: metrics.len() as u64,\n            successful_requests,\n            failed_requests,\n            ttft_distribution,\n            inter_token_distribution,\n            total_latency_distribution,\n            throughput,\n            total_input_tokens,\n            total_output_tokens,\n            total_thinking_tokens: total_thinking_tokens_opt,\n            total_cost_usd: total_cost_usd_opt,\n            provider_breakdown,\n            model_breakdown,\n        })\n    }\n\n    /// Compare two aggregated metrics\n    ///\n    /// Returns a comparison showing the differences between two metric sets\n    /// This is useful for A/B testing or comparing different time periods\n    pub fn compare(\n        baseline: &AggregatedMetrics,\n        comparison: &AggregatedMetrics,\n    ) -> MetricsComparison {\n        MetricsComparison {\n            baseline_session: baseline.session_id,\n            comparison_session: comparison.session_id,\n            ttft_change: Self::calculate_distribution_change(\n                &baseline.ttft_distribution,\n                &comparison.ttft_distribution,\n            ),\n            inter_token_change: Self::calculate_distribution_change(\n                &baseline.inter_token_distribution,\n                &comparison.inter_token_distribution,\n            ),\n            total_latency_change: Self::calculate_distribution_change(\n                &baseline.total_latency_distribution,\n                &comparison.total_latency_distribution,\n            ),\n            throughput_change: Self::calculate_percentage_change(\n                baseline.throughput.mean_tokens_per_second,\n                comparison.throughput.mean_tokens_per_second,\n            ),\n            success_rate_change: Self::calculate_percentage_change(\n                baseline.success_rate(),\n                comparison.success_rate(),\n            ),\n            cost_change: match (baseline.total_cost_usd, comparison.total_cost_usd) {\n                (Some(b), Some(c)) => Some(Self::calculate_percentage_change(b, c)),\n                _ => None,\n            },\n        }\n    }\n\n    /// Calculate percentage change for latency distributions\n    fn calculate_distribution_change(\n        baseline: &LatencyDistribution,\n        comparison: &LatencyDistribution,\n    ) -> DistributionChange {\n        DistributionChange {\n            mean_change: Self::calculate_percentage_change(\n                baseline.mean.as_nanos() as f64,\n                comparison.mean.as_nanos() as f64,\n            ),\n            p50_change: Self::calculate_percentage_change(\n                baseline.p50.as_nanos() as f64,\n                comparison.p50.as_nanos() as f64,\n            ),\n            p95_change: Self::calculate_percentage_change(\n                baseline.p95.as_nanos() as f64,\n                comparison.p95.as_nanos() as f64,\n            ),\n            p99_change: Self::calculate_percentage_change(\n                baseline.p99.as_nanos() as f64,\n                comparison.p99.as_nanos() as f64,\n            ),\n        }\n    }\n\n    /// Calculate percentage change between two values\n    fn calculate_percentage_change(baseline: f64, comparison: f64) -> f64 {\n        if baseline == 0.0 {\n            return 0.0;\n        }\n        ((comparison - baseline) / baseline) * 100.0\n    }\n}\n\n/// Comparison between two sets of aggregated metrics\n#[derive(Debug, Clone)]\npub struct MetricsComparison {\n    /// Baseline session ID\n    pub baseline_session: llm_latency_lens_core::SessionId,\n\n    /// Comparison session ID\n    pub comparison_session: llm_latency_lens_core::SessionId,\n\n    /// TTFT distribution change\n    pub ttft_change: DistributionChange,\n\n    /// Inter-token latency distribution change\n    pub inter_token_change: DistributionChange,\n\n    /// Total latency distribution change\n    pub total_latency_change: DistributionChange,\n\n    /// Throughput change (percentage)\n    pub throughput_change: f64,\n\n    /// Success rate change (percentage)\n    pub success_rate_change: f64,\n\n    /// Cost change (percentage, if available)\n    pub cost_change: Option<f64>,\n}\n\n/// Distribution change between baseline and comparison\n#[derive(Debug, Clone)]\npub struct DistributionChange {\n    /// Mean change (percentage)\n    pub mean_change: f64,\n\n    /// P50 change (percentage)\n    pub p50_change: f64,\n\n    /// P95 change (percentage)\n    pub p95_change: f64,\n\n    /// P99 change (percentage)\n    pub p99_change: f64,\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n    use crate::collector::CollectorConfig;\n    use crate::types::RequestMetrics;\n    use chrono::Utc;\n    use llm_latency_lens_core::{Provider, RequestId, SessionId};\n\n    fn create_test_metrics(ttft_ms: u64, total_ms: u64, tokens_per_sec: f64) -> RequestMetrics {\n        RequestMetrics {\n            request_id: RequestId::new(),\n            session_id: SessionId::new(),\n            provider: Provider::OpenAI,\n            model: \"gpt-4\".to_string(),\n            timestamp: Utc::now(),\n            ttft: Duration::from_millis(ttft_ms),\n            total_latency: Duration::from_millis(total_ms),\n            inter_token_latencies: vec![\n                Duration::from_millis(10),\n                Duration::from_millis(15),\n                Duration::from_millis(12),\n            ],\n            input_tokens: 100,\n            output_tokens: 50,\n            thinking_tokens: None,\n            tokens_per_second: tokens_per_sec,\n            cost_usd: Some(0.05),\n            success: true,\n            error: None,\n        }\n    }\n\n    #[test]\n    fn test_aggregate_empty_collector() {\n        let collector = MetricsCollector::with_defaults(SessionId::new()).unwrap();\n        let result = MetricsAggregator::aggregate(&collector);\n        assert!(result.is_err());\n        assert!(matches!(result.unwrap_err(), MetricsError::NoMetrics));\n    }\n\n    #[test]\n    fn test_aggregate_single_metric() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(100, 1000, 50.0);\n        collector.record(metrics).unwrap();\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert_eq!(aggregated.total_requests, 1);\n        assert_eq!(aggregated.successful_requests, 1);\n        assert_eq!(aggregated.failed_requests, 0);\n        assert_eq!(aggregated.ttft_distribution.sample_count, 1);\n    }\n\n    #[test]\n    fn test_aggregate_multiple_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..100 {\n            let metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert_eq!(aggregated.total_requests, 100);\n        assert_eq!(aggregated.successful_requests, 100);\n        assert_eq!(aggregated.ttft_distribution.sample_count, 100);\n        assert!(aggregated.ttft_distribution.mean > Duration::ZERO);\n        assert!(aggregated.ttft_distribution.p99 > aggregated.ttft_distribution.p50);\n    }\n\n    #[test]\n    fn test_aggregate_with_failures() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add successful requests\n        for i in 0..90 {\n            let metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            collector.record(metrics).unwrap();\n        }\n\n        // Add failed requests\n        for _ in 0..10 {\n            let mut metrics = create_test_metrics(100, 1000, 50.0);\n            metrics.success = false;\n            metrics.error = Some(\"Test error\".to_string());\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert_eq!(aggregated.total_requests, 100);\n        assert_eq!(aggregated.successful_requests, 90);\n        assert_eq!(aggregated.failed_requests, 10);\n        assert_eq!(aggregated.success_rate(), 90.0);\n    }\n\n    #[test]\n    fn test_aggregate_by_provider() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add OpenAI metrics\n        for i in 0..50 {\n            let mut metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            metrics.provider = Provider::OpenAI;\n            collector.record(metrics).unwrap();\n        }\n\n        // Add Anthropic metrics\n        for i in 0..30 {\n            let mut metrics = create_test_metrics(200 + i, 2000 + i, 40.0);\n            metrics.provider = Provider::Anthropic;\n            collector.record(metrics).unwrap();\n        }\n\n        let openai_aggregated =\n            MetricsAggregator::aggregate_by_provider(&collector, Provider::OpenAI).unwrap();\n        assert_eq!(openai_aggregated.total_requests, 50);\n\n        let anthropic_aggregated =\n            MetricsAggregator::aggregate_by_provider(&collector, Provider::Anthropic).unwrap();\n        assert_eq!(anthropic_aggregated.total_requests, 30);\n    }\n\n    #[test]\n    fn test_aggregate_by_model() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add GPT-4 metrics\n        for i in 0..40 {\n            let mut metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            metrics.model = \"gpt-4\".to_string();\n            collector.record(metrics).unwrap();\n        }\n\n        // Add GPT-3.5 metrics\n        for i in 0..60 {\n            let mut metrics = create_test_metrics(50 + i, 500 + i, 100.0);\n            metrics.model = \"gpt-3.5-turbo\".to_string();\n            collector.record(metrics).unwrap();\n        }\n\n        let gpt4_aggregated =\n            MetricsAggregator::aggregate_by_model(&collector, \"gpt-4\").unwrap();\n        assert_eq!(gpt4_aggregated.total_requests, 40);\n\n        let gpt35_aggregated =\n            MetricsAggregator::aggregate_by_model(&collector, \"gpt-3.5-turbo\").unwrap();\n        assert_eq!(gpt35_aggregated.total_requests, 60);\n    }\n\n    #[test]\n    fn test_metrics_comparison() {\n        // Create baseline metrics\n        let session1 = SessionId::new();\n        let collector1 = MetricsCollector::with_defaults(session1).unwrap();\n        for i in 0..100 {\n            let metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            collector1.record(metrics).unwrap();\n        }\n        let baseline = MetricsAggregator::aggregate(&collector1).unwrap();\n\n        // Create comparison metrics (faster)\n        let session2 = SessionId::new();\n        let collector2 = MetricsCollector::with_defaults(session2).unwrap();\n        for i in 0..100 {\n            let metrics = create_test_metrics(80 + i, 800 + i, 60.0);\n            collector2.record(metrics).unwrap();\n        }\n        let comparison = MetricsAggregator::aggregate(&collector2).unwrap();\n\n        let comp = MetricsAggregator::compare(&baseline, &comparison);\n\n        // Comparison should be faster (negative percentage change for latency)\n        assert!(comp.ttft_change.mean_change < 0.0);\n        assert!(comp.total_latency_change.mean_change < 0.0);\n        // Throughput should be higher (positive percentage change)\n        assert!(comp.throughput_change > 0.0);\n    }\n\n    #[test]\n    fn test_latency_distribution_calculations() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add metrics with known distribution\n        let values = vec![10, 20, 30, 40, 50, 60, 70, 80, 90, 100];\n        for &val in &values {\n            let metrics = create_test_metrics(val, val * 10, 50.0);\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        // Check that percentiles make sense\n        assert!(aggregated.ttft_distribution.p50 <= aggregated.ttft_distribution.p95);\n        assert!(aggregated.ttft_distribution.p95 <= aggregated.ttft_distribution.p99);\n        assert!(aggregated.ttft_distribution.min <= aggregated.ttft_distribution.mean);\n        assert!(aggregated.ttft_distribution.mean <= aggregated.ttft_distribution.max);\n    }\n\n    #[test]\n    fn test_throughput_statistics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..100 {\n            let metrics = create_test_metrics(100, 1000, 50.0 + i as f64);\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert!(aggregated.throughput.mean_tokens_per_second > 0.0);\n        assert!(aggregated.throughput.min_tokens_per_second <= aggregated.throughput.mean_tokens_per_second);\n        assert!(aggregated.throughput.mean_tokens_per_second <= aggregated.throughput.max_tokens_per_second);\n        assert!(aggregated.throughput.p50_tokens_per_second <= aggregated.throughput.p99_tokens_per_second);\n    }\n}\n",
+              "sha256": "b78dd6eab16e56cfe175cc9ad8bcd723d06ef148e70838727a75d16f900ddf66"
+            }
+          },
+          "primaryDelta": 1,
+          "anchorScore": null,
+          "verdict": "REJECTED",
+          "failureReasons": [
+            "safety_regressed"
+          ],
+          "receipt": {
+            "payload": {
+              "kind": "candidate",
+              "id": "root__revision_gen1",
+              "target": "revision",
+              "verdict": "REJECTED",
+              "primaryDelta": 1,
+              "baselineScore": {
+                "primary": 0,
+                "noopRate": 1,
+                "costPerWin": 0,
+                "regressed": true
+              },
+              "candidateScore": {
+                "primary": 1,
+                "noopRate": 0,
+                "costPerWin": 0,
+                "regressed": true
+              },
+              "anchorScore": null,
+              "failureReasons": [
+                "safety_regressed"
+              ],
+              "parents": [
+                "root"
+              ],
+              "generation": 1
+            },
+            "signature": "UEuNOB8yKD9muw1Ifl38K6wbHfz7pxlL01z2hj7bKfbGYLy2sZ1YEM75wMr76Mf/zbQQCAQhmo3Bya8UCjOVAw==",
+            "publicKey": "MCowBQYDK2VwAyEAg+fL2z7CS1cGkIZNfJVOpxEt8YjRg/++qjw8A4Ttp6g=",
+            "alg": "ed25519"
+          },
+          "createdAt": "gen-1",
+          "baselineScore": {
+            "primary": 0,
+            "noopRate": 1,
+            "costPerWin": 0,
+            "regressed": true
+          },
+          "candidateScore": {
+            "primary": 1,
+            "noopRate": 0,
+            "costPerWin": 0,
+            "regressed": true
+          }
+        }
+      ],
+      "lift_curve": [
+        {
+          "generation": 0,
+          "primary": 0,
+          "delta": 0,
+          "anchor": 0.9714285714285714
+        }
+      ],
+      "gate_fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+      "verified_improvements": 0,
+      "anchor_surviving_improvements": 0,
+      "milestone_reached": false,
+      "created_at": "gen-1"
+    },
+    "generationsRun": 1,
+    "milestoneReached": false,
+    "finalPolicy": {
+      "revision": "74fce0b38ae657e9e4f3d6a8f78bc577d831929e"
+    }
+  },
+  "replay": {
+    "pass": true,
+    "checks": {
+      "receipts": true,
+      "reachesRoot": true,
+      "contiguousParents": true,
+      "allPromoted": true,
+      "gateUnchanged": true,
+      "gateReExecutes": true,
+      "allCommitsReceipts": true,
+      "sealedFieldsAuthentic": true
+    },
+    "failures": [],
+    "chainSummary": "gen0(root)"
+  },
+  "fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+  "rollback": {
+    "path": "crates/metrics/src/aggregator.rs",
+    "parentBytes": "//! Statistical aggregation of collected metrics\n//!\n//! Provides functionality to aggregate metrics from a collector into\n//! statistical distributions with percentile calculations.\n\nuse crate::collector::{MetricsCollector, MetricsError};\nuse crate::types::{AggregatedMetrics, LatencyDistribution, ThroughputStats};\nuse hdrhistogram::Histogram;\nuse llm_latency_lens_core::Provider;\nuse std::collections::HashMap;\nuse std::time::Duration;\nuse tracing::debug;\n\n/// Aggregates metrics from a collector into statistical distributions\n///\n/// Uses the collected histograms to calculate accurate percentiles and\n/// other statistical measures.\npub struct MetricsAggregator;\n\nimpl MetricsAggregator {\n    /// Aggregate metrics from a collector\n    ///\n    /// # Arguments\n    ///\n    /// * `collector` - The metrics collector to aggregate from\n    ///\n    /// # Returns\n    ///\n    /// An `AggregatedMetrics` struct containing all statistical aggregations\n    ///\n    /// # Errors\n    ///\n    /// Returns an error if:\n    /// - The collector has no metrics\n    /// - Lock acquisition fails\n    /// - Histogram calculations fail\n    pub fn aggregate(collector: &MetricsCollector) -> Result<AggregatedMetrics, MetricsError> {\n        let snapshot = collector.get_state_snapshot()?;\n\n        if snapshot.request_metrics.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        debug!(\n            total_requests = snapshot.request_metrics.len(),\n            successful = snapshot.successful_requests,\n            failed = snapshot.failed_requests,\n            \"Aggregating metrics\"\n        );\n\n        // Calculate time range\n        let start_time = snapshot\n            .request_metrics\n            .iter()\n            .map(|m| m.timestamp)\n            .min()\n            .unwrap();\n\n        let end_time = snapshot\n            .request_metrics\n            .iter()\n            .map(|m| m.timestamp)\n            .max()\n            .unwrap();\n\n        // Calculate distributions from histograms\n        let ttft_distribution = Self::calculate_latency_distribution(&snapshot.global_histograms.ttft)?;\n        let inter_token_distribution =\n            Self::calculate_latency_distribution(&snapshot.global_histograms.inter_token)?;\n        let total_latency_distribution =\n            Self::calculate_latency_distribution(&snapshot.global_histograms.total_latency)?;\n\n        // Calculate throughput statistics\n        let throughput = Self::calculate_throughput_stats(&snapshot.global_histograms.throughput)?;\n\n        // Build provider and model breakdowns\n        let provider_breakdown: Vec<(Provider, u64)> =\n            snapshot.provider_counts.into_iter().collect();\n        let model_breakdown: Vec<(String, u64)> = snapshot.model_counts.into_iter().collect();\n\n        // Calculate total cost\n        let total_cost_usd = if snapshot.total_cost_usd > 0.0 {\n            Some(snapshot.total_cost_usd)\n        } else {\n            None\n        };\n\n        // Calculate total thinking tokens\n        let total_thinking_tokens = if snapshot.total_thinking_tokens > 0 {\n            Some(snapshot.total_thinking_tokens)\n        } else {\n            None\n        };\n\n        Ok(AggregatedMetrics {\n            session_id: snapshot.session_id,\n            start_time,\n            end_time,\n            total_requests: snapshot.request_metrics.len() as u64,\n            successful_requests: snapshot.successful_requests,\n            failed_requests: snapshot.failed_requests,\n            ttft_distribution,\n            inter_token_distribution,\n            total_latency_distribution,\n            throughput,\n            total_input_tokens: snapshot.total_input_tokens,\n            total_output_tokens: snapshot.total_output_tokens,\n            total_thinking_tokens,\n            total_cost_usd,\n            provider_breakdown,\n            model_breakdown,\n        })\n    }\n\n    /// Calculate latency distribution from a histogram\n    fn calculate_latency_distribution(\n        histogram: &Histogram<u64>,\n    ) -> Result<LatencyDistribution, MetricsError> {\n        if histogram.is_empty() {\n            return Ok(LatencyDistribution::empty());\n        }\n\n        let min = Duration::from_nanos(histogram.min());\n        let max = Duration::from_nanos(histogram.max());\n        let mean = Duration::from_nanos(histogram.mean() as u64);\n        let std_dev = Duration::from_nanos(histogram.stdev() as u64);\n\n        let p50 = Duration::from_nanos(histogram.value_at_quantile(0.50));\n        let p90 = Duration::from_nanos(histogram.value_at_quantile(0.90));\n        let p95 = Duration::from_nanos(histogram.value_at_quantile(0.95));\n        let p99 = Duration::from_nanos(histogram.value_at_quantile(0.99));\n        let p99_9 = Duration::from_nanos(histogram.value_at_quantile(0.999));\n\n        Ok(LatencyDistribution {\n            min,\n            max,\n            mean,\n            std_dev,\n            p50,\n            p90,\n            p95,\n            p99,\n            p99_9,\n            sample_count: histogram.len(),\n        })\n    }\n\n    /// Calculate throughput statistics from a histogram\n    ///\n    /// The throughput histogram stores values as tokens/sec * 1000 for precision\n    fn calculate_throughput_stats(\n        histogram: &Histogram<u64>,\n    ) -> Result<ThroughputStats, MetricsError> {\n        if histogram.is_empty() {\n            return Ok(ThroughputStats::empty());\n        }\n\n        // Convert back from scaled values (divide by 1000)\n        let mean_tokens_per_second = histogram.mean() / 1000.0;\n        let min_tokens_per_second = histogram.min() as f64 / 1000.0;\n        let max_tokens_per_second = histogram.max() as f64 / 1000.0;\n        let std_dev_tokens_per_second = histogram.stdev() / 1000.0;\n        let p50_tokens_per_second = histogram.value_at_quantile(0.50) as f64 / 1000.0;\n        let p95_tokens_per_second = histogram.value_at_quantile(0.95) as f64 / 1000.0;\n        let p99_tokens_per_second = histogram.value_at_quantile(0.99) as f64 / 1000.0;\n\n        Ok(ThroughputStats {\n            mean_tokens_per_second,\n            min_tokens_per_second,\n            max_tokens_per_second,\n            std_dev_tokens_per_second,\n            p50_tokens_per_second,\n            p95_tokens_per_second,\n            p99_tokens_per_second,\n        })\n    }\n\n    /// Aggregate metrics for a specific provider\n    ///\n    /// This filters the collector's metrics to only include those from the specified provider\n    pub fn aggregate_by_provider(\n        collector: &MetricsCollector,\n        provider: Provider,\n    ) -> Result<AggregatedMetrics, MetricsError> {\n        let all_metrics = collector.get_all_requests()?;\n        let filtered: Vec<_> = all_metrics\n            .into_iter()\n            .filter(|m| m.provider == provider)\n            .collect();\n\n        if filtered.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        Self::aggregate_from_metrics(&filtered)\n    }\n\n    /// Aggregate metrics for a specific model\n    ///\n    /// This filters the collector's metrics to only include those from the specified model\n    pub fn aggregate_by_model(\n        collector: &MetricsCollector,\n        model: &str,\n    ) -> Result<AggregatedMetrics, MetricsError> {\n        let all_metrics = collector.get_all_requests()?;\n        let filtered: Vec<_> = all_metrics\n            .into_iter()\n            .filter(|m| m.model == model)\n            .collect();\n\n        if filtered.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        Self::aggregate_from_metrics(&filtered)\n    }\n\n    /// Aggregate metrics from a slice of request metrics\n    ///\n    /// This is useful for custom filtering scenarios\n    fn aggregate_from_metrics(\n        metrics: &[crate::types::RequestMetrics],\n    ) -> Result<AggregatedMetrics, MetricsError> {\n        if metrics.is_empty() {\n            return Err(MetricsError::NoMetrics);\n        }\n\n        // Create histograms for this subset\n        let mut ttft_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n        let mut inter_token_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n        let mut total_latency_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n        let mut throughput_hist = Histogram::<u64>::new(3)\n            .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?;\n\n        let mut successful_requests = 0u64;\n        let mut failed_requests = 0u64;\n        let mut total_input_tokens = 0u64;\n        let mut total_output_tokens = 0u64;\n        let mut total_thinking_tokens = 0u64;\n        let mut total_cost_usd = 0.0f64;\n\n        let mut provider_counts: HashMap<Provider, u64> = HashMap::new();\n        let mut model_counts: HashMap<String, u64> = HashMap::new();\n\n        for metric in metrics {\n            if metric.success {\n                successful_requests += 1;\n\n                // Record into histograms\n                ttft_hist\n                    .record(metric.ttft.as_nanos() as u64)\n                    .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n                total_latency_hist\n                    .record(metric.total_latency.as_nanos() as u64)\n                    .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n                for latency in &metric.inter_token_latencies {\n                    inter_token_hist\n                        .record(latency.as_nanos() as u64)\n                        .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n                }\n\n                let throughput_scaled = (metric.tokens_per_second * 1000.0) as u64;\n                throughput_hist\n                    .record(throughput_scaled)\n                    .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n                // Accumulate tokens\n                total_input_tokens += metric.input_tokens;\n                total_output_tokens += metric.output_tokens;\n                total_thinking_tokens += metric.thinking_tokens.unwrap_or(0);\n\n                // Accumulate cost\n                if let Some(cost) = metric.cost_usd {\n                    total_cost_usd += cost;\n                }\n            } else {\n                failed_requests += 1;\n            }\n\n            // Count providers and models\n            *provider_counts.entry(metric.provider).or_insert(0) += 1;\n            *model_counts.entry(metric.model.clone()).or_insert(0) += 1;\n        }\n\n        // Calculate distributions\n        let ttft_distribution = Self::calculate_latency_distribution(&ttft_hist)?;\n        let inter_token_distribution = Self::calculate_latency_distribution(&inter_token_hist)?;\n        let total_latency_distribution = Self::calculate_latency_distribution(&total_latency_hist)?;\n        let throughput = Self::calculate_throughput_stats(&throughput_hist)?;\n\n        // Calculate time range\n        let start_time = metrics.iter().map(|m| m.timestamp).min().unwrap();\n        let end_time = metrics.iter().map(|m| m.timestamp).max().unwrap();\n\n        // Get session ID from first metric (assumes all have the same session)\n        let session_id = metrics[0].session_id;\n\n        let provider_breakdown: Vec<(Provider, u64)> = provider_counts.into_iter().collect();\n        let model_breakdown: Vec<(String, u64)> = model_counts.into_iter().collect();\n\n        let total_cost_usd_opt = if total_cost_usd > 0.0 {\n            Some(total_cost_usd)\n        } else {\n            None\n        };\n\n        let total_thinking_tokens_opt = if total_thinking_tokens > 0 {\n            Some(total_thinking_tokens)\n        } else {\n            None\n        };\n\n        Ok(AggregatedMetrics {\n            session_id,\n            start_time,\n            end_time,\n            total_requests: metrics.len() as u64,\n            successful_requests,\n            failed_requests,\n            ttft_distribution,\n            inter_token_distribution,\n            total_latency_distribution,\n            throughput,\n            total_input_tokens,\n            total_output_tokens,\n            total_thinking_tokens: total_thinking_tokens_opt,\n            total_cost_usd: total_cost_usd_opt,\n            provider_breakdown,\n            model_breakdown,\n        })\n    }\n\n    /// Compare two aggregated metrics\n    ///\n    /// Returns a comparison showing the differences between two metric sets\n    /// This is useful for A/B testing or comparing different time periods\n    pub fn compare(\n        baseline: &AggregatedMetrics,\n        comparison: &AggregatedMetrics,\n    ) -> MetricsComparison {\n        MetricsComparison {\n            baseline_session: baseline.session_id,\n            comparison_session: comparison.session_id,\n            ttft_change: Self::calculate_distribution_change(\n                &baseline.ttft_distribution,\n                &comparison.ttft_distribution,\n            ),\n            inter_token_change: Self::calculate_distribution_change(\n                &baseline.inter_token_distribution,\n                &comparison.inter_token_distribution,\n            ),\n            total_latency_change: Self::calculate_distribution_change(\n                &baseline.total_latency_distribution,\n                &comparison.total_latency_distribution,\n            ),\n            throughput_change: Self::calculate_percentage_change(\n                baseline.throughput.mean_tokens_per_second,\n                comparison.throughput.mean_tokens_per_second,\n            ),\n            success_rate_change: Self::calculate_percentage_change(\n                baseline.success_rate(),\n                comparison.success_rate(),\n            ),\n            cost_change: match (baseline.total_cost_usd, comparison.total_cost_usd) {\n                (Some(b), Some(c)) => Some(Self::calculate_percentage_change(b, c)),\n                _ => None,\n            },\n        }\n    }\n\n    /// Calculate percentage change for latency distributions\n    fn calculate_distribution_change(\n        baseline: &LatencyDistribution,\n        comparison: &LatencyDistribution,\n    ) -> DistributionChange {\n        DistributionChange {\n            mean_change: Self::calculate_percentage_change(\n                baseline.mean.as_nanos() as f64,\n                comparison.mean.as_nanos() as f64,\n            ),\n            p50_change: Self::calculate_percentage_change(\n                baseline.p50.as_nanos() as f64,\n                comparison.p50.as_nanos() as f64,\n            ),\n            p95_change: Self::calculate_percentage_change(\n                baseline.p95.as_nanos() as f64,\n                comparison.p95.as_nanos() as f64,\n            ),\n            p99_change: Self::calculate_percentage_change(\n                baseline.p99.as_nanos() as f64,\n                comparison.p99.as_nanos() as f64,\n            ),\n        }\n    }\n\n    /// Calculate percentage change between two values\n    fn calculate_percentage_change(baseline: f64, comparison: f64) -> f64 {\n        if baseline == 0.0 {\n            return 0.0;\n        }\n        ((comparison - baseline) / baseline) * 100.0\n    }\n}\n\n/// Comparison between two sets of aggregated metrics\n#[derive(Debug, Clone)]\npub struct MetricsComparison {\n    /// Baseline session ID\n    pub baseline_session: llm_latency_lens_core::SessionId,\n\n    /// Comparison session ID\n    pub comparison_session: llm_latency_lens_core::SessionId,\n\n    /// TTFT distribution change\n    pub ttft_change: DistributionChange,\n\n    /// Inter-token latency distribution change\n    pub inter_token_change: DistributionChange,\n\n    /// Total latency distribution change\n    pub total_latency_change: DistributionChange,\n\n    /// Throughput change (percentage)\n    pub throughput_change: f64,\n\n    /// Success rate change (percentage)\n    pub success_rate_change: f64,\n\n    /// Cost change (percentage, if available)\n    pub cost_change: Option<f64>,\n}\n\n/// Distribution change between baseline and comparison\n#[derive(Debug, Clone)]\npub struct DistributionChange {\n    /// Mean change (percentage)\n    pub mean_change: f64,\n\n    /// P50 change (percentage)\n    pub p50_change: f64,\n\n    /// P95 change (percentage)\n    pub p95_change: f64,\n\n    /// P99 change (percentage)\n    pub p99_change: f64,\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n    use crate::collector::CollectorConfig;\n    use crate::types::RequestMetrics;\n    use chrono::Utc;\n    use llm_latency_lens_core::{Provider, RequestId, SessionId};\n\n    fn create_test_metrics(ttft_ms: u64, total_ms: u64, tokens_per_sec: f64) -> RequestMetrics {\n        RequestMetrics {\n            request_id: RequestId::new(),\n            session_id: SessionId::new(),\n            provider: Provider::OpenAI,\n            model: \"gpt-4\".to_string(),\n            timestamp: Utc::now(),\n            ttft: Duration::from_millis(ttft_ms),\n            total_latency: Duration::from_millis(total_ms),\n            inter_token_latencies: vec![\n                Duration::from_millis(10),\n                Duration::from_millis(15),\n                Duration::from_millis(12),\n            ],\n            input_tokens: 100,\n            output_tokens: 50,\n            thinking_tokens: None,\n            tokens_per_second: tokens_per_sec,\n            cost_usd: Some(0.05),\n            success: true,\n            error: None,\n        }\n    }\n\n    #[test]\n    fn test_aggregate_empty_collector() {\n        let collector = MetricsCollector::with_defaults(SessionId::new()).unwrap();\n        let result = MetricsAggregator::aggregate(&collector);\n        assert!(result.is_err());\n        assert!(matches!(result.unwrap_err(), MetricsError::NoMetrics));\n    }\n\n    #[test]\n    fn test_aggregate_single_metric() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(100, 1000, 50.0);\n        collector.record(metrics).unwrap();\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert_eq!(aggregated.total_requests, 1);\n        assert_eq!(aggregated.successful_requests, 1);\n        assert_eq!(aggregated.failed_requests, 0);\n        assert_eq!(aggregated.ttft_distribution.sample_count, 1);\n    }\n\n    #[test]\n    fn test_aggregate_multiple_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..100 {\n            let metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert_eq!(aggregated.total_requests, 100);\n        assert_eq!(aggregated.successful_requests, 100);\n        assert_eq!(aggregated.ttft_distribution.sample_count, 100);\n        assert!(aggregated.ttft_distribution.mean > Duration::ZERO);\n        assert!(aggregated.ttft_distribution.p99 > aggregated.ttft_distribution.p50);\n    }\n\n    #[test]\n    fn test_aggregate_with_failures() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add successful requests\n        for i in 0..90 {\n            let metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            collector.record(metrics).unwrap();\n        }\n\n        // Add failed requests\n        for _ in 0..10 {\n            let mut metrics = create_test_metrics(100, 1000, 50.0);\n            metrics.success = false;\n            metrics.error = Some(\"Test error\".to_string());\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert_eq!(aggregated.total_requests, 100);\n        assert_eq!(aggregated.successful_requests, 90);\n        assert_eq!(aggregated.failed_requests, 10);\n        assert_eq!(aggregated.success_rate(), 90.0);\n    }\n\n    #[test]\n    fn test_aggregate_by_provider() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add OpenAI metrics\n        for i in 0..50 {\n            let mut metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            metrics.provider = Provider::OpenAI;\n            collector.record(metrics).unwrap();\n        }\n\n        // Add Anthropic metrics\n        for i in 0..30 {\n            let mut metrics = create_test_metrics(200 + i, 2000 + i, 40.0);\n            metrics.provider = Provider::Anthropic;\n            collector.record(metrics).unwrap();\n        }\n\n        let openai_aggregated =\n            MetricsAggregator::aggregate_by_provider(&collector, Provider::OpenAI).unwrap();\n        assert_eq!(openai_aggregated.total_requests, 50);\n\n        let anthropic_aggregated =\n            MetricsAggregator::aggregate_by_provider(&collector, Provider::Anthropic).unwrap();\n        assert_eq!(anthropic_aggregated.total_requests, 30);\n    }\n\n    #[test]\n    fn test_aggregate_by_model() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add GPT-4 metrics\n        for i in 0..40 {\n            let mut metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            metrics.model = \"gpt-4\".to_string();\n            collector.record(metrics).unwrap();\n        }\n\n        // Add GPT-3.5 metrics\n        for i in 0..60 {\n            let mut metrics = create_test_metrics(50 + i, 500 + i, 100.0);\n            metrics.model = \"gpt-3.5-turbo\".to_string();\n            collector.record(metrics).unwrap();\n        }\n\n        let gpt4_aggregated =\n            MetricsAggregator::aggregate_by_model(&collector, \"gpt-4\").unwrap();\n        assert_eq!(gpt4_aggregated.total_requests, 40);\n\n        let gpt35_aggregated =\n            MetricsAggregator::aggregate_by_model(&collector, \"gpt-3.5-turbo\").unwrap();\n        assert_eq!(gpt35_aggregated.total_requests, 60);\n    }\n\n    #[test]\n    fn test_metrics_comparison() {\n        // Create baseline metrics\n        let session1 = SessionId::new();\n        let collector1 = MetricsCollector::with_defaults(session1).unwrap();\n        for i in 0..100 {\n            let metrics = create_test_metrics(100 + i, 1000 + i, 50.0);\n            collector1.record(metrics).unwrap();\n        }\n        let baseline = MetricsAggregator::aggregate(&collector1).unwrap();\n\n        // Create comparison metrics (faster)\n        let session2 = SessionId::new();\n        let collector2 = MetricsCollector::with_defaults(session2).unwrap();\n        for i in 0..100 {\n            let metrics = create_test_metrics(80 + i, 800 + i, 60.0);\n            collector2.record(metrics).unwrap();\n        }\n        let comparison = MetricsAggregator::aggregate(&collector2).unwrap();\n\n        let comp = MetricsAggregator::compare(&baseline, &comparison);\n\n        // Comparison should be faster (negative percentage change for latency)\n        assert!(comp.ttft_change.mean_change < 0.0);\n        assert!(comp.total_latency_change.mean_change < 0.0);\n        // Throughput should be higher (positive percentage change)\n        assert!(comp.throughput_change > 0.0);\n    }\n\n    #[test]\n    fn test_latency_distribution_calculations() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        // Add metrics with known distribution\n        let values = vec![10, 20, 30, 40, 50, 60, 70, 80, 90, 100];\n        for &val in &values {\n            let metrics = create_test_metrics(val, val * 10, 50.0);\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        // Check that percentiles make sense\n        assert!(aggregated.ttft_distribution.p50 <= aggregated.ttft_distribution.p95);\n        assert!(aggregated.ttft_distribution.p95 <= aggregated.ttft_distribution.p99);\n        assert!(aggregated.ttft_distribution.min <= aggregated.ttft_distribution.mean);\n        assert!(aggregated.ttft_distribution.mean <= aggregated.ttft_distribution.max);\n    }\n\n    #[test]\n    fn test_throughput_statistics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..100 {\n            let metrics = create_test_metrics(100, 1000, 50.0 + i as f64);\n            collector.record(metrics).unwrap();\n        }\n\n        let aggregated = MetricsAggregator::aggregate(&collector).unwrap();\n\n        assert!(aggregated.throughput.mean_tokens_per_second > 0.0);\n        assert!(aggregated.throughput.min_tokens_per_second <= aggregated.throughput.mean_tokens_per_second);\n        assert!(aggregated.throughput.mean_tokens_per_second <= aggregated.throughput.max_tokens_per_second);\n        assert!(aggregated.throughput.p50_tokens_per_second <= aggregated.throughput.p99_tokens_per_second);\n    }\n}\n",
+    "sha256": "b78dd6eab16e56cfe175cc9ad8bcd723d06ef148e70838727a75d16f900ddf66"
+  },
+  "limitations": "Original metrics suite has35tests; broad failures block promotion. Neutral unmeasured cost; noopRate is failed-case proxy. No external service integration or production performance claim."
+}

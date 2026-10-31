@@ -1,0 +1,4 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /tmp/latency-oct31-baseline/crates/wasm/Cargo.toml
+workspace: /tmp/latency-oct31-baseline/Cargo.toml
+     Removed 751 files, 103.7MiB total
