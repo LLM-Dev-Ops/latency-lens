@@ -18,6 +18,8 @@ function run(root, label, key, args, seconds = 90, command = 'cargo') {
     sha256: hash(text), passedNames: [...text.matchAll(/^test ([^\n]+) \.\.\. ok$/gm)].map(x => x[1]).sort(), pass: r.status === 0 && !r.error && !r.signal};
 }
 function measure(root, label) {
+  const rebuild = run(root, label, 'rebuild', ['+1.88.0', 'clean', '-p', 'llm-latency-lens-metrics', '--target-dir', '/tmp/latency-oct31-target', '--locked', '--offline'], 30);
+  if (!rebuild.pass) throw Error('Cannot force native source rebuild: ' + label);
   const locked = ['--locked', '--offline', '-j2'];
   const checks = {
     probe: run(root, label, 'probe', ['+1.88.0', 'test', '-p', 'llm-latency-lens-metrics', '--test', 'breakdown_order', ...locked]),
