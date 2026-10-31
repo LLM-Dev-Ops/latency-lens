@@ -74,9 +74,11 @@ impl MetricsAggregator {
         let throughput = Self::calculate_throughput_stats(&snapshot.global_histograms.throughput)?;
 
         // Build provider and model breakdowns
-        let provider_breakdown: Vec<(Provider, u64)> =
+        let mut provider_breakdown: Vec<(Provider, u64)> =
             snapshot.provider_counts.into_iter().collect();
-        let model_breakdown: Vec<(String, u64)> = snapshot.model_counts.into_iter().collect();
+        let mut model_breakdown: Vec<(String, u64)> = snapshot.model_counts.into_iter().collect();
+        provider_breakdown.sort_by(|(a, _), (b, _)| a.as_str().cmp(b.as_str()));
+        model_breakdown.sort_by(|(a, _), (b, _)| a.cmp(b));
 
         // Calculate total cost
         let total_cost_usd = if snapshot.total_cost_usd > 0.0 {
@@ -300,8 +302,10 @@ impl MetricsAggregator {
         // Get session ID from first metric (assumes all have the same session)
         let session_id = metrics[0].session_id;
 
-        let provider_breakdown: Vec<(Provider, u64)> = provider_counts.into_iter().collect();
-        let model_breakdown: Vec<(String, u64)> = model_counts.into_iter().collect();
+        let mut provider_breakdown: Vec<(Provider, u64)> = provider_counts.into_iter().collect();
+        let mut model_breakdown: Vec<(String, u64)> = model_counts.into_iter().collect();
+        provider_breakdown.sort_by(|(a, _), (b, _)| a.as_str().cmp(b.as_str()));
+        model_breakdown.sort_by(|(a, _), (b, _)| a.cmp(b));
 
         let total_cost_usd_opt = if total_cost_usd > 0.0 {
             Some(total_cost_usd)
@@ -454,7 +458,6 @@ pub struct DistributionChange {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::collector::CollectorConfig;
     use crate::types::RequestMetrics;
     use chrono::Utc;
     use llm_latency_lens_core::{Provider, RequestId, SessionId};

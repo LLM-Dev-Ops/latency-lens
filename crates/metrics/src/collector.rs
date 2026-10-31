@@ -517,6 +517,7 @@ mod tests {
     use super::*;
     use chrono::Utc;
     use llm_latency_lens_core::{Provider, RequestId, SessionId};
+    use std::time::Duration;
 
     fn create_test_metrics(
         provider: Provider,
