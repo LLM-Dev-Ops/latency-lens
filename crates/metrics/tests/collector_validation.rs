@@ -1,6 +1,8 @@
 use chrono::Utc;
 use llm_latency_lens_core::{Provider, RequestId, SessionId};
-use llm_latency_lens_metrics::{CollectorConfig, MetricsAggregator, MetricsCollector, RequestMetrics};
+use llm_latency_lens_metrics::{
+    CollectorConfig, MetricsAggregator, MetricsCollector, RequestMetrics,
+};
 use std::time::Duration;
 
 fn sample() -> RequestMetrics {
@@ -54,7 +56,9 @@ fn rejects_without_mutation(case: usize) {
 macro_rules! rejection {
     ($name:ident, $case:expr) => {
         #[test]
-        fn $name() { rejects_without_mutation($case); }
+        fn $name() {
+            rejects_without_mutation($case);
+        }
     };
 }
 rejection!(reject_nan_throughput, 0);
@@ -68,44 +72,70 @@ rejection!(reject_overflow_duration, 7);
 
 #[test]
 fn anchor_normal() {
-    let c = collector(); c.record(sample()).unwrap();
+    let c = collector();
+    c.record(sample()).unwrap();
     let m = MetricsAggregator::aggregate(&c).unwrap();
-    assert_eq!(m.total_requests, 1); assert_eq!(m.successful_requests, 1);
-    assert_eq!(m.total_input_tokens, 10); assert_eq!(m.total_output_tokens, 5);
+    assert_eq!(m.total_requests, 1);
+    assert_eq!(m.successful_requests, 1);
+    assert_eq!(m.total_input_tokens, 10);
+    assert_eq!(m.total_output_tokens, 5);
 }
 #[test]
 fn anchor_zero_throughput() {
-    let c = collector(); let mut m = sample(); m.tokens_per_second = 0.0;
-    c.record(m).unwrap(); assert_eq!(c.len().unwrap(), 1);
+    let c = collector();
+    let mut m = sample();
+    m.tokens_per_second = 0.0;
+    c.record(m).unwrap();
+    assert_eq!(c.len().unwrap(), 1);
 }
 #[test]
 fn anchor_max_throughput() {
-    let c = collector(); let mut m = sample(); m.tokens_per_second = 1_000_000.0;
-    c.record(m).unwrap(); assert_eq!(c.len().unwrap(), 1);
+    let c = collector();
+    let mut m = sample();
+    m.tokens_per_second = 1_000_000.0;
+    c.record(m).unwrap();
+    assert_eq!(c.len().unwrap(), 1);
 }
 #[test]
 fn anchor_max_latency() {
-    let c = collector(); let mut m = sample(); m.total_latency = Duration::from_secs(60);
-    c.record(m).unwrap(); assert_eq!(c.len().unwrap(), 1);
+    let c = collector();
+    let mut m = sample();
+    m.total_latency = Duration::from_secs(60);
+    c.record(m).unwrap();
+    assert_eq!(c.len().unwrap(), 1);
 }
 #[test]
 fn anchor_failure_retained() {
-    let c = collector(); let mut m = sample(); m.success = false; m.tokens_per_second = f64::NAN;
-    m.total_latency = Duration::from_secs(120); c.record(m).unwrap();
-    let s = c.get_state_snapshot().unwrap(); assert_eq!(s.failed_requests, 1);
-    assert_eq!(s.successful_requests, 0); assert_eq!(c.len().unwrap(), 1);
+    let c = collector();
+    let mut m = sample();
+    m.success = false;
+    m.tokens_per_second = f64::NAN;
+    m.total_latency = Duration::from_secs(120);
+    c.record(m).unwrap();
+    let s = c.get_state_snapshot().unwrap();
+    assert_eq!(s.failed_requests, 1);
+    assert_eq!(s.successful_requests, 0);
+    assert_eq!(c.len().unwrap(), 1);
 }
 #[test]
 fn anchor_lookup() {
-    let c = collector(); let m = sample(); let id = m.request_id; c.record(m).unwrap();
+    let c = collector();
+    let m = sample();
+    let id = m.request_id;
+    c.record(m).unwrap();
     assert_eq!(c.get_request(id).unwrap().unwrap().output_tokens, 5);
 }
 #[test]
 fn anchor_clear() {
-    let c = collector(); c.record(sample()).unwrap(); c.clear().unwrap();
-    assert!(c.is_empty().unwrap()); assert_eq!(c.get_state_snapshot().unwrap().successful_requests, 0);
+    let c = collector();
+    c.record(sample()).unwrap();
+    c.clear().unwrap();
+    assert!(c.is_empty().unwrap());
+    assert_eq!(c.get_state_snapshot().unwrap().successful_requests, 0);
 }
 #[test]
 fn anchor_shared_clone() {
-    let c = collector(); c.clone().record(sample()).unwrap(); assert_eq!(c.len().unwrap(), 1);
+    let c = collector();
+    c.clone().record(sample()).unwrap();
+    assert_eq!(c.len().unwrap(), 1);
 }
