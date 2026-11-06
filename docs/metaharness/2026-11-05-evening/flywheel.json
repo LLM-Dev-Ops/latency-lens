@@ -1,0 +1,1249 @@
+{
+  "parent": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+  "head": "f8605fed7a373505e2384ef3eadf795b03d6fb96",
+  "trials": [
+    {
+      "trial": 0,
+      "revision": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-baseline-target",
+      "exit": 101,
+      "elapsedMs": 244.798101,
+      "tests": [
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": false
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "trial": 0,
+      "revision": "f8605fed7a373505e2384ef3eadf795b03d6fb96",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-candidate-target",
+      "exit": 0,
+      "elapsedMs": 250.08247900000003,
+      "tests": [
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": true
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "revision": "f8605fed7a373505e2384ef3eadf795b03d6fb96",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-candidate-target",
+      "exit": 0,
+      "elapsedMs": 271.80071999999996,
+      "tests": [
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": true
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": true
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "revision": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-baseline-target",
+      "exit": 101,
+      "elapsedMs": 235.9868100000001,
+      "tests": [
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": false
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": false
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": false
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "revision": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-baseline-target",
+      "exit": 101,
+      "elapsedMs": 229.4237340000002,
+      "tests": [
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": false
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": false
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "revision": "f8605fed7a373505e2384ef3eadf795b03d6fb96",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-candidate-target",
+      "exit": 0,
+      "elapsedMs": 218.02819899999986,
+      "tests": [
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": true
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": true
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "revision": "f8605fed7a373505e2384ef3eadf795b03d6fb96",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-candidate-target",
+      "exit": 0,
+      "elapsedMs": 269.17236300000013,
+      "tests": [
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": true
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": true
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "revision": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-baseline-target",
+      "exit": 101,
+      "elapsedMs": 224.89605499999993,
+      "tests": [
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": false
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": false
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "trial": 4,
+      "revision": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-baseline-target",
+      "exit": 101,
+      "elapsedMs": 238.70947499999988,
+      "tests": [
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": false
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": false
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "trial": 4,
+      "revision": "f8605fed7a373505e2384ef3eadf795b03d6fb96",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-candidate-target",
+      "exit": 0,
+      "elapsedMs": 265.1600290000001,
+      "tests": [
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": true
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": true
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "evaluations": [
+    {
+      "revision": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-baseline-target",
+      "exit": 101,
+      "elapsedMs": 246.40203900000006,
+      "tests": [
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": false
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": false
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": false
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": false
+        }
+      ],
+      "suite": "holdouts"
+    },
+    {
+      "revision": "5829f94ba9c06943dc4ce20b431e94027a18a46d",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-baseline-target",
+      "exit": 101,
+      "elapsedMs": 237.1691469999996,
+      "tests": [
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": false
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": false
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": false
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": false
+        }
+      ],
+      "suite": "anchors"
+    },
+    {
+      "revision": "f8605fed7a373505e2384ef3eadf795b03d6fb96",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "llm-latency-lens-metrics",
+        "--test",
+        "collector_validation",
+        "--locked"
+      ],
+      "target": "/tmp/latency-nov5ev-candidate-target",
+      "exit": 0,
+      "elapsedMs": 231.923542,
+      "tests": [
+        {
+          "name": "anchor_lookup",
+          "pass": true
+        },
+        {
+          "name": "anchor_failure_retained",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_shared_clone",
+          "pass": true
+        },
+        {
+          "name": "anchor_max_latency",
+          "pass": true
+        },
+        {
+          "name": "anchor_zero_throughput",
+          "pass": true
+        },
+        {
+          "name": "anchor_clear",
+          "pass": true
+        },
+        {
+          "name": "anchor_normal",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_nan_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_ttft",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_total",
+          "pass": true
+        },
+        {
+          "name": "reject_infinite_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_overflow_duration",
+          "pass": true
+        },
+        {
+          "name": "reject_negative_throughput",
+          "pass": true
+        },
+        {
+          "name": "reject_above_max_inter_token",
+          "pass": true
+        }
+      ],
+      "suite": "holdouts"
+    }
+  ],
+  "inverse": {
+    "path": "crates/metrics/src/collector.rs",
+    "parentBytes": "//! Metrics collector using HDR Histogram for accurate percentile calculation\n//!\n//! Provides thread-safe collection of metrics with high-precision histogram tracking\n//! for TTFT, inter-token latency, total request latency, and token throughput.\n\nuse crate::types::RequestMetrics;\nuse hdrhistogram::Histogram;\nuse llm_latency_lens_core::{Provider, RequestId, SessionId};\nuse std::collections::HashMap;\nuse std::sync::{Arc, Mutex};\nuse tracing::debug;\n\n/// Configuration for the metrics collector\n#[derive(Debug, Clone)]\npub struct CollectorConfig {\n    /// Maximum value to track in histograms (in nanoseconds)\n    /// Default: 60 seconds (60_000_000_000 ns)\n    pub max_value_nanos: u64,\n\n    /// Number of significant digits for histogram precision (1-5)\n    /// Default: 3 (provides ~0.1% precision)\n    pub significant_digits: u8,\n\n    /// Whether to track per-provider metrics separately\n    pub track_per_provider: bool,\n\n    /// Whether to track per-model metrics separately\n    pub track_per_model: bool,\n}\n\nimpl Default for CollectorConfig {\n    fn default() -> Self {\n        Self {\n            max_value_nanos: 60_000_000_000, // 60 seconds\n            significant_digits: 3,\n            track_per_provider: true,\n            track_per_model: true,\n        }\n    }\n}\n\nimpl CollectorConfig {\n    /// Create a new collector configuration with default values\n    pub fn new() -> Self {\n        Self::default()\n    }\n\n    /// Set the maximum value to track (in seconds)\n    pub fn with_max_value_seconds(mut self, seconds: u64) -> Self {\n        self.max_value_nanos = seconds * 1_000_000_000;\n        self\n    }\n\n    /// Set the number of significant digits for histogram precision\n    pub fn with_significant_digits(mut self, digits: u8) -> Self {\n        self.significant_digits = digits.clamp(1, 5);\n        self\n    }\n\n    /// Enable or disable per-provider tracking\n    pub fn with_per_provider_tracking(mut self, enabled: bool) -> Self {\n        self.track_per_provider = enabled;\n        self\n    }\n\n    /// Enable or disable per-model tracking\n    pub fn with_per_model_tracking(mut self, enabled: bool) -> Self {\n        self.track_per_model = enabled;\n        self\n    }\n}\n\n/// Internal histogram set for tracking latency metrics\n#[derive(Clone)]\npub struct HistogramSet {\n    /// Time to first token histogram\n    pub(crate) ttft: Histogram<u64>,\n\n    /// Inter-token latency histogram\n    pub(crate) inter_token: Histogram<u64>,\n\n    /// Total request latency histogram\n    pub(crate) total_latency: Histogram<u64>,\n\n    /// Token throughput histogram (stored as tokens/sec * 1000 for precision)\n    pub(crate) throughput: Histogram<u64>,\n}\n\nimpl HistogramSet {\n    /// Create a new histogram set with the given configuration\n    fn new(config: &CollectorConfig) -> Result<Self, MetricsError> {\n        let create_histogram = || {\n            Histogram::new_with_max(config.max_value_nanos, config.significant_digits)\n                .map_err(|e| MetricsError::HistogramCreation(e.to_string()))\n        };\n\n        Ok(Self {\n            ttft: create_histogram()?,\n            inter_token: create_histogram()?,\n            total_latency: create_histogram()?,\n            // For throughput, we track up to 1M tokens/sec\n            throughput: Histogram::new_with_max(1_000_000_000, config.significant_digits)\n                .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?,\n        })\n    }\n\n    /// Record a request's metrics into this histogram set\n    fn record(&mut self, metrics: &RequestMetrics) -> Result<(), MetricsError> {\n        // Record TTFT\n        self.ttft\n            .record(metrics.ttft.as_nanos() as u64)\n            .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n        // Record total latency\n        self.total_latency\n            .record(metrics.total_latency.as_nanos() as u64)\n            .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n        // Record inter-token latencies\n        for latency in &metrics.inter_token_latencies {\n            self.inter_token\n                .record(latency.as_nanos() as u64)\n                .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n        }\n\n        // Record throughput (tokens/sec * 1000 for precision)\n        let throughput_scaled = (metrics.tokens_per_second * 1000.0) as u64;\n        self.throughput\n            .record(throughput_scaled)\n            .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n        Ok(())\n    }\n}\n\n/// Internal state for the metrics collector\nstruct CollectorState {\n    /// Session ID for this collection\n    session_id: SessionId,\n\n    /// Configuration\n    config: CollectorConfig,\n\n    /// Global histogram set\n    global_histograms: HistogramSet,\n\n    /// Per-provider histogram sets\n    provider_histograms: HashMap<Provider, HistogramSet>,\n\n    /// Per-model histogram sets\n    model_histograms: HashMap<String, HistogramSet>,\n\n    /// All collected request metrics\n    request_metrics: Vec<RequestMetrics>,\n\n    /// Provider request counts\n    provider_counts: HashMap<Provider, u64>,\n\n    /// Model request counts\n    model_counts: HashMap<String, u64>,\n\n    /// Total number of successful requests\n    successful_requests: u64,\n\n    /// Total number of failed requests\n    failed_requests: u64,\n\n    /// Total input tokens\n    total_input_tokens: u64,\n\n    /// Total output tokens\n    total_output_tokens: u64,\n\n    /// Total thinking tokens\n    total_thinking_tokens: u64,\n\n    /// Total cost in USD\n    total_cost_usd: f64,\n}\n\nimpl CollectorState {\n    /// Create a new collector state\n    fn new(session_id: SessionId, config: CollectorConfig) -> Result<Self, MetricsError> {\n        Ok(Self {\n            session_id,\n            global_histograms: HistogramSet::new(&config)?,\n            config,\n            provider_histograms: HashMap::new(),\n            model_histograms: HashMap::new(),\n            request_metrics: Vec::new(),\n            provider_counts: HashMap::new(),\n            model_counts: HashMap::new(),\n            successful_requests: 0,\n            failed_requests: 0,\n            total_input_tokens: 0,\n            total_output_tokens: 0,\n            total_thinking_tokens: 0,\n            total_cost_usd: 0.0,\n        })\n    }\n\n    /// Record a new request's metrics\n    fn record(&mut self, metrics: RequestMetrics) -> Result<(), MetricsError> {\n        // Update success/failure counters\n        if metrics.success {\n            self.successful_requests += 1;\n\n            // Record into global histograms\n            self.global_histograms.record(&metrics)?;\n\n            // Record per-provider if enabled\n            if self.config.track_per_provider {\n                let provider_hist = self\n                    .provider_histograms\n                    .entry(metrics.provider)\n                    .or_insert_with(|| HistogramSet::new(&self.config).unwrap());\n                provider_hist.record(&metrics)?;\n\n                *self.provider_counts.entry(metrics.provider).or_insert(0) += 1;\n            }\n\n            // Record per-model if enabled\n            if self.config.track_per_model {\n                let model_hist = self\n                    .model_histograms\n                    .entry(metrics.model.clone())\n                    .or_insert_with(|| HistogramSet::new(&self.config).unwrap());\n                model_hist.record(&metrics)?;\n\n                *self.model_counts.entry(metrics.model.clone()).or_insert(0) += 1;\n            }\n\n            // Update token counts\n            self.total_input_tokens += metrics.input_tokens;\n            self.total_output_tokens += metrics.output_tokens;\n            self.total_thinking_tokens += metrics.thinking_tokens.unwrap_or(0);\n\n            // Update cost\n            if let Some(cost) = metrics.cost_usd {\n                self.total_cost_usd += cost;\n            }\n        } else {\n            self.failed_requests += 1;\n        }\n\n        // Store the raw metrics\n        self.request_metrics.push(metrics);\n\n        Ok(())\n    }\n\n    /// Get the number of collected metrics\n    fn len(&self) -> usize {\n        self.request_metrics.len()\n    }\n\n    /// Check if the collector is empty\n    fn is_empty(&self) -> bool {\n        self.request_metrics.is_empty()\n    }\n\n    /// Clear all collected metrics\n    fn clear(&mut self) -> Result<(), MetricsError> {\n        self.request_metrics.clear();\n        self.provider_counts.clear();\n        self.model_counts.clear();\n        self.successful_requests = 0;\n        self.failed_requests = 0;\n        self.total_input_tokens = 0;\n        self.total_output_tokens = 0;\n        self.total_thinking_tokens = 0;\n        self.total_cost_usd = 0.0;\n\n        // Reset histograms\n        self.global_histograms = HistogramSet::new(&self.config)?;\n        self.provider_histograms.clear();\n        self.model_histograms.clear();\n\n        Ok(())\n    }\n}\n\n/// Thread-safe metrics collector\n///\n/// Collects metrics from multiple requests and provides aggregation\n/// functionality using HDR Histogram for accurate percentile calculations.\n///\n/// # Thread Safety\n///\n/// This collector is thread-safe and can be safely shared across multiple\n/// threads using `Arc<MetricsCollector>`.\n///\n/// # Example\n///\n/// ```no_run\n/// use llm_latency_lens_metrics::{MetricsCollector, CollectorConfig};\n/// use llm_latency_lens_core::SessionId;\n///\n/// let collector = MetricsCollector::new(\n///     SessionId::new(),\n///     CollectorConfig::default()\n/// ).unwrap();\n///\n/// // Collect metrics from requests...\n/// // let metrics = ...;\n/// // collector.record(metrics).unwrap();\n///\n/// // Get aggregated results\n/// let aggregated = collector.aggregate().unwrap();\n/// println!(\"Mean TTFT: {:?}\", aggregated.ttft_distribution.mean);\n/// ```\n#[derive(Clone)]\npub struct MetricsCollector {\n    state: Arc<Mutex<CollectorState>>,\n}\n\nimpl MetricsCollector {\n    /// Create a new metrics collector\n    ///\n    /// # Arguments\n    ///\n    /// * `session_id` - Unique identifier for this collection session\n    /// * `config` - Collector configuration\n    ///\n    /// # Errors\n    ///\n    /// Returns an error if histogram initialization fails\n    pub fn new(session_id: SessionId, config: CollectorConfig) -> Result<Self, MetricsError> {\n        let state = CollectorState::new(session_id, config)?;\n        Ok(Self {\n            state: Arc::new(Mutex::new(state)),\n        })\n    }\n\n    /// Create a new metrics collector with default configuration\n    pub fn with_defaults(session_id: SessionId) -> Result<Self, MetricsError> {\n        Self::new(session_id, CollectorConfig::default())\n    }\n\n    /// Record a new request's metrics\n    ///\n    /// # Arguments\n    ///\n    /// * `metrics` - The request metrics to record\n    ///\n    /// # Errors\n    ///\n    /// Returns an error if:\n    /// - The lock cannot be acquired\n    /// - Recording into histograms fails\n    pub fn record(&self, metrics: RequestMetrics) -> Result<(), MetricsError> {\n        let mut state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        debug!(\n            request_id = %metrics.request_id,\n            provider = %metrics.provider,\n            model = %metrics.model,\n            success = metrics.success,\n            \"Recording request metrics\"\n        );\n\n        state.record(metrics)?;\n        Ok(())\n    }\n\n    /// Get a specific request's metrics by ID\n    ///\n    /// # Arguments\n    ///\n    /// * `request_id` - The ID of the request to retrieve\n    ///\n    /// # Returns\n    ///\n    /// The request metrics if found, None otherwise\n    pub fn get_request(&self, request_id: RequestId) -> Result<Option<RequestMetrics>, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state\n            .request_metrics\n            .iter()\n            .find(|m| m.request_id == request_id)\n            .cloned())\n    }\n\n    /// Get all collected request metrics\n    ///\n    /// # Returns\n    ///\n    /// A vector of all collected request metrics\n    pub fn get_all_requests(&self) -> Result<Vec<RequestMetrics>, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.request_metrics.clone())\n    }\n\n    /// Get the number of collected metrics\n    pub fn len(&self) -> Result<usize, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.len())\n    }\n\n    /// Check if the collector is empty\n    pub fn is_empty(&self) -> Result<bool, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.is_empty())\n    }\n\n    /// Get the session ID\n    pub fn session_id(&self) -> Result<SessionId, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.session_id)\n    }\n\n    /// Clear all collected metrics\n    ///\n    /// This resets all histograms and clears all stored request metrics\n    pub fn clear(&self) -> Result<(), MetricsError> {\n        let mut state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        debug!(\"Clearing all collected metrics\");\n        state.clear()\n    }\n\n    /// Get internal state snapshot for aggregation\n    ///\n    /// This is an internal method used by the aggregator\n    #[doc(hidden)]\n    pub fn get_state_snapshot(&self) -> Result<CollectorStateSnapshot, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(CollectorStateSnapshot {\n            session_id: state.session_id,\n            request_metrics: state.request_metrics.clone(),\n            provider_counts: state.provider_counts.clone(),\n            model_counts: state.model_counts.clone(),\n            successful_requests: state.successful_requests,\n            failed_requests: state.failed_requests,\n            total_input_tokens: state.total_input_tokens,\n            total_output_tokens: state.total_output_tokens,\n            total_thinking_tokens: state.total_thinking_tokens,\n            total_cost_usd: state.total_cost_usd,\n            global_histograms: state.global_histograms.clone(),\n        })\n    }\n}\n\n/// Snapshot of collector state for aggregation\n#[doc(hidden)]\n#[derive(Clone)]\npub struct CollectorStateSnapshot {\n    pub session_id: SessionId,\n    pub request_metrics: Vec<RequestMetrics>,\n    pub provider_counts: HashMap<Provider, u64>,\n    pub model_counts: HashMap<String, u64>,\n    pub successful_requests: u64,\n    pub failed_requests: u64,\n    pub total_input_tokens: u64,\n    pub total_output_tokens: u64,\n    pub total_thinking_tokens: u64,\n    pub total_cost_usd: f64,\n    pub global_histograms: HistogramSet,\n}\n\n/// Errors that can occur during metrics collection\n#[derive(Debug, thiserror::Error)]\npub enum MetricsError {\n    /// Failed to create histogram\n    #[error(\"Failed to create histogram: {0}\")]\n    HistogramCreation(String),\n\n    /// Failed to record value in histogram\n    #[error(\"Failed to record value in histogram: {0}\")]\n    HistogramRecord(String),\n\n    /// Lock acquisition failed\n    #[error(\"Failed to acquire lock: {0}\")]\n    LockError(String),\n\n    /// No metrics available for aggregation\n    #[error(\"No metrics available for aggregation\")]\n    NoMetrics,\n\n    /// Invalid configuration\n    #[error(\"Invalid configuration: {0}\")]\n    InvalidConfig(String),\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n    use chrono::Utc;\n    use llm_latency_lens_core::{Provider, RequestId, SessionId};\n    use std::time::Duration;\n\n    fn create_test_metrics(\n        provider: Provider,\n        model: &str,\n        ttft_ms: u64,\n        total_ms: u64,\n        success: bool,\n    ) -> RequestMetrics {\n        RequestMetrics {\n            request_id: RequestId::new(),\n            session_id: SessionId::new(),\n            provider,\n            model: model.to_string(),\n            timestamp: Utc::now(),\n            ttft: Duration::from_millis(ttft_ms),\n            total_latency: Duration::from_millis(total_ms),\n            inter_token_latencies: vec![\n                Duration::from_millis(10),\n                Duration::from_millis(15),\n                Duration::from_millis(12),\n            ],\n            input_tokens: 100,\n            output_tokens: 50,\n            thinking_tokens: None,\n            tokens_per_second: 50.0,\n            cost_usd: Some(0.05),\n            success,\n            error: if success { None } else { Some(\"Test error\".to_string()) },\n        }\n    }\n\n    #[test]\n    fn test_collector_creation() {\n        let collector = MetricsCollector::with_defaults(SessionId::new()).unwrap();\n        assert!(collector.is_empty().unwrap());\n        assert_eq!(collector.len().unwrap(), 0);\n    }\n\n    #[test]\n    fn test_record_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100, 1000, true);\n        collector.record(metrics).unwrap();\n\n        assert_eq!(collector.len().unwrap(), 1);\n        assert!(!collector.is_empty().unwrap());\n    }\n\n    #[test]\n    fn test_record_multiple_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..10 {\n            let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100 + i, 1000 + i, true);\n            collector.record(metrics).unwrap();\n        }\n\n        assert_eq!(collector.len().unwrap(), 10);\n    }\n\n    #[test]\n    fn test_record_failed_request() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(Provider::Anthropic, \"claude-3-opus\", 100, 1000, false);\n        collector.record(metrics).unwrap();\n\n        assert_eq!(collector.len().unwrap(), 1);\n    }\n\n    #[test]\n    fn test_get_request() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(Provider::Google, \"gemini-pro\", 100, 1000, true);\n        let request_id = metrics.request_id;\n\n        collector.record(metrics).unwrap();\n\n        let retrieved = collector.get_request(request_id).unwrap();\n        assert!(retrieved.is_some());\n        assert_eq!(retrieved.unwrap().request_id, request_id);\n    }\n\n    #[test]\n    fn test_get_all_requests() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..5 {\n            let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100 + i, 1000 + i, true);\n            collector.record(metrics).unwrap();\n        }\n\n        let all_metrics = collector.get_all_requests().unwrap();\n        assert_eq!(all_metrics.len(), 5);\n    }\n\n    #[test]\n    fn test_clear_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..5 {\n            let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100 + i, 1000 + i, true);\n            collector.record(metrics).unwrap();\n        }\n\n        assert_eq!(collector.len().unwrap(), 5);\n\n        collector.clear().unwrap();\n        assert_eq!(collector.len().unwrap(), 0);\n        assert!(collector.is_empty().unwrap());\n    }\n\n    #[test]\n    fn test_collector_config() {\n        let config = CollectorConfig::new()\n            .with_max_value_seconds(120)\n            .with_significant_digits(4)\n            .with_per_provider_tracking(true)\n            .with_per_model_tracking(false);\n\n        assert_eq!(config.max_value_nanos, 120_000_000_000);\n        assert_eq!(config.significant_digits, 4);\n        assert!(config.track_per_provider);\n        assert!(!config.track_per_model);\n    }\n\n    #[test]\n    fn test_thread_safety() {\n        use std::thread;\n\n        let session_id = SessionId::new();\n        let collector = Arc::new(MetricsCollector::with_defaults(session_id).unwrap());\n\n        let mut handles = vec![];\n\n        for i in 0..10 {\n            let collector_clone = Arc::clone(&collector);\n            let handle = thread::spawn(move || {\n                let metrics = create_test_metrics(\n                    Provider::OpenAI,\n                    \"gpt-4\",\n                    100 + i,\n                    1000 + i,\n                    true,\n                );\n                collector_clone.record(metrics).unwrap();\n            });\n            handles.push(handle);\n        }\n\n        for handle in handles {\n            handle.join().unwrap();\n        }\n\n        assert_eq!(collector.len().unwrap(), 10);\n    }\n}\n",
+    "hash": "7dc2ab9ea61ff58296fc4cb22caf675595f104054bda0be350ee837108f0c5f3"
+  },
+  "fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+  "replay": {
+    "pass": true,
+    "checks": {
+      "receipts": true,
+      "reachesRoot": true,
+      "contiguousParents": true,
+      "allPromoted": true,
+      "gateUnchanged": true,
+      "gateReExecutes": true,
+      "allCommitsReceipts": true,
+      "sealedFieldsAuthentic": true
+    },
+    "failures": [],
+    "chainSummary": "gen0(root)"
+  },
+  "promotions": [],
+  "replayBundle": {
+    "data_source": "LIVE_NATIVE_RUST",
+    "root_id": "root",
+    "chain": [
+      {
+        "id": "root",
+        "generation": 0,
+        "parents": [],
+        "mutation": null,
+        "primaryDelta": 0,
+        "anchorScore": 1,
+        "verdict": "ROOT",
+        "failureReasons": [],
+        "receipt": {
+          "payload": {
+            "kind": "root",
+            "root": "root"
+          },
+          "signature": "oZho4/Jj/fdjR06DMnF0w6lYNTtrVmWqQsjMWdqowbIjGlDqw50gfmI3UltcXdxzRJEn89ooDFLM1PBeqa0sCQ==",
+          "publicKey": "MCowBQYDK2VwAyEAHmQWoQ2tA4ERtv0+WpJzA5iPvUg3IjAU9x/Kk4OZBdc=",
+          "alg": "ed25519"
+        },
+        "createdAt": "gen-0"
+      }
+    ],
+    "all_commits": [
+      {
+        "id": "root__revision_gen1",
+        "generation": 1,
+        "parents": [
+          "root"
+        ],
+        "mutation": {
+          "target": "revision",
+          "summary": "Preflight histogram input before collector mutation",
+          "inverse": {
+            "path": "crates/metrics/src/collector.rs",
+            "parentBytes": "//! Metrics collector using HDR Histogram for accurate percentile calculation\n//!\n//! Provides thread-safe collection of metrics with high-precision histogram tracking\n//! for TTFT, inter-token latency, total request latency, and token throughput.\n\nuse crate::types::RequestMetrics;\nuse hdrhistogram::Histogram;\nuse llm_latency_lens_core::{Provider, RequestId, SessionId};\nuse std::collections::HashMap;\nuse std::sync::{Arc, Mutex};\nuse tracing::debug;\n\n/// Configuration for the metrics collector\n#[derive(Debug, Clone)]\npub struct CollectorConfig {\n    /// Maximum value to track in histograms (in nanoseconds)\n    /// Default: 60 seconds (60_000_000_000 ns)\n    pub max_value_nanos: u64,\n\n    /// Number of significant digits for histogram precision (1-5)\n    /// Default: 3 (provides ~0.1% precision)\n    pub significant_digits: u8,\n\n    /// Whether to track per-provider metrics separately\n    pub track_per_provider: bool,\n\n    /// Whether to track per-model metrics separately\n    pub track_per_model: bool,\n}\n\nimpl Default for CollectorConfig {\n    fn default() -> Self {\n        Self {\n            max_value_nanos: 60_000_000_000, // 60 seconds\n            significant_digits: 3,\n            track_per_provider: true,\n            track_per_model: true,\n        }\n    }\n}\n\nimpl CollectorConfig {\n    /// Create a new collector configuration with default values\n    pub fn new() -> Self {\n        Self::default()\n    }\n\n    /// Set the maximum value to track (in seconds)\n    pub fn with_max_value_seconds(mut self, seconds: u64) -> Self {\n        self.max_value_nanos = seconds * 1_000_000_000;\n        self\n    }\n\n    /// Set the number of significant digits for histogram precision\n    pub fn with_significant_digits(mut self, digits: u8) -> Self {\n        self.significant_digits = digits.clamp(1, 5);\n        self\n    }\n\n    /// Enable or disable per-provider tracking\n    pub fn with_per_provider_tracking(mut self, enabled: bool) -> Self {\n        self.track_per_provider = enabled;\n        self\n    }\n\n    /// Enable or disable per-model tracking\n    pub fn with_per_model_tracking(mut self, enabled: bool) -> Self {\n        self.track_per_model = enabled;\n        self\n    }\n}\n\n/// Internal histogram set for tracking latency metrics\n#[derive(Clone)]\npub struct HistogramSet {\n    /// Time to first token histogram\n    pub(crate) ttft: Histogram<u64>,\n\n    /// Inter-token latency histogram\n    pub(crate) inter_token: Histogram<u64>,\n\n    /// Total request latency histogram\n    pub(crate) total_latency: Histogram<u64>,\n\n    /// Token throughput histogram (stored as tokens/sec * 1000 for precision)\n    pub(crate) throughput: Histogram<u64>,\n}\n\nimpl HistogramSet {\n    /// Create a new histogram set with the given configuration\n    fn new(config: &CollectorConfig) -> Result<Self, MetricsError> {\n        let create_histogram = || {\n            Histogram::new_with_max(config.max_value_nanos, config.significant_digits)\n                .map_err(|e| MetricsError::HistogramCreation(e.to_string()))\n        };\n\n        Ok(Self {\n            ttft: create_histogram()?,\n            inter_token: create_histogram()?,\n            total_latency: create_histogram()?,\n            // For throughput, we track up to 1M tokens/sec\n            throughput: Histogram::new_with_max(1_000_000_000, config.significant_digits)\n                .map_err(|e| MetricsError::HistogramCreation(e.to_string()))?,\n        })\n    }\n\n    /// Record a request's metrics into this histogram set\n    fn record(&mut self, metrics: &RequestMetrics) -> Result<(), MetricsError> {\n        // Record TTFT\n        self.ttft\n            .record(metrics.ttft.as_nanos() as u64)\n            .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n        // Record total latency\n        self.total_latency\n            .record(metrics.total_latency.as_nanos() as u64)\n            .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n        // Record inter-token latencies\n        for latency in &metrics.inter_token_latencies {\n            self.inter_token\n                .record(latency.as_nanos() as u64)\n                .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n        }\n\n        // Record throughput (tokens/sec * 1000 for precision)\n        let throughput_scaled = (metrics.tokens_per_second * 1000.0) as u64;\n        self.throughput\n            .record(throughput_scaled)\n            .map_err(|e| MetricsError::HistogramRecord(e.to_string()))?;\n\n        Ok(())\n    }\n}\n\n/// Internal state for the metrics collector\nstruct CollectorState {\n    /// Session ID for this collection\n    session_id: SessionId,\n\n    /// Configuration\n    config: CollectorConfig,\n\n    /// Global histogram set\n    global_histograms: HistogramSet,\n\n    /// Per-provider histogram sets\n    provider_histograms: HashMap<Provider, HistogramSet>,\n\n    /// Per-model histogram sets\n    model_histograms: HashMap<String, HistogramSet>,\n\n    /// All collected request metrics\n    request_metrics: Vec<RequestMetrics>,\n\n    /// Provider request counts\n    provider_counts: HashMap<Provider, u64>,\n\n    /// Model request counts\n    model_counts: HashMap<String, u64>,\n\n    /// Total number of successful requests\n    successful_requests: u64,\n\n    /// Total number of failed requests\n    failed_requests: u64,\n\n    /// Total input tokens\n    total_input_tokens: u64,\n\n    /// Total output tokens\n    total_output_tokens: u64,\n\n    /// Total thinking tokens\n    total_thinking_tokens: u64,\n\n    /// Total cost in USD\n    total_cost_usd: f64,\n}\n\nimpl CollectorState {\n    /// Create a new collector state\n    fn new(session_id: SessionId, config: CollectorConfig) -> Result<Self, MetricsError> {\n        Ok(Self {\n            session_id,\n            global_histograms: HistogramSet::new(&config)?,\n            config,\n            provider_histograms: HashMap::new(),\n            model_histograms: HashMap::new(),\n            request_metrics: Vec::new(),\n            provider_counts: HashMap::new(),\n            model_counts: HashMap::new(),\n            successful_requests: 0,\n            failed_requests: 0,\n            total_input_tokens: 0,\n            total_output_tokens: 0,\n            total_thinking_tokens: 0,\n            total_cost_usd: 0.0,\n        })\n    }\n\n    /// Record a new request's metrics\n    fn record(&mut self, metrics: RequestMetrics) -> Result<(), MetricsError> {\n        // Update success/failure counters\n        if metrics.success {\n            self.successful_requests += 1;\n\n            // Record into global histograms\n            self.global_histograms.record(&metrics)?;\n\n            // Record per-provider if enabled\n            if self.config.track_per_provider {\n                let provider_hist = self\n                    .provider_histograms\n                    .entry(metrics.provider)\n                    .or_insert_with(|| HistogramSet::new(&self.config).unwrap());\n                provider_hist.record(&metrics)?;\n\n                *self.provider_counts.entry(metrics.provider).or_insert(0) += 1;\n            }\n\n            // Record per-model if enabled\n            if self.config.track_per_model {\n                let model_hist = self\n                    .model_histograms\n                    .entry(metrics.model.clone())\n                    .or_insert_with(|| HistogramSet::new(&self.config).unwrap());\n                model_hist.record(&metrics)?;\n\n                *self.model_counts.entry(metrics.model.clone()).or_insert(0) += 1;\n            }\n\n            // Update token counts\n            self.total_input_tokens += metrics.input_tokens;\n            self.total_output_tokens += metrics.output_tokens;\n            self.total_thinking_tokens += metrics.thinking_tokens.unwrap_or(0);\n\n            // Update cost\n            if let Some(cost) = metrics.cost_usd {\n                self.total_cost_usd += cost;\n            }\n        } else {\n            self.failed_requests += 1;\n        }\n\n        // Store the raw metrics\n        self.request_metrics.push(metrics);\n\n        Ok(())\n    }\n\n    /// Get the number of collected metrics\n    fn len(&self) -> usize {\n        self.request_metrics.len()\n    }\n\n    /// Check if the collector is empty\n    fn is_empty(&self) -> bool {\n        self.request_metrics.is_empty()\n    }\n\n    /// Clear all collected metrics\n    fn clear(&mut self) -> Result<(), MetricsError> {\n        self.request_metrics.clear();\n        self.provider_counts.clear();\n        self.model_counts.clear();\n        self.successful_requests = 0;\n        self.failed_requests = 0;\n        self.total_input_tokens = 0;\n        self.total_output_tokens = 0;\n        self.total_thinking_tokens = 0;\n        self.total_cost_usd = 0.0;\n\n        // Reset histograms\n        self.global_histograms = HistogramSet::new(&self.config)?;\n        self.provider_histograms.clear();\n        self.model_histograms.clear();\n\n        Ok(())\n    }\n}\n\n/// Thread-safe metrics collector\n///\n/// Collects metrics from multiple requests and provides aggregation\n/// functionality using HDR Histogram for accurate percentile calculations.\n///\n/// # Thread Safety\n///\n/// This collector is thread-safe and can be safely shared across multiple\n/// threads using `Arc<MetricsCollector>`.\n///\n/// # Example\n///\n/// ```no_run\n/// use llm_latency_lens_metrics::{MetricsCollector, CollectorConfig};\n/// use llm_latency_lens_core::SessionId;\n///\n/// let collector = MetricsCollector::new(\n///     SessionId::new(),\n///     CollectorConfig::default()\n/// ).unwrap();\n///\n/// // Collect metrics from requests...\n/// // let metrics = ...;\n/// // collector.record(metrics).unwrap();\n///\n/// // Get aggregated results\n/// let aggregated = collector.aggregate().unwrap();\n/// println!(\"Mean TTFT: {:?}\", aggregated.ttft_distribution.mean);\n/// ```\n#[derive(Clone)]\npub struct MetricsCollector {\n    state: Arc<Mutex<CollectorState>>,\n}\n\nimpl MetricsCollector {\n    /// Create a new metrics collector\n    ///\n    /// # Arguments\n    ///\n    /// * `session_id` - Unique identifier for this collection session\n    /// * `config` - Collector configuration\n    ///\n    /// # Errors\n    ///\n    /// Returns an error if histogram initialization fails\n    pub fn new(session_id: SessionId, config: CollectorConfig) -> Result<Self, MetricsError> {\n        let state = CollectorState::new(session_id, config)?;\n        Ok(Self {\n            state: Arc::new(Mutex::new(state)),\n        })\n    }\n\n    /// Create a new metrics collector with default configuration\n    pub fn with_defaults(session_id: SessionId) -> Result<Self, MetricsError> {\n        Self::new(session_id, CollectorConfig::default())\n    }\n\n    /// Record a new request's metrics\n    ///\n    /// # Arguments\n    ///\n    /// * `metrics` - The request metrics to record\n    ///\n    /// # Errors\n    ///\n    /// Returns an error if:\n    /// - The lock cannot be acquired\n    /// - Recording into histograms fails\n    pub fn record(&self, metrics: RequestMetrics) -> Result<(), MetricsError> {\n        let mut state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        debug!(\n            request_id = %metrics.request_id,\n            provider = %metrics.provider,\n            model = %metrics.model,\n            success = metrics.success,\n            \"Recording request metrics\"\n        );\n\n        state.record(metrics)?;\n        Ok(())\n    }\n\n    /// Get a specific request's metrics by ID\n    ///\n    /// # Arguments\n    ///\n    /// * `request_id` - The ID of the request to retrieve\n    ///\n    /// # Returns\n    ///\n    /// The request metrics if found, None otherwise\n    pub fn get_request(&self, request_id: RequestId) -> Result<Option<RequestMetrics>, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state\n            .request_metrics\n            .iter()\n            .find(|m| m.request_id == request_id)\n            .cloned())\n    }\n\n    /// Get all collected request metrics\n    ///\n    /// # Returns\n    ///\n    /// A vector of all collected request metrics\n    pub fn get_all_requests(&self) -> Result<Vec<RequestMetrics>, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.request_metrics.clone())\n    }\n\n    /// Get the number of collected metrics\n    pub fn len(&self) -> Result<usize, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.len())\n    }\n\n    /// Check if the collector is empty\n    pub fn is_empty(&self) -> Result<bool, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.is_empty())\n    }\n\n    /// Get the session ID\n    pub fn session_id(&self) -> Result<SessionId, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(state.session_id)\n    }\n\n    /// Clear all collected metrics\n    ///\n    /// This resets all histograms and clears all stored request metrics\n    pub fn clear(&self) -> Result<(), MetricsError> {\n        let mut state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        debug!(\"Clearing all collected metrics\");\n        state.clear()\n    }\n\n    /// Get internal state snapshot for aggregation\n    ///\n    /// This is an internal method used by the aggregator\n    #[doc(hidden)]\n    pub fn get_state_snapshot(&self) -> Result<CollectorStateSnapshot, MetricsError> {\n        let state = self\n            .state\n            .lock()\n            .map_err(|e| MetricsError::LockError(e.to_string()))?;\n\n        Ok(CollectorStateSnapshot {\n            session_id: state.session_id,\n            request_metrics: state.request_metrics.clone(),\n            provider_counts: state.provider_counts.clone(),\n            model_counts: state.model_counts.clone(),\n            successful_requests: state.successful_requests,\n            failed_requests: state.failed_requests,\n            total_input_tokens: state.total_input_tokens,\n            total_output_tokens: state.total_output_tokens,\n            total_thinking_tokens: state.total_thinking_tokens,\n            total_cost_usd: state.total_cost_usd,\n            global_histograms: state.global_histograms.clone(),\n        })\n    }\n}\n\n/// Snapshot of collector state for aggregation\n#[doc(hidden)]\n#[derive(Clone)]\npub struct CollectorStateSnapshot {\n    pub session_id: SessionId,\n    pub request_metrics: Vec<RequestMetrics>,\n    pub provider_counts: HashMap<Provider, u64>,\n    pub model_counts: HashMap<String, u64>,\n    pub successful_requests: u64,\n    pub failed_requests: u64,\n    pub total_input_tokens: u64,\n    pub total_output_tokens: u64,\n    pub total_thinking_tokens: u64,\n    pub total_cost_usd: f64,\n    pub global_histograms: HistogramSet,\n}\n\n/// Errors that can occur during metrics collection\n#[derive(Debug, thiserror::Error)]\npub enum MetricsError {\n    /// Failed to create histogram\n    #[error(\"Failed to create histogram: {0}\")]\n    HistogramCreation(String),\n\n    /// Failed to record value in histogram\n    #[error(\"Failed to record value in histogram: {0}\")]\n    HistogramRecord(String),\n\n    /// Lock acquisition failed\n    #[error(\"Failed to acquire lock: {0}\")]\n    LockError(String),\n\n    /// No metrics available for aggregation\n    #[error(\"No metrics available for aggregation\")]\n    NoMetrics,\n\n    /// Invalid configuration\n    #[error(\"Invalid configuration: {0}\")]\n    InvalidConfig(String),\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n    use chrono::Utc;\n    use llm_latency_lens_core::{Provider, RequestId, SessionId};\n    use std::time::Duration;\n\n    fn create_test_metrics(\n        provider: Provider,\n        model: &str,\n        ttft_ms: u64,\n        total_ms: u64,\n        success: bool,\n    ) -> RequestMetrics {\n        RequestMetrics {\n            request_id: RequestId::new(),\n            session_id: SessionId::new(),\n            provider,\n            model: model.to_string(),\n            timestamp: Utc::now(),\n            ttft: Duration::from_millis(ttft_ms),\n            total_latency: Duration::from_millis(total_ms),\n            inter_token_latencies: vec![\n                Duration::from_millis(10),\n                Duration::from_millis(15),\n                Duration::from_millis(12),\n            ],\n            input_tokens: 100,\n            output_tokens: 50,\n            thinking_tokens: None,\n            tokens_per_second: 50.0,\n            cost_usd: Some(0.05),\n            success,\n            error: if success { None } else { Some(\"Test error\".to_string()) },\n        }\n    }\n\n    #[test]\n    fn test_collector_creation() {\n        let collector = MetricsCollector::with_defaults(SessionId::new()).unwrap();\n        assert!(collector.is_empty().unwrap());\n        assert_eq!(collector.len().unwrap(), 0);\n    }\n\n    #[test]\n    fn test_record_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100, 1000, true);\n        collector.record(metrics).unwrap();\n\n        assert_eq!(collector.len().unwrap(), 1);\n        assert!(!collector.is_empty().unwrap());\n    }\n\n    #[test]\n    fn test_record_multiple_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..10 {\n            let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100 + i, 1000 + i, true);\n            collector.record(metrics).unwrap();\n        }\n\n        assert_eq!(collector.len().unwrap(), 10);\n    }\n\n    #[test]\n    fn test_record_failed_request() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(Provider::Anthropic, \"claude-3-opus\", 100, 1000, false);\n        collector.record(metrics).unwrap();\n\n        assert_eq!(collector.len().unwrap(), 1);\n    }\n\n    #[test]\n    fn test_get_request() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        let metrics = create_test_metrics(Provider::Google, \"gemini-pro\", 100, 1000, true);\n        let request_id = metrics.request_id;\n\n        collector.record(metrics).unwrap();\n\n        let retrieved = collector.get_request(request_id).unwrap();\n        assert!(retrieved.is_some());\n        assert_eq!(retrieved.unwrap().request_id, request_id);\n    }\n\n    #[test]\n    fn test_get_all_requests() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..5 {\n            let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100 + i, 1000 + i, true);\n            collector.record(metrics).unwrap();\n        }\n\n        let all_metrics = collector.get_all_requests().unwrap();\n        assert_eq!(all_metrics.len(), 5);\n    }\n\n    #[test]\n    fn test_clear_metrics() {\n        let session_id = SessionId::new();\n        let collector = MetricsCollector::with_defaults(session_id).unwrap();\n\n        for i in 0..5 {\n            let metrics = create_test_metrics(Provider::OpenAI, \"gpt-4\", 100 + i, 1000 + i, true);\n            collector.record(metrics).unwrap();\n        }\n\n        assert_eq!(collector.len().unwrap(), 5);\n\n        collector.clear().unwrap();\n        assert_eq!(collector.len().unwrap(), 0);\n        assert!(collector.is_empty().unwrap());\n    }\n\n    #[test]\n    fn test_collector_config() {\n        let config = CollectorConfig::new()\n            .with_max_value_seconds(120)\n            .with_significant_digits(4)\n            .with_per_provider_tracking(true)\n            .with_per_model_tracking(false);\n\n        assert_eq!(config.max_value_nanos, 120_000_000_000);\n        assert_eq!(config.significant_digits, 4);\n        assert!(config.track_per_provider);\n        assert!(!config.track_per_model);\n    }\n\n    #[test]\n    fn test_thread_safety() {\n        use std::thread;\n\n        let session_id = SessionId::new();\n        let collector = Arc::new(MetricsCollector::with_defaults(session_id).unwrap());\n\n        let mut handles = vec![];\n\n        for i in 0..10 {\n            let collector_clone = Arc::clone(&collector);\n            let handle = thread::spawn(move || {\n                let metrics = create_test_metrics(\n                    Provider::OpenAI,\n                    \"gpt-4\",\n                    100 + i,\n                    1000 + i,\n                    true,\n                );\n                collector_clone.record(metrics).unwrap();\n            });\n            handles.push(handle);\n        }\n\n        for handle in handles {\n            handle.join().unwrap();\n        }\n\n        assert_eq!(collector.len().unwrap(), 10);\n    }\n}\n",
+            "hash": "7dc2ab9ea61ff58296fc4cb22caf675595f104054bda0be350ee837108f0c5f3"
+          }
+        },
+        "primaryDelta": 1,
+        "anchorScore": null,
+        "verdict": "REJECTED",
+        "failureReasons": [
+          "safety_regressed"
+        ],
+        "receipt": {
+          "payload": {
+            "kind": "candidate",
+            "id": "root__revision_gen1",
+            "target": "revision",
+            "verdict": "REJECTED",
+            "primaryDelta": 1,
+            "baselineScore": {
+              "primary": 0,
+              "itemWins": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "noopRate": 0,
+              "costPerWin": 0,
+              "regressed": true
+            },
+            "candidateScore": {
+              "primary": 1,
+              "itemWins": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+              ],
+              "noopRate": 0,
+              "costPerWin": 0,
+              "regressed": true
+            },
+            "anchorScore": null,
+            "failureReasons": [
+              "safety_regressed"
+            ],
+            "parents": [
+              "root"
+            ],
+            "generation": 1
+          },
+          "signature": "kX2YKbKrMnMvIRLmWTfS/kMRs+RNDgXFdSi8lkWA4pBanRwFXsGPg+SbCxXRgCKycoG0Yn5FTFGTeh5jFP/8AA==",
+          "publicKey": "MCowBQYDK2VwAyEAHmQWoQ2tA4ERtv0+WpJzA5iPvUg3IjAU9x/Kk4OZBdc=",
+          "alg": "ed25519"
+        },
+        "createdAt": "gen-1",
+        "baselineScore": {
+          "primary": 0,
+          "itemWins": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "noopRate": 0,
+          "costPerWin": 0,
+          "regressed": true
+        },
+        "candidateScore": {
+          "primary": 1,
+          "itemWins": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "noopRate": 0,
+          "costPerWin": 0,
+          "regressed": true
+        }
+      }
+    ],
+    "lift_curve": [
+      {
+        "generation": 0,
+        "primary": 0,
+        "delta": 0,
+        "anchor": 1
+      }
+    ],
+    "gate_fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+    "verified_improvements": 0,
+    "anchor_surviving_improvements": 0,
+    "milestone_reached": false,
+    "created_at": "gen-1"
+  },
+  "notes": [
+    "Full acceptance failclosed: existing Rust tests,lint,format,audits,coverage,CI and provider blocked",
+    "No performance or cost saving claim;cost/noopaxes neutralunmeasuredzero",
+    "Root-only replay;no candidate promotion"
+  ]
+}
