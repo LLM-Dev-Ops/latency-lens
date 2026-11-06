@@ -1,0 +1,10 @@
+{
+  "scope": "Successful collector input validation before any counters/histograms mutate",
+  "holdouts": 8,
+  "anchors": 8,
+  "bounds": "Configured histogram max nanoseconds; throughput0..1000000tokens/sec",
+  "baseline": "b6f9afcf239a97855a995b65caca4a8f3b73bf39 plus identical new fixture",
+  "acceptance": ["8native rejection/state-preservation cases", "8native anchors", "Retain existing passing tests; do not weaken known failing comparison", "Full Rust/build/lint/format/audit/coverage/CI/approval gates", "Actual Ruflo worker and Flywheel gate"],
+  "darwin": {"generations":1,"children":1,"concurrency":1,"riskBudget":0,"seed":2026110520},
+  "measurement": "Separate baseline/candidate target directories and actual source compilation; all fresh-process trials retained, no cache-based speedup claim"
+}

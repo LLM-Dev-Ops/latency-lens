@@ -201,6 +201,31 @@ impl CollectorState {
 
     /// Record a new request's metrics
     fn record(&mut self, metrics: RequestMetrics) -> Result<(), MetricsError> {
+        // Validate all successful histogram inputs before touching any counters
+        // or histograms. Otherwise a late recording failure leaves partial state,
+        // and float/u128 casts can silently saturate or truncate invalid values.
+        if metrics.success {
+            let max_nanos = u128::from(self.config.max_value_nanos);
+            if metrics.ttft.as_nanos() > max_nanos
+                || metrics.total_latency.as_nanos() > max_nanos
+                || metrics
+                    .inter_token_latencies
+                    .iter()
+                    .any(|latency| latency.as_nanos() > max_nanos)
+            {
+                return Err(MetricsError::HistogramRecord(
+                    "latency exceeds configured histogram maximum".to_string(),
+                ));
+            }
+            if !metrics.tokens_per_second.is_finite()
+                || !(0.0..=1_000_000.0).contains(&metrics.tokens_per_second)
+            {
+                return Err(MetricsError::HistogramRecord(
+                    "throughput must be finite and between 0 and 1000000 tokens/sec".to_string(),
+                ));
+            }
+        }
+
         // Update success/failure counters
         if metrics.success {
             self.successful_requests += 1;
@@ -517,6 +542,7 @@ mod tests {
     use super::*;
     use chrono::Utc;
     use llm_latency_lens_core::{Provider, RequestId, SessionId};
+    use std::time::Duration;
 
     fn create_test_metrics(
         provider: Provider,
